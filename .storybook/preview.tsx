@@ -4,7 +4,6 @@ import './assets/reset.css';
 import { ThemBtn } from './assets/themBtn';
 import { ChakraProvider } from '@chakra-ui/react';
 import { theme } from './../src/const/DarkTheme';
-import { AppFrame } from './../src/components/layouts/AppFrame';
 import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 export const parameters = {
