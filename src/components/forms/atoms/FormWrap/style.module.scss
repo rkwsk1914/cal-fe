@@ -1,0 +1,25 @@
+.buttonArea {
+  @apply w-full px-24 pt-16;
+
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  & > * {
+    @apply w-full;
+
+    max-width: 200px;
+  }
+
+  & > *:not(:first-child) {
+    @apply ml-8;
+  }
+}
+
+.formArea {
+  & > *:not(:first-child) {
+    @apply mt-8;
+
+    max-width: 100%;
+  }
+}

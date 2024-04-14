@@ -1,0 +1,95 @@
+{
+  "extends": "next/core-web-vitals",
+  "plugins": [
+    "react",
+    "import",
+    "unused-imports"
+  ],
+  "rules": {
+    "no-console": ["error", { "allow": ["error", "info"] }],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "unused-imports/no-unused-imports": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "object",
+          "parent",
+          "sibling",
+          "index",
+          "type"
+        ],
+        "newlines-between": "always",
+        "pathGroupsExcludedImportTypes": [
+          "react",
+          "builtin"
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "builtin",
+            "position": "before"
+          },
+          {
+            "pattern": "@/components/**",
+            "group": "parent",
+            "position": "before"
+          },
+          {
+            "pattern": "@/hooks/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@/utils/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@/const/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@/stores/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@/api/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@/types/**",
+            "group": "type",
+            "position": "after"
+          },
+          {
+            "pattern": "@storybook/*",
+            "group": "external",
+            "position": "after"
+          }
+        ]
+      }
+    ],
+    "semi": ["error", "never", {"beforeStatementContinuationChars": "never"}],
+    "semi-spacing": ["error", {"after": true, "before": false}],
+    "semi-style": ["error", "first"],
+    "no-extra-semi": "error",
+    "no-unexpected-multiline": "error",
+    "no-unreachable": "error",
+    "react/no-unescaped-entities": "error",
+    "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
+    "object-curly-spacing": ["error", "always"],
+    // "max-len": ["error", { "code": 75 }],
+    "no-trailing-spaces": "error"
+  }
+}

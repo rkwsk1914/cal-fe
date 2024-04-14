@@ -1,0 +1,14 @@
+$labelWidth: 80px;
+
+.radioArea {
+  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 16px!important;
+  justify-content: flex-start;
+  width: 100%;
+
+  & > * {
+    @apply mt-8 pl-8 w-1/2;
+  }
+}

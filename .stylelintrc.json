@@ -1,0 +1,90 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-standard-scss",
+    "stylelint-config-css-modules"
+  ],
+  "plugins": [
+    "stylelint-scss",
+    "stylelint-order",
+    "stylelint-declaration-block-no-ignored-properties"
+  ],
+  "customSyntax": "postcss-scss",
+  "ignoreFiles": ["**/node_modules/**", "**/coverage/**"],
+  "rules": {
+    "scss/dollar-variable-pattern": null,
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "tailwind",
+          "apply",
+          "variants",
+          "responsive",
+          "screen",
+          "while",
+          "each",
+          "if",
+          "else",
+          "else if",
+          "extend",
+          "mixin",
+          "include",
+          "use",
+          "return",
+          "function"
+        ]
+      }
+    ],
+    "scss/at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "tailwind",
+          "apply",
+          "variants",
+          "responsive",
+          "screen",
+          "while",
+          "each",
+          "if",
+          "else",
+          "else if",
+          "extend"
+        ]
+      }
+    ],
+    "scss/function-no-unknown": [
+      true,
+      {
+          "ignoreFunctions": [
+            "/^calc-/"
+          ]
+      }
+    ],
+    "selector-anb-no-unmatchable": [
+      true,
+      {
+        "severity": "warning"
+      }
+    ],
+    "declaration-block-no-duplicate-properties": true,
+    "import-notation": null,
+    "selector-class-pattern": null,
+    "length-zero-no-unit": null,
+    "value-keyword-case": null,
+    "custom-property-empty-line-before": null,
+    "color-function-notation": null,
+    "alpha-value-notation": "number",
+    "plugin/declaration-block-no-ignored-properties": true,
+    "order/properties-alphabetical-order": true,
+		"order/order": [
+			"custom-properties",
+			"declarations"
+		],
+		"order/properties-order": [
+      "height",
+			"width"
+		]
+  }
+}

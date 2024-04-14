@@ -1,0 +1,43 @@
+$labelWidth: 80px;
+
+.box {
+  align-items: center;
+  display: flex;
+  font-size: 16px!important;
+  justify-content: space-between;
+  width: 100%;
+
+  & > label {
+    display: block;
+    font-size: 16px!important;
+    margin: 0!important;
+    max-width: $labelWidth;
+    min-width: $labelWidth;
+  }
+
+  & > input {
+    display: block;
+    font-size: 16px!important;
+    margin: 0 0 0 16px!important;
+  }
+
+  & > span {
+    margin: 0 0 0 16px!important;
+  }
+}
+
+.inputBox {
+  align-items: bottom;
+  display: flex;
+  justify-content: space-between;
+}
+
+.helperText {
+  margin-left: $labelWidth;
+
+  & > * {
+    font-size: 14px!important;
+    margin: 0!important;
+    padding: 0 0 0 14px;
+  }
+}
