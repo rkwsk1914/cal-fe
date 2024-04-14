@@ -26,27 +26,11 @@ export const parameters = {
 
 export const decorators = [
   (Story, context) => {
-    if (
-      context.title.startsWith('layout/AppFrame') ||
-      context.title.startsWith('pages')
-    ) return (
+    return (
       <ChakraProvider theme={theme}>
         <ThemBtn />
         <Story />
       </ChakraProvider>
     )
-
-    return (
-      <ChakraProvider theme={theme}>
-        <AppFrame
-          title='storybook'
-          setting={(
-            <ThemBtn />
-          )}
-        >
-        <Story />
-        </AppFrame>
-      </ChakraProvider>
-    );
   },
 ];
