@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 import ReactMarkdown from 'react-markdown'
 
@@ -17,17 +16,17 @@ export const CreatePost: React.FC = (): JSX.Element => {
   return (
       <form onSubmit={handleSubmit(onSubmit)}>
           <TextAreaElement {...register('markdown')} required />
-          <button type="submit">送信</button>
-          <div className={styles.markdown}>
-              {/* ReactMarkdownにクラスを適用 */}
-              <ReactMarkdown>{markdown}</ReactMarkdown>
-              <Image
-                src='/post/blue-1.jpg'
-                alt='Ryo Kawasaki Front-End-Engineer'
-                width={340}
-                height={253}
-                className={styles.image} />
+
+          <div className={styles.editArea}>
+            <div className={styles.postImage}>
+              <div className={styles.markdown}>
+                {/* ReactMarkdownにクラスを適用 */}
+                <ReactMarkdown>{markdown}</ReactMarkdown>
+              </div>
+            </div>
           </div>
+
+          <button type="submit">送信</button>
       </form>
   )
 }

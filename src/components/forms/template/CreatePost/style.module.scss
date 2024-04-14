@@ -1,9 +1,27 @@
-.markdown {
+.postImage {
   @apply mt-16;
 
-    background-attachment: fixed;
-  background-image: 
-        url('../assets/post/blue-1.jpf');
+    background-image:
+        url('/assets/post/blue-1.jpg');
     background-repeat: no-repeat;
     background-size: 100%;
+    height: 300px;
+    overflow: hidden;
+    padding: 20px 20px 100px;
+    width: 300px;
+    word-break: break-all;
+}
+
+.markdown {
+  color: #333;
+  font-size: 16px;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.editArea {
+  @apply mt-16;
+
+  margin: 0 auto;
+  width: max-content;
 }
