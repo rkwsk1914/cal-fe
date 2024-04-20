@@ -1,12 +1,18 @@
+$sizePx: 300px * 5;
+$scale: 1 / 5;
+$fontSize: 16px * 5;
+
 .postImage {
   @apply mt-16;
 
     background-repeat: no-repeat;
     background-size: 100%;
-    height: 300px;
+    height: $sizePx;
     overflow: hidden;
-    padding: 20px 20px 100px;
-    width: 300px;
+    padding: 100px 100px 500px;
+    transform: scale($scale);
+    transform-origin: top left;
+    width: $sizePx;
     word-break: break-all;
 
     &.red {
@@ -27,7 +33,7 @@
 
 .markdown {
   color: #333;
-  font-size: 16px;
+  font-size: $fontSize;
   max-height: 100%;
   overflow: hidden;
 }
@@ -35,6 +41,7 @@
 .editArea {
   @apply mt-16;
 
+  height: 300px;
   margin: 0 auto;
-  width: max-content;
+  width: 300px;
 }

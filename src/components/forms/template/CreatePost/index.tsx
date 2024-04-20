@@ -35,6 +35,10 @@ export const CreatePost: React.FC<Props> = ({
       if (!node) return
         // スケールを設定して高解像度で画像を生成
       const options = {
+        style: {
+          transform: 'scale(1)',  // 解像度を2倍に設定
+          transformOrigin: 'top left'
+        },
         quality: 1.0  // 最高品質に設定
       }
 
