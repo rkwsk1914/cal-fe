@@ -1,8 +1,6 @@
 .postImage {
   @apply mt-16;
 
-    background-image:
-        url('/assets/post/blue-1.jpg');
     background-repeat: no-repeat;
     background-size: 100%;
     height: 300px;
@@ -10,6 +8,21 @@
     padding: 20px 20px 100px;
     width: 300px;
     word-break: break-all;
+
+    &.red {
+      background-image:
+      url('/assets/post/red-1.jpg');
+    }
+
+    &.blue {
+      background-image:
+      url('/assets/post/blue-1.jpg');
+    }
+
+    &.green {
+      background-image:
+      url('/assets/post/green-1.jpg');
+    }
 }
 
 .markdown {
