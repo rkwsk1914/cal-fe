@@ -10,13 +10,13 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Spinner
+  Spinner,
+  Button
 } from '@chakra-ui/react'
 import domToImage from 'dom-to-image'
 import Image from 'next/image'
 import { useForm, useFormContext } from 'react-hook-form'
 
-import { Button } from '@/components/atoms/Button'
 import { TextAreaElement } from '@/components/forms/molecules/TextAreaElement'
 import { MarkDownImage } from '@/components/forms/template/MarkDownImage'
 
@@ -92,7 +92,7 @@ export const CreatePost: React.FC<Props> = ({
       <TextAreaElement {...register} required />
       <MarkDownImage color={color} markdown={markdown} type={type} ref={ref} />
       <div className={styles.buttonArea}>
-        <Button onClick={onOpen} type="prime" disabled={!isValid}>画像</Button>
+        <Button onClick={onOpen} w={'full'} colorScheme='blue' isDisabled={!isValid}>画像</Button>
       </div>
 
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -114,7 +114,8 @@ export const CreatePost: React.FC<Props> = ({
           </ModalBody>
 
           <ModalFooter>
-            <Button onClick={onClose} type="prime">Close</Button>
+            <Button onClick={onClose} w={'full'} colorScheme='blue'>Close</Button>
+            <Button onClick={downloadImage} ml={3} colorScheme='blue'>reLoad</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

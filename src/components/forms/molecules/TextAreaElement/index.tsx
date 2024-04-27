@@ -40,6 +40,7 @@ export const TextAreaElement = React.forwardRef(
     <FormControlElement {...FormControlElementProps}>
       <Textarea
         {...props}
+        rows={5}
         ref={ref}
       />
     </FormControlElement>

@@ -2,25 +2,23 @@ import * as React from 'react'
 import { useState, useEffect, useRef } from 'react'
 
 
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Text } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Box, Text, Button } from '@chakra-ui/react'
 import { Radio, RadioGroup,Stack } from '@chakra-ui/react'
 import { useForm, FormProvider } from 'react-hook-form'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
-import { Button } from '@/components/atoms/Button'
 import { CreatePost } from '@/components/forms/template/CreatePost'
 
 import styles from './style.module.scss'
 
 export const AllCreatePost: React.FC = (): JSX.Element => {
   const defaultLastContent = 'よかったら保存してみてね `！`'
-  const storageValue = sessionStorage.getItem('instaPost')
-  const sessionDefaultValue = storageValue ? JSON.parse(storageValue) : null
+
 
   const methods = useForm(
     {
-      defaultValues: sessionDefaultValue ?? {
+      defaultValues: {
         color: 'red',
         first: '',
         second: '',
@@ -30,7 +28,10 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
       }
     }
   )
-  const { register, watch, getValues, reset, formState: { isValid } } = methods
+
+  const [isSaveOrRec, setIsSaveOrRec] = useState<'save' | 'rec' | null>(null)
+
+  const { register, watch, getValues, reset, formState: { isValid, isDirty } } = methods
   const [ color, setColor ] = useState<'red' | 'green' | 'blue'>('red')
   const colorWatch = watch('color')
   const firstWatch = watch('first')
@@ -66,9 +67,31 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
     })
   }
 
+  const doReconstruction = () => {
+    const storageValue = sessionStorage.getItem('instaPost')
+    const sessionDefaultValue = storageValue ? JSON.parse(storageValue) : null
+    reset(sessionDefaultValue)
+    setIsSaveOrRec('save')
+    setColor(sessionDefaultValue.color)
+  }
+
+  useEffect(() => {
+    if (isDirty) setIsSaveOrRec('save')
+  }, [isDirty])
+
   useEffect(() => {
     setColor(colorWatch as 'red' | 'green' | 'blue')
   }, [colorWatch, setColor])
+
+  useEffect(() => {
+    if (isSaveOrRec !== null) return
+
+    const storageValue = sessionStorage.getItem('instaPost')
+    const sessionDefaultValue = storageValue ? JSON.parse(storageValue) : null
+    sessionDefaultValue ?
+      setIsSaveOrRec('rec') :
+      setIsSaveOrRec('save')
+  }, [isSaveOrRec])
 
   return (
     <FormProvider {...methods}>
@@ -94,32 +117,6 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
                 </Stack>
               </RadioGroup>
             </Box>
-            {/*
-            <Box mt={4}>
-              <Stack direction="column" spacing={4}>
-                <Box>
-                  <Text mb={3}>1</Text>
-                  <TextAreaElement {...register('first')} required />
-                </Box>
-                <Box>
-                  <Text mb={3}>2</Text>
-                  <TextAreaElement {...register('second')} required />
-                </Box>
-                <Box>
-                  <Text mb={3}>3</Text>
-                  <TextAreaElement {...register('third')} required />
-                </Box>
-                <Box>
-                  <Text mb={3}>4</Text>
-                  <TextAreaElement {...register('forth')} required />
-                </Box>
-                <Box>
-                  <Text mb={3}>last</Text>
-                  <TextAreaElement {...register('last')} required />
-                </Box>
-              </Stack>
-            </Box>
-             */}
             <Box mt={4}>
               <Text mb={3}>Caption</Text>
               <Box borderWidth='1px' borderRadius='lg' p={4}>
@@ -131,11 +128,18 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
                 </Stack>
               </Box>
               <div className={styles.buttonArea}>
-                <Button onClick={save} type="warning" disabled={!isValid}>保存</Button>
-                <Button onClick={handleCopy} type="prime" disabled={!isValid}>コピー</Button>
+                <Button
+                  onClick={() => {
+                    isSaveOrRec === 'rec' ? doReconstruction() : save()
+                  }}
+                  colorScheme='blue'
+                >
+                  {isSaveOrRec === 'rec' ? '復元' : '保存'}
+                </Button>
+                <Button onClick={handleCopy} colorScheme='blue' disabled={!isValid}>コピー</Button>
               </div>
               <div className={styles.buttonArea}>
-                <Button onClick={clear} type="dangerous">クリア</Button>
+                <Button onClick={clear} colorScheme='blue'>クリア</Button>
               </div>
             </Box>
           </TabPanel>

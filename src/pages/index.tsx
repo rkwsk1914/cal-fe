@@ -1,3 +1,4 @@
+import { AllCreatePost } from '@/components/forms/template/AllCreatePost'
 import { Layout } from '@/components/temporary/Layout'
 
 import type { NextPage } from 'next'
@@ -5,7 +6,7 @@ import type { NextPage } from 'next'
 const Top: NextPage = () => {
   return (
     <Layout>
-      Hello World
+      <AllCreatePost />
     </Layout>
   )
 }
