@@ -5,6 +5,7 @@
 
   p {
     font-size: adjust-font-size(16px);
+    font-weight: bold;
   }
 
   ul > li { list-style-type: disc; }
@@ -15,19 +16,22 @@
 
     li {
       font-size: adjust-font-size(16px);
+      font-weight: bold;
     }
   }
 
   strong {
     font-size: adjust-font-size(20px);
+    margin: 0 adjust-scale(15px);
   }
 }
 
 %mark-down-welcome {
-  font-size: adjust-font-size(18px);
+  font-size: adjust-font-size(16px);
   text-align: center;
 
   p {
+    font-weight: bold;
     margin-top: adjust-scale(700px - $paddingValue);
   }
 
@@ -63,6 +67,7 @@
   text-align: center;
 
   p {
+    font-weight: bold;
     height: min-content;
     max-height: 100%;
     width: 100%;

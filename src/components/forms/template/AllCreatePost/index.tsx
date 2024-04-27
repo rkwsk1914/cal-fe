@@ -15,10 +15,12 @@ import styles from './style.module.scss'
 
 export const AllCreatePost: React.FC = (): JSX.Element => {
   const defaultLastContent = 'よかったら保存してみてね `！`'
+  const storageValue = sessionStorage.getItem('instaPost')
+  const sessionDefaultValue = storageValue ? JSON.parse(storageValue) : null
 
   const methods = useForm(
     {
-      defaultValues: {
+      defaultValues: sessionDefaultValue ?? {
         color: 'red',
         first: '',
         second: '',
@@ -28,7 +30,7 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
       }
     }
   )
-  const { register, watch } = methods
+  const { register, watch, getValues, reset, formState: { isValid } } = methods
   const [ color, setColor ] = useState<'red' | 'green' | 'blue'>('red')
   const colorWatch = watch('color')
   const firstWatch = watch('first')
@@ -47,10 +49,26 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
       })
   }
 
+  const save = () => {
+    const value = getValues()
+    sessionStorage.setItem('instaPost', JSON.stringify(value))
+  }
+
+  const clear = () => {
+    sessionStorage.removeItem('instaPost')
+    reset({
+      color: 'red',
+      first: '',
+      second: '',
+      third: '',
+      forth: '',
+      last: defaultLastContent
+    })
+  }
+
   useEffect(() => {
     setColor(colorWatch as 'red' | 'green' | 'blue')
   }, [colorWatch, setColor])
-
 
   return (
     <FormProvider {...methods}>
@@ -113,7 +131,11 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
                 </Stack>
               </Box>
               <div className={styles.buttonArea}>
-                <Button onClick={handleCopy} type="prime">Copy</Button>
+                <Button onClick={save} type="warning" disabled={!isValid}>保存</Button>
+                <Button onClick={handleCopy} type="prime" disabled={!isValid}>コピー</Button>
+              </div>
+              <div className={styles.buttonArea}>
+                <Button onClick={clear} type="dangerous">クリア</Button>
               </div>
             </Box>
           </TabPanel>

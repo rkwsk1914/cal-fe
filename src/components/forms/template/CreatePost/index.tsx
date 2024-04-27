@@ -77,14 +77,22 @@ export const CreatePost: React.FC<Props> = ({
     if (isOpen) downloadImage()
   }, [isOpen])
 
-  const register = fieldName ? context.register(fieldName) : myForm.register('markdown')
+  const register = fieldName ? context.register(fieldName, {
+    required: true
+  }) : myForm.register('markdown', {
+    required: true
+  })
+
+  const isValid = fieldName ?
+    context.getValues(fieldName) :
+    myForm.getValues('markdown')
 
   return (
     <>
       <TextAreaElement {...register} required />
       <MarkDownImage color={color} markdown={markdown} type={type} ref={ref} />
       <div className={styles.buttonArea}>
-        <Button onClick={onOpen} type="prime">画像</Button>
+        <Button onClick={onOpen} type="prime" disabled={!isValid}>画像</Button>
       </div>
 
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -98,10 +106,9 @@ export const CreatePost: React.FC<Props> = ({
           ): (
             <Image
             src={imageSrc}
-            alt="Description of Image" // 画像の説明
-            width={500}  // 表示幅
-            height={500} // 表示高さ
-            layout="responsive" // レイアウトオプション
+            alt="Description of Image"
+            width={500}
+            height={500}
           />
           )}
           </ModalBody>

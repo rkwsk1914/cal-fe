@@ -1,3 +1,11 @@
 .buttonArea {
-  @apply mx-auto mt-16 w-8/12;
+  @apply mx-auto mt-16;
+
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  > * {
+    width: 150px;
+  }
 }

@@ -43,7 +43,7 @@ export const FormControlElement: React.FC<Props> = (
   )
 
   return (
-    <FormControl isInvalid={!isValid}>
+    <FormControl>
       <div className={styles.box}>
         {isShowLabel && label && <FormLabel>{label}</FormLabel>}
         <div className={styles.inputBox}>{children}</div>

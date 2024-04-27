@@ -14,6 +14,15 @@ type Props = {
   type: postImageType
 }
 
+/*
+ * 画像元データ
+ * https://storyset.com/illustration/blood-research/cuate
+ * https://storyset.com/illustration/questions/cuate
+ * https://storyset.com/illustration/startled/cuate
+ * https://storyset.com/illustration/creativity/cuate
+ * https://storyset.com/illustration/welcome/cuate
+ */
+
 export const MarkDownImage = React.forwardRef(
   function RefComponent (
     props: Props,

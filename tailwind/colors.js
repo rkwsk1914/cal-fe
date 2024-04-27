@@ -46,7 +46,7 @@ const colors = {
   ...light,
   ...dark,
   ...gradient,
-  postRed: '#FF725E',
+  postRed: '#DE1D1D',
   postGreen: '#3CA85B',
   postBlue: '#407BFF',
 }
