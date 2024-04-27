@@ -83,14 +83,73 @@ $sizePx: adjust-scale(1080px);
 
   &.welcome {
     .space { @include set-space('welcome'); }
+
+    .markdown {
+      text-align: center;
+
+      p {
+        font-size: adjust-font-size(16px);
+        margin-top: adjust-scale(700px - $paddingValue);
+      }
+
+      strong {
+        font-size: adjust-font-size(20px);
+      }
+    }
   }
 
   &.startled {
     .space { @include set-space('startled'); }
+
+    .markdown {
+      height: min-content;
+      position: relative;
+      text-align: left;
+
+      p {
+        font-size: adjust-font-size(16px);
+      }
+
+      strong {
+        font-size: adjust-font-size(20px);
+      }
+    }
   }
 
   &.research {
     .space { @include set-space('research'); }
+
+    .markdown {
+      height: min-content;
+      position: relative;
+      text-align: left;
+
+      p {
+        font-size: adjust-font-size(16px);
+      }
+
+      strong {
+        font-size: adjust-font-size(20px);
+      }
+    }
+  }
+
+  &.creativity {
+    .space { @include set-space('creativity'); }
+
+    .markdown {
+      height: min-content;
+      position: relative;
+      text-align: left;
+
+      p {
+        font-size: adjust-font-size(16px);
+      }
+
+      strong {
+        font-size: adjust-font-size(20px);
+      }
+    }
   }
 
   &.question {
