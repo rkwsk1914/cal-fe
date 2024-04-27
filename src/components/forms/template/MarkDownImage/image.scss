@@ -28,18 +28,17 @@
     margin-right: adjust-scale(32px);
     height: adjust-scale(300px);
     width: adjust-scale(300px);
-  } @else if $type == 'question' {
-    position: relative;
-    float: right;
-    clear: both;
-    margin-right: adjust-scale(18px);
-    height: adjust-scale(300px);
-    width: adjust-scale(300px);
   } @else if $type == 'creativity' {
     position: relative;
     float: right;
     clear: both;
     margin-right: adjust-scale(33px);
+    height: adjust-scale(300px);
+    width: adjust-scale(300px);
+  } @else if $type == 'question' {
+    position: absolute;
+    bottom: adjust-scale(67px);
+    right: adjust-scale(18px);
     height: adjust-scale(300px);
     width: adjust-scale(300px);
   }
@@ -56,11 +55,10 @@
   } @else if $type == 'research' {
     float: right;
     height: adjust-scale(706px - $paddingValue);
-  } @else if $type == 'question' {
-    float: right;
-    height: adjust-scale(713px - $paddingValue);
   } @else if $type == 'creativity' {
     float: right;
     height: adjust-scale(713px - $paddingValue);
+  } @else if $type == 'question' {
+    display: none;
   }
 }
