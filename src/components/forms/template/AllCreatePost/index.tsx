@@ -26,7 +26,7 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
   }, [colorWatch, setColor])
 
   return (
-    <Tabs>
+    <Tabs isFitted>
       <TabList>
         <Tab>Color</Tab>
         <Tab>1</Tab>
@@ -38,8 +38,8 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
 
       <TabPanels>
         <TabPanel>
-          <RadioGroup>
-            <Stack direction='row'>
+          <RadioGroup value={color}>
+            <Stack direction='row' spacing={4}>
               <Radio {...register('color')} value='red'>red</Radio>
               <Radio {...register('color')} value='blue'>blue</Radio>
               <Radio {...register('color')} value='green'>green</Radio>

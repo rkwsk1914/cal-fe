@@ -1,8 +1,19 @@
 import * as React from 'react'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
+
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure
+} from '@chakra-ui/react'
 import domToImage from 'dom-to-image'
-import { saveAs } from 'file-saver'
+import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '@/components/atoms/Button'
@@ -34,7 +45,10 @@ export const CreatePost: React.FC<Props> = ({
   )
   const markdown = watch('markdown')
 
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const ref = useRef(null)
+  const [imageSrc, setImageSrc] = useState('')
+
 
   const downloadImage = async () => {
       const node = ref.current
@@ -49,8 +63,9 @@ export const CreatePost: React.FC<Props> = ({
       }
 
       try {
-          const blob = await domToImage.toBlob(node, options)
-          saveAs(blob, 'captured-image.png')
+        const dataUrl = await domToImage.toPng(node, options)
+        setImageSrc(dataUrl)
+        onOpen()
       } catch (err) {
           console.error('oops, something went wrong!', err)
       }
@@ -58,11 +73,32 @@ export const CreatePost: React.FC<Props> = ({
 
   return (
     <>
-      <TextAreaElement {...register('markdown')} required />
+      <TextAreaElement {...register('markdown')} required isValid />
       <MarkDownImage color={color} markdown={markdown} type={type} ref={ref} />
       <div className={styles.buttonArea}>
         <Button onClick={downloadImage} type="prime">画像</Button>
       </div>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>プレビュー</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+          <Image
+            src={imageSrc}
+            alt="Description of Image" // 画像の説明
+            width={500}  // 表示幅
+            height={300} // 表示高さ
+            layout="responsive" // レイアウトオプション
+          />
+          </ModalBody>
+
+          <ModalFooter>
+            <Button onClick={onClose} type="prime">Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   )
 }
