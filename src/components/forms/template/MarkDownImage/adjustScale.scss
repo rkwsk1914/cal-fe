@@ -1,0 +1,8 @@
+$expandValue: 5;
+$figmaScale: 0.27;
+$scale: 1 / $expandValue;
+$paddingValue: 75px;
+
+@function adjust-scale($pxSize) {
+  @return $pxSize * $expandValue * $figmaScale;
+}

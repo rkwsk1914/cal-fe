@@ -1,16 +1,12 @@
 import * as React from 'react'
 import { useRef } from 'react'
 
-import clsx from 'clsx'
 import domToImage from 'dom-to-image'
 import { saveAs } from 'file-saver'
 import { useForm } from 'react-hook-form'
-import ReactMarkdown from 'react-markdown'
 
 import { TextAreaElement } from '@/components/forms/molecules/TextAreaElement'
-
-
-import styles from './style.module.scss'
+import { MarkDownImage } from '@/components/forms/template/MarkDownImage'
 
 type Props = {
   color: 'red' | 'green' | 'blue'
@@ -53,18 +49,7 @@ export const CreatePost: React.FC<Props> = ({
   return (
     <>
       <TextAreaElement {...register('markdown')} required />
-      <div className={styles.editArea}>
-        <div ref={ref} className={clsx(styles.postImage, {
-            [styles.red]: color === 'red',
-            [styles.green]: color === 'green',
-            [styles.blue]: color === 'blue',
-          })}>
-          <div className={styles.markdown}>
-            {/* ReactMarkdownにクラスを適用 */}
-            <ReactMarkdown>{markdown}</ReactMarkdown>
-          </div>
-        </div>
-      </div>
+      <MarkDownImage color={color} markdown={markdown} />
       <button onClick={downloadImage}>画像</button>
     </>
   )
