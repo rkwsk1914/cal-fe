@@ -52,11 +52,11 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
 
   const save = () => {
     const value = getValues()
-    sessionStorage.setItem('instaPost', JSON.stringify(value))
+    localStorage.setItem('instaPost', JSON.stringify(value))
   }
 
   const clear = () => {
-    sessionStorage.removeItem('instaPost')
+    localStorage.removeItem('instaPost')
     reset({
       color: 'red',
       first: '',
@@ -68,7 +68,7 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
   }
 
   const doReconstruction = () => {
-    const storageValue = sessionStorage.getItem('instaPost')
+    const storageValue = localStorage.getItem('instaPost')
     const sessionDefaultValue = storageValue ? JSON.parse(storageValue) : null
     reset(sessionDefaultValue)
     setIsSaveOrRec('save')
@@ -86,7 +86,7 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
   useEffect(() => {
     if (isSaveOrRec !== null) return
 
-    const storageValue = sessionStorage.getItem('instaPost')
+    const storageValue = localStorage.getItem('instaPost')
     const sessionDefaultValue = storageValue ? JSON.parse(storageValue) : null
     sessionDefaultValue ?
       setIsSaveOrRec('rec') :

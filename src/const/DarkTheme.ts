@@ -6,9 +6,9 @@ export const theme = extendTheme({
     initialColorMode: 'dark', // ダークモードをデフォルトに設定
     useSystemColorMode: false, // OSの設定を使う
     styles: {
-      global: (props: StyleFunctionProps) => ({
+      global: (_props: StyleFunctionProps) => ({
         body: {
-          bg: props.colorMode === 'dark' ? '#020C20' : 'white',
+          bg: '#020C20'// props.colorMode === 'dark' ? '#020C20' : 'white',
         },
       }),
     },
