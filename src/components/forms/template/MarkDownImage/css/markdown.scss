@@ -1,0 +1,61 @@
+%mark-down-base {
+  height: min-content;
+  position: relative;
+  text-align: left;
+
+  p {
+    font-size: adjust-font-size(16px);
+  }
+
+  ul > li { list-style-type: disc; }
+  ol > li { list-style-type: decimal; }
+
+  ul, ol {
+    padding-left: adjust-font-size(30px);
+
+    li {
+      font-size: adjust-font-size(16px);
+    }
+  }
+
+  strong {
+    font-size: adjust-font-size(20px);
+  }
+}
+
+%mark-down-question {
+  align-items: center;
+  display: flex;
+  font-size: adjust-font-size(24px);
+  padding-bottom: adjust-scale(130px);
+  position: relative;
+  text-align: center;
+
+  p {
+    height: min-content;
+    max-height: 100%;
+    width: 100%;
+  }
+
+  ul, ol {
+    display: none;
+  }
+
+  strong {
+    display: inline-block;
+    font-size: adjust-font-size(32px);
+    margin: 0 adjust-scale(15px);
+  }
+
+  em {
+    font-size: adjust-font-size(18px);
+    font-style: normal;
+  }
+
+  code {
+    display: inline-block;
+    font-size: adjust-font-size(40px);
+    font-weight: bold;
+    transform: rotate(25deg) translate(10%, 10%);
+  }
+}

@@ -5,15 +5,23 @@ import domToImage from 'dom-to-image'
 import { saveAs } from 'file-saver'
 import { useForm } from 'react-hook-form'
 
+import { Button } from '@/components/atoms/Button'
 import { TextAreaElement } from '@/components/forms/molecules/TextAreaElement'
 import { MarkDownImage } from '@/components/forms/template/MarkDownImage'
 
+import styles from './style.module.scss'
+
+import type { postImageType } from '@/types/postImageType'
+
+
 type Props = {
   color: 'red' | 'green' | 'blue'
+  type: postImageType
 }
 
 export const CreatePost: React.FC<Props> = ({
-  color
+  color,
+  type
 }): JSX.Element => {
   const { register, watch } = useForm(
     {
@@ -49,8 +57,10 @@ export const CreatePost: React.FC<Props> = ({
   return (
     <>
       <TextAreaElement {...register('markdown')} required />
-      <MarkDownImage color={color} markdown={markdown} />
-      <button onClick={downloadImage}>画像</button>
+      <MarkDownImage color={color} markdown={markdown} type={type} ref={ref} />
+      <div className={styles.buttonArea}>
+        <Button onClick={downloadImage} type="prime">画像</Button>
+      </div>
     </>
   )
 }

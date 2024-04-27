@@ -46,16 +46,16 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
           </RadioGroup>
         </TabPanel>
         <TabPanel>
-          <CreatePost color={color}/>
+          <CreatePost color={color} type="question" />
         </TabPanel>
         <TabPanel>
-          <CreatePost  color={color}/>
+          <CreatePost  color={color} type="research" />
         </TabPanel>
         <TabPanel>
-          <CreatePost  color={color}/>
+          <CreatePost  color={color} type="startled" />
         </TabPanel>
         <TabPanel>
-          <CreatePost  color={color}/>
+          <CreatePost  color={color} type="creativity" />
         </TabPanel>
       </TabPanels>
     </Tabs>
