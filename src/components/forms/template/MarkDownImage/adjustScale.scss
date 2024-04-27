@@ -6,3 +6,7 @@ $paddingValue: 75px;
 @function adjust-scale($pxSize) {
   @return $pxSize * $expandValue * $figmaScale;
 }
+
+@function adjust-font-size($pxSize) {
+  @return $pxSize * $expandValue;
+}

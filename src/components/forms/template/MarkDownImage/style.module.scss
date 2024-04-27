@@ -2,7 +2,6 @@
 @import './adjustScale';
 
 $sizePx: adjust-scale(1080px);
-$fontSize: 16px * $expandValue;
 
 .postImage {
   @apply mt-16;
@@ -20,106 +19,96 @@ $fontSize: 16px * $expandValue;
   width: $sizePx;
   word-break: break-all;
 
+  .markdown {
+    color: #333;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    padding-left: adjust-scale($paddingValue);
+    padding-top: adjust-scale($paddingValue);
+
+    p {
+      height: 100%;
+      padding-right: adjust-scale($paddingValue);
+    }
+  }
+
   &.red {
     $color: 'red';
 
-    &.welcome {
-      .ornament { @include set-image($color, 'welcome'); }
-      .space { @include set-space('welcome'); }
+    .markdown {
+      strong {
+        @apply text-postRed;
+      }
     }
 
-    &.startled {
-      .ornament { @include set-image($color, 'startled'); }
-      .space { @include set-space('startled'); }
-    }
-
-    &.research {
-      .ornament { @include set-image($color, 'research'); }
-      .space { @include set-space('research'); }
-    }
-
-    &.question {
-      .ornament { @include set-image($color, 'question'); }
-      .space { @include set-space('question'); }
-    }
-
-    &.creativity {
-      .ornament { @include set-image($color, 'creativity'); }
-      .space { @include set-space('creativity'); }
-    }
+    &.welcome { .ornament { @include set-image($color, 'welcome'); } }
+    &.startled { .ornament { @include set-image($color, 'startled'); } }
+    &.research { .ornament { @include set-image($color, 'research'); } }
+    &.question { .ornament { @include set-image($color, 'question'); } }
+    &.creativity { .ornament { @include set-image($color, 'creativity'); } }
   }
 
   &.green {
     $color: 'green';
 
-    &.welcome {
-      .ornament { @include set-image($color, 'welcome'); }
-      .space { @include set-space('welcome'); }
+    .markdown {
+      strong {
+        @apply text-postGreen;
+      }
     }
 
-    &.startled {
-      .ornament { @include set-image($color, 'startled'); }
-      .space { @include set-space('startled'); }
-    }
-
-    &.research {
-      .ornament { @include set-image($color, 'research'); }
-      .space { @include set-space('research'); }
-    }
-
-    &.question {
-      .ornament { @include set-image($color, 'question'); }
-      .space { @include set-space('question'); }
-    }
-
-    &.creativity {
-      .ornament { @include set-image($color, 'creativity'); }
-      .space { @include set-space('creativity'); }
-    }
+    &.welcome { .ornament { @include set-image($color, 'welcome'); } }
+    &.startled { .ornament { @include set-image($color, 'startled'); } }
+    &.research { .ornament { @include set-image($color, 'research'); } }
+    &.question { .ornament { @include set-image($color, 'question'); } }
+    &.creativity { .ornament { @include set-image($color, 'creativity'); } }
   }
 
   &.blue {
     $color: 'blue';
 
-    &.welcome {
-      .ornament { @include set-image($color, 'welcome'); }
-      .space { @include set-space('welcome'); }
+    .markdown {
+      strong {
+        @apply text-postBlue;
+      }
     }
 
-    &.startled {
-      .ornament { @include set-image($color, 'startled'); }
-      .space { @include set-space('startled'); }
-    }
-
-    &.research {
-      .ornament { @include set-image($color, 'research'); }
-      .space { @include set-space('research'); }
-    }
-
-    &.question {
-      .ornament { @include set-image($color, 'question'); }
-      .space { @include set-space('question'); }
-    }
-
-    &.creativity {
-      .ornament { @include set-image($color, 'creativity'); }
-      .space { @include set-space('creativity'); }
-    }
+    &.welcome { .ornament { @include set-image($color, 'welcome'); } }
+    &.startled { .ornament { @include set-image($color, 'startled'); } }
+    &.research { .ornament { @include set-image($color, 'research'); } }
+    &.question { .ornament { @include set-image($color, 'question'); } }
+    &.creativity { .ornament { @include set-image($color, 'creativity'); } }
   }
-}
 
-.markdown {
-  color: #333;
-  font-size: $fontSize;
-  height: 100%;
-  max-height: 100%;
-  overflow: hidden;
-  padding-left: adjust-scale($paddingValue);
-  padding-top: adjust-scale($paddingValue);
+  &.welcome {
+    .space { @include set-space('welcome'); }
+  }
 
-  p {
-    height: 100%;
-    padding-right: adjust-scale($paddingValue);
+  &.startled {
+    .space { @include set-space('startled'); }
+  }
+
+  &.research {
+    .space { @include set-space('research'); }
+  }
+
+  &.question {
+    .space { @include set-space('question'); }
+
+    .markdown {
+      height: min-content;
+      position: relative;
+      text-align: center;
+
+      p {
+        font-size: adjust-font-size(24px);
+      }
+
+      strong {
+        font-size: adjust-font-size(32px);
+      }
+    }
   }
 }
 

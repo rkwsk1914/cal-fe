@@ -46,6 +46,9 @@ const colors = {
   ...light,
   ...dark,
   ...gradient,
+  postRed: '#FF725E',
+  postGreen: '#3CA85B',
+  postBlue: '#407BFF',
 }
 
 module.exports = { colors }

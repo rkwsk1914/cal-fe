@@ -22,6 +22,6 @@ const Template: StoryFn<typeof StoryComponent> = (
 export const Create = Template.bind({})
 Create.args = {
   color: 'red',
-  markdown: 'こんなもの**ポップ**です。あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
+  markdown: 'こんなもの**ポップ**です。',
   type: 'welcome'
 }
