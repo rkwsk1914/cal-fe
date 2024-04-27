@@ -17,16 +17,18 @@ import type { postImageType } from '@/types/postImageType'
 type Props = {
   color: 'red' | 'green' | 'blue'
   type: postImageType
+  defaultMarkdown?: string
 }
 
 export const CreatePost: React.FC<Props> = ({
   color,
-  type
+  type,
+  defaultMarkdown
 }): JSX.Element => {
   const { register, watch } = useForm(
     {
       defaultValues: {
-        markdown: '',
+        markdown: defaultMarkdown ?? '',
       }
     }
   )

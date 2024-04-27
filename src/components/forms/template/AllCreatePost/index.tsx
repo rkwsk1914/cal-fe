@@ -33,6 +33,7 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
         <Tab>2</Tab>
         <Tab>3</Tab>
         <Tab>4</Tab>
+        <Tab>last</Tab>
       </TabList>
 
       <TabPanels>
@@ -49,13 +50,20 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
           <CreatePost color={color} type="question" />
         </TabPanel>
         <TabPanel>
-          <CreatePost  color={color} type="research" />
+          <CreatePost color={color} type="research" />
         </TabPanel>
         <TabPanel>
-          <CreatePost  color={color} type="startled" />
+          <CreatePost color={color} type="startled" />
         </TabPanel>
         <TabPanel>
-          <CreatePost  color={color} type="creativity" />
+          <CreatePost color={color} type="creativity" />
+        </TabPanel>
+        <TabPanel>
+          <CreatePost
+            color={color}
+            type="welcome"
+            defaultMarkdown='よかったら保存してみてね `！`'
+          />
         </TabPanel>
       </TabPanels>
     </Tabs>
