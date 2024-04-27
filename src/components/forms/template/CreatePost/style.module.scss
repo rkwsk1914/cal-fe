@@ -5,6 +5,8 @@ $fontSize: 16px * 5;
 .postImage {
   @apply mt-16;
 
+    background-image:
+    url('/assets/post/bg.png');
     background-repeat: no-repeat;
     background-size: 100%;
     height: $sizePx;
@@ -14,21 +16,6 @@ $fontSize: 16px * 5;
     transform-origin: top left;
     width: $sizePx;
     word-break: break-all;
-
-    &.red {
-      background-image:
-      url('/assets/post/red-1.jpg');
-    }
-
-    &.blue {
-      background-image:
-      url('/assets/post/blue-1.jpg');
-    }
-
-    &.green {
-      background-image:
-      url('/assets/post/green-1.jpg');
-    }
 }
 
 .markdown {
