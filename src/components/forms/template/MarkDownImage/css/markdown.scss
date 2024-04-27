@@ -23,6 +23,37 @@
   }
 }
 
+%mark-down-welcome {
+  font-size: adjust-font-size(18px);
+  text-align: center;
+
+  p {
+    margin-top: adjust-scale(700px - $paddingValue);
+  }
+
+  ul, ol {
+    display: none;
+  }
+
+  strong {
+    display: inline-block;
+    font-size: adjust-font-size(24px);
+    margin: 0 adjust-scale(15px);
+  }
+
+  em {
+    font-size: adjust-font-size(20px);
+    font-style: normal;
+  }
+
+  code {
+    display: inline-block;
+    font-size: adjust-font-size(32px);
+    font-weight: bold;
+    transform: rotate(25deg) translate(10%, 10%);
+  }
+}
+
 %mark-down-question {
   align-items: center;
   display: flex;

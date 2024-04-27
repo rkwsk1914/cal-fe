@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { useRef, useState } from 'react'
-
+import { useRef, useState, useEffect } from 'react'
 
 import {
   Modal,
@@ -10,11 +9,12 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useDisclosure
+  useDisclosure,
+  Spinner
 } from '@chakra-ui/react'
 import domToImage from 'dom-to-image'
 import Image from 'next/image'
-import { useForm } from 'react-hook-form'
+import { useForm, useFormContext } from 'react-hook-form'
 
 import { Button } from '@/components/atoms/Button'
 import { TextAreaElement } from '@/components/forms/molecules/TextAreaElement'
@@ -29,21 +29,24 @@ type Props = {
   color: 'red' | 'green' | 'blue'
   type: postImageType
   defaultMarkdown?: string
+  fieldName?: string
 }
 
 export const CreatePost: React.FC<Props> = ({
   color,
   type,
-  defaultMarkdown
+  defaultMarkdown,
+  fieldName
 }): JSX.Element => {
-  const { register, watch } = useForm(
+  const context = useFormContext()
+  const myForm = useForm(
     {
       defaultValues: {
         markdown: defaultMarkdown ?? '',
       }
     }
   )
-  const markdown = watch('markdown')
+  const markdown = fieldName ? context.watch(fieldName) : myForm.watch('markdown')
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const ref = useRef(null)
@@ -65,18 +68,23 @@ export const CreatePost: React.FC<Props> = ({
       try {
         const dataUrl = await domToImage.toPng(node, options)
         setImageSrc(dataUrl)
-        onOpen()
       } catch (err) {
           console.error('oops, something went wrong!', err)
       }
   }
 
+  useEffect(() => {
+    if (isOpen) downloadImage()
+  }, [isOpen])
+
+  const register = fieldName ? context.register(fieldName) : myForm.register('markdown')
+
   return (
     <>
-      <TextAreaElement {...register('markdown')} required isValid />
+      <TextAreaElement {...register} required />
       <MarkDownImage color={color} markdown={markdown} type={type} ref={ref} />
       <div className={styles.buttonArea}>
-        <Button onClick={downloadImage} type="prime">画像</Button>
+        <Button onClick={onOpen} type="prime">画像</Button>
       </div>
 
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -85,13 +93,17 @@ export const CreatePost: React.FC<Props> = ({
           <ModalHeader>プレビュー</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-          <Image
+          {imageSrc === '' ? (
+            <Spinner />
+          ): (
+            <Image
             src={imageSrc}
             alt="Description of Image" // 画像の説明
             width={500}  // 表示幅
-            height={300} // 表示高さ
+            height={500} // 表示高さ
             layout="responsive" // レイアウトオプション
           />
+          )}
           </ModalBody>
 
           <ModalFooter>
