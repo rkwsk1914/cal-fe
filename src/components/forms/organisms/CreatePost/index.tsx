@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useRef, useState, useEffect } from 'react'
+import { useRef ,useEffect } from 'react'
 
 import {
   Modal,
@@ -13,12 +13,14 @@ import {
   Spinner,
   Button
 } from '@chakra-ui/react'
-import domToImage from 'dom-to-image'
 import Image from 'next/image'
 import { useForm, useFormContext } from 'react-hook-form'
 
+import { useCreateImage } from '@/hooks/useCreateImage'
+
+import { MarkDownImage } from '@/components/forms/molecules/MarkDownImage'
 import { TextAreaElement } from '@/components/forms/molecules/TextAreaElement'
-import { MarkDownImage } from '@/components/forms/template/MarkDownImage'
+
 
 import styles from './style.module.scss'
 
@@ -26,18 +28,25 @@ import type { postImageType } from '@/types/postImageType'
 
 
 type Props = {
-  color: 'red' | 'green' | 'blue'
+  color: string
   type: postImageType
   defaultMarkdown?: string
   fieldName?: string
+  imageRef?: React.RefObject<HTMLDivElement>
 }
 
-export const CreatePost: React.FC<Props> = ({
-  color,
-  type,
-  defaultMarkdown,
-  fieldName
-}): JSX.Element => {
+export const CreatePost = React.forwardRef(
+  function RefComponent (
+    props: Props,
+    ref?: React.Ref<HTMLDivElement>
+  ): JSX.Element {
+  const {
+    color,
+    type,
+    defaultMarkdown,
+    fieldName,
+    imageRef
+  } = props
   const context = useFormContext()
   const myForm = useForm(
     {
@@ -48,34 +57,14 @@ export const CreatePost: React.FC<Props> = ({
   )
   const markdown = fieldName ? context.watch(fieldName) : myForm.watch('markdown')
 
+  const myImageRef = useRef<HTMLDivElement>(null)
+
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const ref = useRef(null)
-  const [imageSrc, setImageSrc] = useState('')
-
-
-  const downloadImage = async () => {
-      const node = ref.current
-      if (!node) return
-        // スケールを設定して高解像度で画像を生成
-      const options = {
-        style: {
-          transform: 'scale(1)',  // 解像度を2倍に設定
-          transformOrigin: 'top left'
-        },
-        quality: 1.0  // 最高品質に設定
-      }
-
-      try {
-        const dataUrl = await domToImage.toPng(node, options)
-        setImageSrc(dataUrl)
-      } catch (err) {
-          console.error('oops, something went wrong!', err)
-      }
-  }
+  const { createImage, imageSrc } = useCreateImage(imageRef ?? myImageRef)
 
   useEffect(() => {
-    if (isOpen) downloadImage()
-  }, [isOpen])
+    if (isOpen) createImage()
+  }, [isOpen, createImage])
 
   const register = fieldName ? context.register(fieldName, {
     required: true
@@ -87,14 +76,9 @@ export const CreatePost: React.FC<Props> = ({
     context.getValues(fieldName) :
     myForm.getValues('markdown')
 
-  const props: Partial<React.ComponentProps<typeof TextAreaElement>> = {
-    required: true,
-    isValid,
-  }
-
   return (
     <>
-      <TextAreaElement {...register} {...props} />
+      <TextAreaElement {...register} isValid={isValid} required />
       <MarkDownImage color={color} markdown={markdown} type={type} ref={ref} />
       <div className={styles.buttonArea}>
         <Button onClick={onOpen} w={'full'} colorScheme='blue' isDisabled={!isValid}>画像</Button>
@@ -120,10 +104,11 @@ export const CreatePost: React.FC<Props> = ({
 
           <ModalFooter>
             <Button onClick={onClose} w={'full'} colorScheme='blue'>Close</Button>
-            <Button onClick={downloadImage} ml={3} colorScheme='blue'>reLoad</Button>
+            <Button onClick={createImage} ml={3} colorScheme='blue'>reLoad</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
     </>
   )
-}
+})
+

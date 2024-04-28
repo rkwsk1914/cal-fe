@@ -1,16 +1,16 @@
 import * as React from 'react'
 
 import clsx from 'clsx'
-import ReactMarkdown from 'react-markdown'
-import remarkBreaks from 'remark-breaks'
-import remarkGfm from 'remark-gfm'
+
+import { MarkDownComponent } from '@/components/forms/atoms/MarkDownComponent'
 
 import styles from './style.module.scss'
+
 
 import type { postImageType } from '@/types/postImageType'
 
 type Props = {
-  color: 'red' | 'green' | 'blue'
+  color: string
   markdown: string
   type: postImageType
 }
@@ -46,9 +46,7 @@ export const MarkDownImage = React.forwardRef(
             <div className={styles.markdown}>
               <div className={styles.space} />
               <div className={styles.ornament} />
-              {/* ReactMarkdownにクラスを適用 */}
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm, remarkBreaks]}>{markdown}</ReactMarkdown>
+              <MarkDownComponent>{markdown}</MarkDownComponent>
             </div>
           </div>
         </div>

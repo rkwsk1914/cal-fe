@@ -58,7 +58,8 @@
       true,
       {
           "ignoreFunctions": [
-            "/^calc-/"
+            "/^calc-/",
+            "/^adjust-/"
           ]
       }
     ],

@@ -1,16 +1,18 @@
+@import './markdownFontSize';
+
 %mark-down-base {
   height: min-content;
   position: relative;
   text-align: left;
 
-  p { font-size: adjust-font-size(14px); }
-  strong { font-size: adjust-font-size(18px); }
-  li { font-size: adjust-font-size(16px); }
-  table { font-size: adjust-font-size(12px); }
-  em { font-size: adjust-font-size(12px); }
+  @extend %mark-down-base-font-size;
 
   p {
     font-weight: bold;
+
+    & + p {
+      margin-top: adjust-scale(50px);
+    }
   }
 
   ul > li { list-style-type: disc; }
@@ -55,10 +57,7 @@
 %mark-down-welcome {
   text-align: center;
 
-  p { font-size: adjust-font-size(16px); }
-  strong { font-size: adjust-font-size(24px); }
-  em { font-size: adjust-font-size(20px); }
-  code { font-size: adjust-font-size(32px); }
+  @extend %mark-down-welcome-font-size;
 
   p {
     font-weight: bold;
@@ -92,10 +91,7 @@
   position: relative;
   text-align: center;
 
-  p { font-size: adjust-font-size(24px); }
-  strong { font-size: adjust-font-size(32px); }
-  em { font-size: adjust-font-size(16px); }
-  code { font-size: adjust-font-size(40px); }
+  @extend %mark-down-question-font-size;
 
   p {
     font-weight: bold;

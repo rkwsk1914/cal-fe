@@ -2,10 +2,10 @@ import React from 'react'
 
 import { StoryFn, Meta } from '@storybook/react'
 
-import { MarkDownImage as StoryComponent } from '.'
+import { SettingArea as StoryComponent } from '.'
 
 export default {
-  title: 'Forms/template/MarkDownImage',
+  title: 'Forms/template/AllCreatePost/SettingArea',
   component: StoryComponent,
   argTypes: {
     option: { control: 'some option' },
@@ -20,8 +20,4 @@ const Template: StoryFn<typeof StoryComponent> = (
 
 
 export const Create = Template.bind({})
-Create.args = {
-  color: 'red',
-  markdown: 'こんなもの**ポップ**です。',
-  type: 'welcome'
-}
+Create.args = {}

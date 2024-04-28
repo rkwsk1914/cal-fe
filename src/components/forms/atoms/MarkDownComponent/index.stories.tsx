@@ -2,13 +2,15 @@ import React from 'react'
 
 import { StoryFn, Meta } from '@storybook/react'
 
-import { CreatePost as StoryComponent } from '.'
+import { MarkDownComponent as StoryComponent } from '.'
 
 export default {
-  title: 'Forms/template/CreatePost',
+  title: 'Forms/Atoms/MarkDownComponent',
   component: StoryComponent,
   argTypes: {
-    option: { control: 'some option' },
+    absoluteMatch: {
+      control: 'boolean',
+    },
   }
 } as Meta<typeof StoryComponent>
 
@@ -18,6 +20,7 @@ const Template: StoryFn<typeof StoryComponent> = (
   <StoryComponent {...args}></StoryComponent>
 )
 
-
-export const Create = Template.bind({})
-Create.args = {}
+export const Default = Template.bind({})
+Default.args = {
+  children: 'aaa'
+}
