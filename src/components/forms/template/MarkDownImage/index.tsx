@@ -46,7 +46,8 @@ export const MarkDownImage = React.forwardRef(
               <div className={styles.space} />
               <div className={styles.ornament} />
               {/* ReactMarkdownにクラスを適用 */}
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdown}</ReactMarkdown>
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}>{markdown}</ReactMarkdown>
             </div>
           </div>
         </div>

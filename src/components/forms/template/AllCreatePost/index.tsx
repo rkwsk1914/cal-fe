@@ -119,14 +119,6 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
             </Box>
             <Box mt={4}>
               <Text mb={3}>Caption</Text>
-              <Box borderWidth='1px' borderRadius='lg' p={4}>
-                <Stack direction="column" spacing={4} ref={textRef}>
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{firstWatch}</ReactMarkdown>
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{secondWatch}</ReactMarkdown>
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{thirdWatch}</ReactMarkdown>
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{forthWatch}</ReactMarkdown>
-                </Stack>
-              </Box>
               <div className={styles.buttonArea}>
                 <Button
                   onClick={() => {
@@ -141,6 +133,14 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
               <div className={styles.buttonArea}>
                 <Button onClick={clear} colorScheme='blue'>クリア</Button>
               </div>
+              <Box borderWidth='1px' borderRadius='lg' p={4}>
+                <Stack direction="column" spacing={4} ref={textRef}>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{firstWatch}</ReactMarkdown>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{secondWatch}</ReactMarkdown>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{thirdWatch}</ReactMarkdown>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{forthWatch}</ReactMarkdown>
+                </Stack>
+              </Box>
             </Box>
           </TabPanel>
           <TabPanel>
