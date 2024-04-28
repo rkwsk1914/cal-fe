@@ -67,6 +67,31 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
     })
   }
 
+  const handleDownload = () => {
+    // 例としてダウンロードする JSON データ
+    const data = getValues()
+
+    // JSON オブジェクトを文字列に変換
+    const jsonString = JSON.stringify(data)
+
+    // 文字列から Blob を作成
+    const blob = new Blob([jsonString], { type: 'application/json' })
+
+    // Blob からダウンロード用の URL を作成
+    const url = URL.createObjectURL(blob)
+
+    // ダウンロードリンクを生成し、自動的にクリック
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'data.json'
+    document.body.appendChild(link)
+    link.click()
+
+    // 不要になったリンクと URL を後処理
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+}
+
   const doReconstruction = () => {
     const storageValue = localStorage.getItem('instaPost')
     const sessionDefaultValue = storageValue ? JSON.parse(storageValue) : null
@@ -74,6 +99,16 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
     setIsSaveOrRec('save')
     setColor(sessionDefaultValue.color)
   }
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+        const file = event.target.files[0]
+        const text = await file.text()
+        const jsonData = JSON.parse(text)
+        reset(jsonData)
+        setColor(jsonData.color)
+    }
+}
 
   useEffect(() => {
     if (isDirty) setIsSaveOrRec('save')
@@ -132,6 +167,7 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
               </div>
               <div className={styles.buttonArea}>
                 <Button onClick={clear} colorScheme='blue'>クリア</Button>
+                <Button onClick={handleDownload} colorScheme='blue'>JSON</Button>
               </div>
               <Box borderWidth='1px' borderRadius='lg' p={4}>
                 <Stack direction="column" spacing={4} ref={textRef}>
@@ -140,6 +176,9 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{thirdWatch}</ReactMarkdown>
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{forthWatch}</ReactMarkdown>
                 </Stack>
+              </Box>
+              <Box mt={8}>
+              <input type="file" onChange={handleFileChange} />
               </Box>
             </Box>
           </TabPanel>
