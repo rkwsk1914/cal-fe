@@ -152,7 +152,7 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
           <ModalHeader>プレビュー</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <SwipeComponent navigation>{[
+            <SwipeComponent>{[
               (<Fragment key={1}>
                 {firstCreateImage.imageSrc === '' ? (
                   <Spinner />
