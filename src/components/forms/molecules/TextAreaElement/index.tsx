@@ -23,7 +23,7 @@ export const TextAreaElement = React.forwardRef(
       ref?: React.Ref<HTMLTextAreaElement>
     ): JSX.Element {
 
-    const { label, unit, subText, isValid, helpertext, required, isNaked, isShowLabel, isTest, ...textAreaProps } = props
+    const { label, unit, subText, isValid, helpertext, required, isNaked, isShowLabel, isTest, ...inputProps } = props
 
     const FormControlElementProps: FormControlProps = {
       // UI系
@@ -43,7 +43,7 @@ export const TextAreaElement = React.forwardRef(
   return (
     <FormControlElement {...FormControlElementProps}>
       <Textarea
-        {...textAreaProps}
+        {...inputProps}
         rows={5}
         ref={ref}
       />

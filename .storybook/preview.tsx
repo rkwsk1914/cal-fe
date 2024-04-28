@@ -3,7 +3,7 @@ import '../src/styles/Tailwind.css';
 import './assets/reset.css';
 import { ThemBtn } from './assets/themBtn';
 import { ChakraProvider } from '@chakra-ui/react';
-import { theme } from './../src/const/DarkTheme';
+import { theme } from './../src/const/Theme';
 import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 export const parameters = {
