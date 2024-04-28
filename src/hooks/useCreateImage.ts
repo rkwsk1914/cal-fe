@@ -8,8 +8,6 @@ export const useCreateImage = (
   const [imageSrc, setImageSrc] = useState('')
 
   const createImage = async () => {
-    if (ImageRef === null) return
-
     const node = ImageRef.current
     if (!node) return
       // スケールを設定して高解像度で画像を生成

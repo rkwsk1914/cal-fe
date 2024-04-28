@@ -33,19 +33,17 @@ type Props = {
   defaultMarkdown?: string
   fieldName?: string
   imageRef?: React.RefObject<HTMLDivElement>
+  preViewOpen?: () => void
 }
 
-export const CreatePost = React.forwardRef(
-  function RefComponent (
-    props: Props,
-    ref?: React.Ref<HTMLDivElement>
-  ): JSX.Element {
+export const CreatePost: React.FC<Props> = (props): JSX.Element => {
   const {
     color,
     type,
     defaultMarkdown,
     fieldName,
-    imageRef
+    imageRef,
+    preViewOpen
   } = props
   const context = useFormContext()
   const myForm = useForm(
@@ -79,9 +77,20 @@ export const CreatePost = React.forwardRef(
   return (
     <>
       <TextAreaElement {...register} isValid={isValid} required />
-      <MarkDownImage color={color} markdown={markdown} type={type} ref={ref} />
+      <div onClick={() => {
+          if (isValid) {
+            preViewOpen ? preViewOpen() : onOpen()
+          }
+        }}>
+        <MarkDownImage
+          color={color}
+          markdown={markdown}
+          type={type}
+          ref={imageRef ?? myImageRef}
+        />
+      </div>
       <div className={styles.buttonArea}>
-        <Button onClick={onOpen} w={'full'} colorScheme='blue' isDisabled={!isValid}>画像</Button>
+        <Button onClick={preViewOpen ?? onOpen} w={'full'} colorScheme='blue' isDisabled={!isValid}>画像</Button>
       </div>
 
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -110,5 +119,4 @@ export const CreatePost = React.forwardRef(
       </Modal>
     </>
   )
-})
-
+}

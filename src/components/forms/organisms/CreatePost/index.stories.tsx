@@ -20,4 +20,7 @@ const Template: StoryFn<typeof StoryComponent> = (
 
 
 export const Create = Template.bind({})
-Create.args = {}
+Create.args = {
+  color: 'red',
+  type: 'question'
+}
