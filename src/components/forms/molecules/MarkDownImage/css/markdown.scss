@@ -18,9 +18,11 @@
   ul > li { list-style-type: disc; }
   ol > li { list-style-type: decimal; }
 
-  ul, ol {
-    padding-left: adjust-scale(130px);
+  ol { padding-left: adjust-scale(130px); }
 
+  ul { padding-left: adjust-scale(50px); }
+
+  ul, ol {
     li {
       font-weight: bold;
     }
@@ -28,7 +30,6 @@
 
   strong {
     font-size: adjust-font-size(18px);
-    margin: 0 adjust-scale(12px);
   }
 
   table {
@@ -51,6 +52,7 @@
 
   em {
     font-style: normal;
+    font-weight: normal;
   }
 }
 
@@ -106,7 +108,6 @@
 
   strong {
     display: inline-block;
-    margin: 0 adjust-scale(15px);
   }
 
   em {

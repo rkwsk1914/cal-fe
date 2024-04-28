@@ -28,7 +28,7 @@ $sizePx: adjust-scale(1080px);
     padding-left: adjust-scale($paddingValue);
     padding-top: adjust-scale($paddingValue);
 
-    p {
+    p, ol, ul {
       height: 100%;
       padding-right: adjust-scale($paddingValue);
     }
