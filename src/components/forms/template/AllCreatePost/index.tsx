@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useState, useEffect } from 'react'
 
 import {
   Tabs,
@@ -39,9 +40,12 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
 
   const { isOpen, onClose } = useDisclosure()
 
-  const { getValues } = methods
+  const watchColor = methods.watch('color')
+  const [color, setColor] = useState('')
 
-
+  useEffect(() => {
+    setColor(watchColor)
+  }, [watchColor])
 
   return (
     <FormProvider {...methods}>
@@ -57,23 +61,23 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
 
         <TabPanels>
           <TabPanel>
-            <SettingArea />
+            <SettingArea color={color}/>
           </TabPanel>
           <TabPanel>
-            <CreatePost color={getValues('color')} type="question" fieldName='first' />
+            <CreatePost color={color} type="question" fieldName='first' />
           </TabPanel>
           <TabPanel>
-            <CreatePost color={getValues('color')} type="research" fieldName='second' />
+            <CreatePost color={color} type="research" fieldName='second' />
           </TabPanel>
           <TabPanel>
-            <CreatePost color={getValues('color')} type="startled" fieldName='third' />
+            <CreatePost color={color} type="startled" fieldName='third' />
           </TabPanel>
           <TabPanel>
-            <CreatePost color={getValues('color')} type="creativity" fieldName='forth' />
+            <CreatePost color={color} type="creativity" fieldName='forth' />
           </TabPanel>
           <TabPanel>
             <CreatePost
-              color={getValues('color')}
+              color={color}
               type="welcome"
               fieldName='last'
             />

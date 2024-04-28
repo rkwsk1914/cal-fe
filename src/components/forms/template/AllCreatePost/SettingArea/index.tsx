@@ -15,9 +15,13 @@ import { MarkDownComponent } from '@/components/forms/atoms/MarkDownComponent'
 
 import styles from './style.module.scss'
 
-type Props = {}
+type Props = {
+  color: string
+}
 
-export const SettingArea: React.FC<Props> = (): JSX.Element => {
+export const SettingArea: React.FC<Props> = ({
+  color
+}): JSX.Element => {
   const [jsonFileName, setJsonFileName] = useState<string>('data.json')
   const [isSaveOrRec, setIsSaveOrRec] = useState<'save' | 'rec' | null>(null)
 
@@ -33,7 +37,6 @@ export const SettingArea: React.FC<Props> = (): JSX.Element => {
   const secondWatch = watch('second')
   const thirdWatch = watch('third')
   const forthWatch = watch('forth')
-
 
   const textRef = useRef<HTMLDivElement>(null)
 
@@ -123,7 +126,7 @@ export const SettingArea: React.FC<Props> = (): JSX.Element => {
     <>
       <Box>
         <Text mb={3}>Color</Text>
-        <RadioGroup value={getValues('color')}>
+        <RadioGroup value={color}>
           <Stack direction='row' spacing={4}>
             <Radio {...register('color')} value='red'>red</Radio>
             <Radio {...register('color')} value='blue'>blue</Radio>
