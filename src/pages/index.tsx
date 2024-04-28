@@ -1,13 +1,13 @@
 import { AllCreatePost } from '@/components/forms/template/AllCreatePost'
-import { Layout } from '@/components/temporary/Layout'
+import { AppFrame } from '@/components/layouts/AppFrame'
 
 import type { NextPage } from 'next'
 
 const Top: NextPage = () => {
   return (
-    <Layout>
+    <AppFrame>
       <AllCreatePost />
-    </Layout>
+    </AppFrame>
   )
 }
 

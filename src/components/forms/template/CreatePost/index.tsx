@@ -87,9 +87,14 @@ export const CreatePost: React.FC<Props> = ({
     context.getValues(fieldName) :
     myForm.getValues('markdown')
 
+  const props: Partial<React.ComponentProps<typeof TextAreaElement>> = {
+    required: true,
+    isValid,
+  }
+
   return (
     <>
-      <TextAreaElement {...register} required />
+      <TextAreaElement {...register} {...props} />
       <MarkDownImage color={color} markdown={markdown} type={type} ref={ref} />
       <div className={styles.buttonArea}>
         <Button onClick={onOpen} w={'full'} colorScheme='blue' isDisabled={!isValid}>画像</Button>

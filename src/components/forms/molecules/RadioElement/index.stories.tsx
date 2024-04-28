@@ -4,7 +4,6 @@ import { action } from '@storybook/addon-actions'
 import { StoryFn, Meta } from '@storybook/react'
 
 import { INPUT_ATTRIBUTE_OPTIONS } from '@/const/form/OptionStorybook'
-import { EveryPattern } from '@/const/MonthlyKeys'
 
 import { RadioElement as StoryComponent } from '.'
 
@@ -98,12 +97,4 @@ IdName.args = {
     { id: 'i', name: 'Virginia Andrews' },
     { id: 'j', name: 'Kelly Snyder' },
   ]
-}
-
-
-export const Every = Template.bind({})
-Every.args = {
-  ...args,
-  value: 'every second month',
-  selectItems: EveryPattern
 }
