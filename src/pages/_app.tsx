@@ -5,13 +5,13 @@ import { Provider as ReduxProvider } from 'react-redux'
 
 import store from '@/stores'
 
-// import { theme } from '@/const/DarkTheme'
+import { theme } from '@/const/Theme'
 
 import type { AppProps } from 'next/app'
 
 export default function App ({ Component, pageProps }: AppProps): React.ReactElement {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <ReduxProvider store={store}>
         <Component {...pageProps} />
       </ReduxProvider>
