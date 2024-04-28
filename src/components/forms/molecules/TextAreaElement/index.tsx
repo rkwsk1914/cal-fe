@@ -8,38 +8,42 @@ import { FormControlElement } from '@/components/forms/atoms/FormControlElement'
 
 import type { FormControlProps, InputProps, InputStyleChakura } from '@/types/form'
 
+type Props = InputProps & InputStyleChakura & FormControlProps & {
+  autoFocus?: boolean
+  placeholder?: string
+  minLength?: number
+  maxLength?: number
+  onChange?: (_e: React.ChangeEvent<HTMLTextAreaElement>) => void
+  onBlur?: (_e: React.FocusEvent<HTMLTextAreaElement>) => void
+}
+
 export const TextAreaElement = React.forwardRef(
     function RefComponent (
-      props: InputProps & FormControlProps & InputStyleChakura & {
-        autoFocus?: boolean
-        placeholder?: string
-        minLength?: number
-        maxLength?: number
-        onChange?: (_e: React.ChangeEvent<HTMLTextAreaElement>) => void
-        onBlur?: (_e: React.FocusEvent<HTMLTextAreaElement>) => void
-      },
+      props: Props,
       ref?: React.Ref<HTMLTextAreaElement>
     ): JSX.Element {
 
+    const { label, unit, subText, isValid, helpertext, required, isNaked, isShowLabel, isTest, ...textAreaProps } = props
+
     const FormControlElementProps: FormControlProps = {
-        // UI系
-        label: props.label,
-        unit: props.unit,
-        subText: props.subText,
-        // バリデーション系
-        isValid: props.isValid,
-        helpertext: props.helpertext,
-        required: props.required,
-        // スタイル系
-        isNaked: props.isNaked,
-        isShowLabel: props.isShowLabel,
-        isTest: props.isTest
-      }
+      // UI系
+      label,
+      unit,
+      subText,
+      // バリデーション系
+      isValid,
+      helpertext,
+      required,
+      // スタイル系
+      isNaked,
+      isShowLabel,
+      isTest
+    }
 
   return (
     <FormControlElement {...FormControlElementProps}>
       <Textarea
-        {...props}
+        {...textAreaProps}
         rows={5}
         ref={ref}
       />
