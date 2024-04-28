@@ -3,8 +3,13 @@
   position: relative;
   text-align: left;
 
+  p { font-size: adjust-font-size(14px); }
+  strong { font-size: adjust-font-size(18px); }
+  li { font-size: adjust-font-size(16px); }
+  table { font-size: adjust-font-size(12px); }
+  em { font-size: adjust-font-size(12px); }
+
   p {
-    font-size: adjust-font-size(14px);
     font-weight: bold;
   }
 
@@ -15,7 +20,6 @@
     padding-left: adjust-scale(130px);
 
     li {
-      font-size: adjust-font-size(16px);
       font-weight: bold;
     }
   }
@@ -24,11 +28,37 @@
     font-size: adjust-font-size(18px);
     margin: 0 adjust-scale(12px);
   }
+
+  table {
+    border: 1px solid #333;
+    width: calc(100% - adjust-scale($paddingValue));
+
+    td, th {
+      padding: adjust-scale(15px);
+
+      &:not(:first-child) {
+        border-left: 1px solid #333;
+      }
+    }
+
+    tbody > tr:not(:last-child),
+    thead > tr {
+      border-bottom: 1px solid #333;
+    }
+  }
+
+  em {
+    font-style: normal;
+  }
 }
 
 %mark-down-welcome {
-  font-size: adjust-font-size(16px);
   text-align: center;
+
+  p { font-size: adjust-font-size(16px); }
+  strong { font-size: adjust-font-size(24px); }
+  em { font-size: adjust-font-size(20px); }
+  code { font-size: adjust-font-size(32px); }
 
   p {
     font-weight: bold;
@@ -41,18 +71,15 @@
 
   strong {
     display: inline-block;
-    font-size: adjust-font-size(24px);
     margin: 0 adjust-scale(15px);
   }
 
   em {
-    font-size: adjust-font-size(20px);
     font-style: normal;
   }
 
   code {
     display: inline-block;
-    font-size: adjust-font-size(32px);
     font-weight: bold;
     transform: rotate(25deg) translate(10%, 10%);
   }
@@ -61,10 +88,14 @@
 %mark-down-question {
   align-items: center;
   display: flex;
-  font-size: adjust-font-size(24px);
   padding-bottom: adjust-scale(130px);
   position: relative;
   text-align: center;
+
+  p { font-size: adjust-font-size(24px); }
+  strong { font-size: adjust-font-size(32px); }
+  em { font-size: adjust-font-size(16px); }
+  code { font-size: adjust-font-size(40px); }
 
   p {
     font-weight: bold;
@@ -79,19 +110,16 @@
 
   strong {
     display: inline-block;
-    font-size: adjust-font-size(32px);
     margin: 0 adjust-scale(15px);
   }
 
   em {
-    font-size: adjust-font-size(16px);
     font-style: normal;
     font-weight: normal;
   }
 
   code {
     display: inline-block;
-    font-size: adjust-font-size(40px);
     font-weight: bold;
     transform: rotate(25deg) translate(10%, 10%);
   }

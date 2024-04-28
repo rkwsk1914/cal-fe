@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import clsx from 'clsx'
 import ReactMarkdown from 'react-markdown'
+import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
 
 import styles from './style.module.scss'
@@ -47,7 +48,7 @@ export const MarkDownImage = React.forwardRef(
               <div className={styles.ornament} />
               {/* ReactMarkdownにクラスを適用 */}
               <ReactMarkdown
-                remarkPlugins={[remarkGfm]}>{markdown}</ReactMarkdown>
+                remarkPlugins={[remarkGfm, remarkBreaks]}>{markdown}</ReactMarkdown>
             </div>
           </div>
         </div>
