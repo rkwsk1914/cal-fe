@@ -82,6 +82,22 @@ $sizePx: adjust-scale(1080px);
     &.creativity { .ornament { @include set-image($color, 'creativity'); } }
   }
 
+  &.yellow {
+    $color: 'yellow';
+
+    .markdown {
+      strong, code {
+        @apply text-postYellow;
+      }
+    }
+
+    &.welcome { .ornament { @include set-image($color, 'welcome'); } }
+    &.startled { .ornament { @include set-image($color, 'startled'); } }
+    &.research { .ornament { @include set-image($color, 'research'); } }
+    &.question { .ornament { @include set-image($color, 'question'); } }
+    &.creativity { .ornament { @include set-image($color, 'creativity'); } }
+  }
+
   &.welcome {
     .space { @include set-space('welcome'); }
     .markdown { @extend %mark-down-welcome; }

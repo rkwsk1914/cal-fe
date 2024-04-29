@@ -131,6 +131,7 @@ export const SettingArea: React.FC<Props> = ({
             <Radio {...register('color')} value='red'>red</Radio>
             <Radio {...register('color')} value='blue'>blue</Radio>
             <Radio {...register('color')} value='green'>green</Radio>
+            <Radio {...register('color')} value='yellow'>yellow</Radio>
           </Stack>
         </RadioGroup>
       </Box>

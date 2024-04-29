@@ -49,6 +49,7 @@ const colors = {
   postRed: '#DE1D1D',
   postGreen: '#3CA85B',
   postBlue: '#407BFF',
+  postYellow: '#DDA505'
 }
 
 module.exports = { colors }

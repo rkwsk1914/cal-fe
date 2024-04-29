@@ -37,6 +37,7 @@ export const MarkDownImage = React.forwardRef(
               [styles.red]: color === 'red',
               [styles.green]: color === 'green',
               [styles.blue]: color === 'blue',
+              [styles.yellow]: color === 'yellow',
               [styles.welcome]: type === 'welcome',
               [styles.startled]: type === 'startled',
               [styles.research]: type === 'research',
