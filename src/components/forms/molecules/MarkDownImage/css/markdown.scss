@@ -34,6 +34,8 @@
 
   table {
     border: 1px solid #333;
+    margin-bottom: adjust-scale(20px);
+    margin-top: adjust-scale(20px);
     width: calc(100% - adjust-scale($paddingValue));
 
     td, th {
@@ -77,6 +79,7 @@
 
   em {
     font-style: normal;
+    font-weight: normal;
   }
 
   code {
