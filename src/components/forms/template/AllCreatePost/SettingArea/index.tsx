@@ -149,7 +149,7 @@ export const SettingArea: React.FC<Props> = ({
           <Button onClick={handleCopy} colorScheme='blue' disabled={!isValid}>コピー</Button>
         </div>
         <div className={styles.buttonArea}>
-          <Button onClick={clear} colorScheme='blue'>クリア</Button>
+          <div></div>
           <Button onClick={handleDownload} colorScheme='blue'>JSON</Button>
         </div>
         <Box borderWidth='1px' borderRadius='lg' p={4}>
@@ -160,9 +160,12 @@ export const SettingArea: React.FC<Props> = ({
             <MarkDownComponent>{forthWatch}</MarkDownComponent>
           </Stack>
         </Box>
-        <Box mt={8}>
+        <Box my={8}>
         <input type="file" onChange={handleFileChange} />
         </Box>
+        <div className={styles.buttonArea}>
+          <Button onClick={clear} colorScheme='blue'>クリア</Button>
+        </div>
       </Box>
     </>
   )

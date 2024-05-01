@@ -47,7 +47,7 @@ const StyledSwiper = styled(Swiper)`
 interface RefProps {
   children?: Array<React.ReactNode>
   initialSlide?: number
-  onSlideChange?: () => void
+  onSlideChange?: (_swiper?: any) => void
   onSwiper?: (_swiper?: any) => void
   onReachBeginning?: (_swiper?: any) => void
   onReachEnd?: (_swiper?: any) => void
@@ -87,6 +87,11 @@ export const SwipeComponent = memo(forwardRef(
       style={{ alignItems: 'stretch' }}
       virtual={false}
       ref={ref}
+      breakpoints={{
+        1024: {
+          slidesPerView: 4,
+        }
+      }}
     >
       {children?.map((child, index) => (
         <SwiperSlide

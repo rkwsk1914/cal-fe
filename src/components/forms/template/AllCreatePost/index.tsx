@@ -48,6 +48,8 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
     },
   }
 
+  const [swiperIndex, setSwiperIndex] = useState<number | undefined>(undefined)
+
   const firstImageRef = useRef<HTMLDivElement>(null)
   const secondImageRef = useRef<HTMLDivElement>(null)
   const thirdImageRef = useRef<HTMLDivElement>(null)
@@ -95,7 +97,15 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
 
   return (
     <FormProvider {...methods}>
-      <SwipeComponent pagination={pagination}>
+      <SwipeComponent
+        pagination={pagination}
+        onSlideChange={(swiper) => {
+          const index = swiper.activeIndex
+          if (index !== 0) {
+            setSwiperIndex(index - 1)
+          }
+        }}
+      >
         {[
           (<Box mt={'50px'} p={6} key={'set'}><SettingArea color={color}/></Box>),
           (<Box mt={'50px'} p={6} key={'1'}>
@@ -152,7 +162,7 @@ export const AllCreatePost: React.FC = (): JSX.Element => {
           <ModalHeader>プレビュー</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <SwipeComponent>{[
+            <SwipeComponent loop={false} initialSlide={swiperIndex}>{[
               (<Fragment key={1}>
                 {firstCreateImage.imageSrc === '' ? (
                   <Spinner />
