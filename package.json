@@ -16,8 +16,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepare": "husky install",
-    "test": "jest",
-    "test-silent": "jest --silent"
+    "test": "jest --passWithNoTests",
+    "test-silent": "jest --silent --passWithNoTests"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.1.0",
