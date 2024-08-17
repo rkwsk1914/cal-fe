@@ -1,0 +1,8 @@
+import { ERROR_MESSAGE } from './ErrorMessage'
+import { INPUT_ATTRIBUTE_OPTIONS, INPUT_AUTO_COMPLETE_OPTIONS } from './OptionStorybook'
+
+export {
+  INPUT_ATTRIBUTE_OPTIONS,
+  INPUT_AUTO_COMPLETE_OPTIONS,
+  ERROR_MESSAGE,
+}
