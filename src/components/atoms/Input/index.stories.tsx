@@ -46,7 +46,7 @@ const Template: StoryFn<typeof StoryComponent> = (
       register={
         { ...register('name', {
           required: 'This is required',
-          disabled: true,
+          disabled: false,
           minLength: { value: 4, message: 'Minimum length should be 4' },
         }) }
       } />
