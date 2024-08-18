@@ -8,7 +8,7 @@ import { Button as StoryComponent } from '.'
 
 
 export default {
-  title: 'Atoms/Button',
+  title: 'atoms/Button',
   component: StoryComponent,
   argTypes: {
     size: INPUT_ATTRIBUTE_OPTIONS.size,

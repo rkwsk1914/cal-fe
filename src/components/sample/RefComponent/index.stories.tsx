@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { action } from "@storybook/addon-actions"
+import { action } from '@storybook/addon-actions'
 import { StoryFn, Meta } from '@storybook/react'
 
-import {RefComponent as StoryComponent} from '.'
+import { RefComponent as StoryComponent } from '.'
 
 export default {
   title: 'Sample/RefComponent',
