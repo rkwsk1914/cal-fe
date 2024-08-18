@@ -50,6 +50,7 @@ export const InputText: React.FC<Props> = ({
           <FormLabel className={styles.label}>{label}</FormLabel>
         )}
         <div className={styles.content}>
+          {control ? (
           <Controller
             name={id ?? ''}
             control={control}
@@ -61,6 +62,12 @@ export const InputText: React.FC<Props> = ({
               />
             )}
           />
+          ): (
+            <ChakuraInput
+              as={InputMask}
+              {...inputTextArgs}
+            />
+          )}
           {!isError ? (
             <FormHelperText>
               {helperText}

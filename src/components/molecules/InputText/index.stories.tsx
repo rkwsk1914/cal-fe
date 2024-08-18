@@ -22,7 +22,10 @@ export const Default = Template.bind({})
 Default.args = {
   isError: true,
   helperText: 'いろいろ間違ってます',
-  label: 'Email'
+  inputProps: {
+    label: 'Email',
+    inputTextArgs: {}
+  }
 }
 
 export const Vertically = Template.bind({})
@@ -30,5 +33,8 @@ Vertically.args = {
   isError: true,
   helperText: 'いろいろ間違ってます',
   arrangement: 'vertically',
-  label: 'Email'
+  inputProps: {
+    label: 'Email',
+    inputTextArgs: {}
+  }
 }

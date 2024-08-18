@@ -8,7 +8,7 @@ import { TEXT_INPUT_DATA } from '@/const/form/TextInputData'
 
 
 import { Button } from '@/components/atoms/Button'
-import { InputWarp } from '@/components/molecules/InputWarp'
+import { InputText } from '@/components/molecules/InputText'
 
 type Props = {};
 
@@ -34,7 +34,7 @@ export const BankDetail: React.FC<Props> = ({}): JSX.Element => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <InputWarp
+      <InputText
         isError={!!errors.bankName}
         helperText={errors.bankName?.message as string}
         inputProps={{
