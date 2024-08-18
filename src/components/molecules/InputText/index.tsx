@@ -24,6 +24,26 @@ type Props = {
   inputProps: TextInputProps
 };
 
+// InputMask に渡せる一般的な props の型を定義
+interface InputMaskProps {
+  mask: string;
+  value?: string;
+  onChange?: (_event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (_event: React.FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (_event: React.FocusEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
+  maskPlaceholder?: string | null;
+  alwaysShowMask?: boolean;
+  inputRef?: React.Ref<HTMLInputElement>;
+  // 他の必要な props を追加
+}
+
+const MaskedInput = React.forwardRef<HTMLInputElement, InputMaskProps>((props, ref) => (
+  <InputMask {...props} inputRef={ref} />
+))
+MaskedInput.displayName = 'MyComponent'
+
+
 export const InputText: React.FC<Props> = ({
   isError,
   helperText,
@@ -56,7 +76,7 @@ export const InputText: React.FC<Props> = ({
             control={control}
             render={({ field }) => (
               <ChakuraInput
-                as={InputMask}
+                as={MaskedInput}
                 {...inputTextArgs}
                 {...field}
               />

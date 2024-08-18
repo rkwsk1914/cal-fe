@@ -120,8 +120,9 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     label: '口座名',
     inputTextArgs: {
       type: 'text',
-      placeholder: '〇〇銀行 〇〇支店'
+      placeholder: '〇〇銀行 〇〇支店',
+      mask: 'aaaa',
     },
     zod: ZodSchema.TEMPORALLY
   },
-}
+} as const
