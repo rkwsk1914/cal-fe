@@ -5,7 +5,6 @@ import { StoryFn, Meta } from '@storybook/react'
 import { FunctionComponent as StoryComponent } from '.'
 
 export default {
-  title: '',
   component: StoryComponent,
 } as Meta<typeof StoryComponent>
 

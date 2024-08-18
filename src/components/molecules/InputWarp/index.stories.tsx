@@ -6,10 +6,9 @@ import {
 
 import { StoryFn, Meta } from '@storybook/react'
 
-import { Form as StoryComponent } from '.'
+import { InputWarp as StoryComponent } from '.'
 
 export default {
-  title: 'molecules/Form',
   component: StoryComponent,
 } as Meta<typeof StoryComponent>
 

@@ -1,5 +1,5 @@
 
-import { UseFormRegisterReturn } from 'react-hook-form'
+import { Control } from 'react-hook-form'
 
 import { AutoCompleteType } from './AutoCompleteType'
 import { TextInputTypeOptionType } from './TextInputTypeOptionType'
@@ -11,8 +11,7 @@ interface BaseProps {
   id?: string
   label?: string
   readonly? :boolean
-  helperText: string
-  register?: UseFormRegisterReturn;
+  control?: Control<any>
 }
 interface ControlledProps extends BaseProps {
   value?: InputValue
@@ -26,8 +25,11 @@ interface UncontrolledProps extends BaseProps { // eslint-disable-line no-unused
 
 export type InputProps = ControlledProps //  | UncontrolledProps
 
+type reactInputMaskType = string
+
 export type TextInputProps = InputProps & {
   inputTextArgs: {
+    mask?: reactInputMaskType
     type?: TextInputTypeOptionType
     autoComplete?: AutoCompleteType
     autoFocus?: boolean

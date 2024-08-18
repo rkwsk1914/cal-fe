@@ -2,7 +2,7 @@ import React from 'react'
 
 import { StoryFn, Meta } from '@storybook/react'
 
-import { INPUT_ATTRIBUTE_OPTIONS } from '@/const/form/OptionStorybook'
+import { INPUT_ATTRIBUTE_OPTIONS } from '@/const/OptionStorybook'
 
 import { Button as StoryComponent } from '.'
 
