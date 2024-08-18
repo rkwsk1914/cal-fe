@@ -6,7 +6,7 @@ import {
 
 import { StoryFn, Meta } from '@storybook/react'
 
-import { InputWarp as StoryComponent } from '.'
+import { InputText as StoryComponent } from '.'
 
 export default {
   component: StoryComponent,

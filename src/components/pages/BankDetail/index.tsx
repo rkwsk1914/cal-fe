@@ -29,7 +29,7 @@ export const BankDetail: React.FC<Props> = ({}): JSX.Element => {
   })
 
   const onSubmit = (data: any) => {
-    console.log(data)
+    console.info(data)
   }
 
   return (

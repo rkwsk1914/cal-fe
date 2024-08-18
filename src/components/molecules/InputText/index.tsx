@@ -24,7 +24,7 @@ type Props = {
   inputProps: TextInputProps
 };
 
-export const InputWarp: React.FC<Props> = ({
+export const InputText: React.FC<Props> = ({
   isError,
   helperText,
   arrangement = 'horizontally',
