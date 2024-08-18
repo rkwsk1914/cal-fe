@@ -1,19 +1,18 @@
+
+import { UseFormRegisterReturn } from 'react-hook-form'
+
 import { AutoCompleteType } from './AutoCompleteType'
-import { TextInputTypeOptionType } from './TextInputTypeOptionTyped'
+import { TextInputTypeOptionType } from './TextInputTypeOptionType'
 
 //  | number | boolean | nullは許容しない
-type InputValue = string | number | undefined
-interface ReactHookFormType {
-  onChange?: (_e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
-  onBlur?: (_e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => void
-}
-interface BaseProps extends ReactHookFormType {
-  name: string
+type InputValue = string | number | undefined | boolean
+
+interface BaseProps {
   id?: string
   label?: string
-  disabled?: boolean
-  required?: boolean
   readonly? :boolean
+  helperText: string
+  register?: UseFormRegisterReturn;
 }
 interface ControlledProps extends BaseProps {
   value?: InputValue
@@ -28,12 +27,14 @@ interface UncontrolledProps extends BaseProps { // eslint-disable-line no-unused
 export type InputProps = ControlledProps //  | UncontrolledProps
 
 export type TextInputProps = InputProps & {
-  type?: TextInputTypeOptionType
-  autoComplete?: AutoCompleteType
-  autoFocus?: boolean
-  placeholder?: string
-  minLength?: number
-  maxLength?: number
+  inputTextArgs: {
+    type?: TextInputTypeOptionType
+    autoComplete?: AutoCompleteType
+    autoFocus?: boolean
+    placeholder?: string
+    minLength?: number
+    maxLength?: number
+  }
 }
 
 export type ChakuraUISizeTypes = 'xs' | 'sm' | 'md' | 'lg'

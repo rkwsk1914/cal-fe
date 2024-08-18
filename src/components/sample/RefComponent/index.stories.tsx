@@ -6,7 +6,7 @@ import { StoryFn, Meta } from '@storybook/react'
 import { RefComponent as StoryComponent } from '.'
 
 export default {
-  title: 'Sample/RefComponent',
+  title: '',
   component: StoryComponent,
   argTypes: {
     option: { control: 'some option' },

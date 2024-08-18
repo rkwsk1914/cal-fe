@@ -1,0 +1,23 @@
+.wrap {
+  &.horizontally {}
+
+  &.vertically {
+    align-items: flex-start;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+
+    .label {
+      max-width: 20%;
+      width: 100%;
+    }
+
+    .content {
+      width: 100%;
+    }
+  }
+}
+
+.dark {
+  width: 100%;
+}
