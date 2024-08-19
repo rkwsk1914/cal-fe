@@ -2,7 +2,7 @@ import React from 'react'
 
 import { StoryFn, Meta } from '@storybook/react'
 
-import { FromTemplate as StoryComponent } from '.'
+import { FromLayout as StoryComponent } from '.'
 
 export default {
   component: StoryComponent,

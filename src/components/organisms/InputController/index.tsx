@@ -7,7 +7,7 @@ import { TEXT_INPUT_DATA } from '@/const/form/TextInputData'
 import { InputText } from '@/components/molecules/InputText'
 
 type Props = {
-  name: string
+  name: keyof typeof TEXT_INPUT_DATA
   control: Control<any>
   trigger: UseFormTrigger<any>
   errors: FieldErrors<any>

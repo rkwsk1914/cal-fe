@@ -12,7 +12,7 @@ import type { DefaultValuesType } from '@/types/form/InputAttribute'
 
 type Props = {};
 
-export const BankDetail: React.FC<Props> = ({}): JSX.Element => {
+export const Template: React.FC<Props> = ({}): JSX.Element => {
   const defaultValues: DefaultValuesType = {
     bankName: '',
     bankBranchName: ''
