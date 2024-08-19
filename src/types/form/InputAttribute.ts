@@ -10,7 +10,6 @@ type AutoCompleteType = typeof AUTO_COMPLETE_OPTIONS[number]
 
 //  | number | boolean | nullは許容しない
 export type InputValue = string | number | readonly string[] | undefined
-
 export type DefaultValuesType = Record<keyof typeof TEXT_INPUT_DATA, InputValue>
 
 interface BaseProps {
