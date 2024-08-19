@@ -27,10 +27,10 @@ export const ERROR_MESSAGE: { [key: number | string]: string } = {
   7: '全角カタカナで入力してください。',
   8: '半角カタカナで入力してください。',
   9: `半角数字${lengthErrorMessage(MAX_LENGTH_LIST.tel)}`,
-  fullCharacter: `全角数字は無効です。`,
+  fullCharacter: `半角英数字は無効です。`,
   11: '電話番号の形式が違います。ハイフンは不要です。',
   12: maxLengthErrorMessage(MAX_LENGTH_LIST.year),
   13: maxLengthErrorMessage(MAX_LENGTH_LIST.monthAndDay),
   14: minLengthErrorMessage(MIN_LENGTH_LIST.year),
-  dataError: '無効です'
+  dataError: '無効です。'
 }

@@ -56,6 +56,7 @@ export const InputText: React.FC<Props> = ({
     control,
     id,
     inputTextArgs,
+    onBlurFormat,
   } = inputProps
 
   const wrap = clsx(styles.wrap, {
@@ -80,7 +81,13 @@ export const InputText: React.FC<Props> = ({
                 as={MaskedInput}
                 {...inputTextArgs}
                 {...field}
-                onBlur={trigger}
+                onBlur={(e) => {
+                  if (onBlurFormat) {
+                    const formattedValue = onBlurFormat(e.target.value)
+                    field.onChange(formattedValue)
+                  }
+                  trigger()
+                }}
               />
             )}
           />

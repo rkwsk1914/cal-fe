@@ -1,8 +1,11 @@
 import * as zod from 'zod'
 
+import * as chrFormatChange from '@/utils/chrFormatChange'
+
 import * as ZodSchema from '@/const/form/Schema'
 
 import { TextInputProps } from '@/types/form/InputAttribute'
+
 
 type TextInputDataType = Record<
   string,
@@ -122,7 +125,12 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
       type: 'text',
       placeholder: '〇〇銀行',
     },
-    zod: ZodSchema.TEXT_AREA_SCHEMA
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.fixFullWidth(
+        value
+      )
+    }
   },
   bankBranchName: {
     id: 'bankBranchName',
@@ -131,6 +139,11 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
       type: 'text',
       placeholder: '〇〇支店',
     },
-    zod: ZodSchema.TEXT_AREA_SCHEMA
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.fixFullWidth(
+        value
+      )
+    }
   },
 } as const

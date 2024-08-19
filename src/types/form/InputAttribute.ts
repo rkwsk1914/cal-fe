@@ -17,6 +17,7 @@ interface BaseProps {
   label?: string
   readonly? :boolean
   control?: Control<DefaultValuesType, any>
+  onBlurFormat?: (_value: string) => string
 }
 interface ControlledProps extends BaseProps {
   value?: InputValue

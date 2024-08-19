@@ -18,8 +18,8 @@ export const FromLayout: React.FC<Props> = ({
     <form onSubmit={handleSubmit}>
       <div className={styles.content}>
         {children}
+        <Button type='prime' submit>保存</Button>
       </div>
-      <Button submit>保存</Button>
     </form>
   )
 }

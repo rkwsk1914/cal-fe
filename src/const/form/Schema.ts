@@ -45,6 +45,10 @@ export const TEXT_AREA_SCHEMA = zod
   .min(1, { message: requiredMessage })
   .max(500, { message: ERROR_MESSAGE[5] })
 
+export const TEXT_SCHEMA = zod
+  .string()
+  .min(1, { message: requiredMessage })
+
 export const TEMPORALLY = zod
   .string()
   .min(1, { message: requiredMessage })
