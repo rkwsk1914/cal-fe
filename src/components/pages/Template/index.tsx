@@ -19,7 +19,8 @@ export const Template: React.FC<Props> = ({}): JSX.Element => {
     bankName: 'ああ',
     bankBranchName: 'ああ',
     test: '5',
-    testCheck: ['5', '1']
+    testCheck: ['5', '1'],
+    testCheckBoolean: [`true`]
   }
 
   const { scheme } = useSetZodScheme(defaultValues)
@@ -76,6 +77,13 @@ export const Template: React.FC<Props> = ({}): JSX.Element => {
           { value: '4', label: 'itemD' },
           { value: '5', label: 'itemE' },
           { value: '6', label: 'itemAF' },
+        ]}
+      />
+      <CheckBoxController
+        name="testCheckBoolean"
+        {...args}
+        data={[
+          { value: 'true', label: 'フラグ' },
         ]}
       />
     </FromLayout>

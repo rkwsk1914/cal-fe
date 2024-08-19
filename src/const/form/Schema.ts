@@ -58,6 +58,9 @@ export const RADIO_SCHEME = zod
 export const CHECKBOX_SCHEME = zod
   .array(zod.string()).nonempty(requiredMessage)
 
+export const CHECKBOX_SCHEME_BOOLEAN = zod
+  .array(zod.string())
+
 export const SCHEMA = zod.object({
   email: EMAIL_SCHEMA,
   firstName: NAME_SCHEMA,
