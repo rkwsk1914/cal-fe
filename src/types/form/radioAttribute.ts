@@ -1,9 +1,8 @@
-// import { Control } from 'react-hook-form'
+// import { Control, ControllerRenderProps } from 'react-hook-form'
 
 import { RADIO_DATA } from '@/const/form/RadioData'
 
 export type InputValue = string
-// TODO: RecordKey
 export type DefaultValuesType = Record<keyof typeof RADIO_DATA, InputProps>
 
 export type RadioFiled = any // ControllerRenderProps<DefaultValuesType>
