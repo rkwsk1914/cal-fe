@@ -1,7 +1,10 @@
 import * as React from 'react'
 
+import { ApolloQueryResult } from '@apollo/client'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+
+import { FindBankByIdQuery } from '@/generated/graphql'
 
 import { useSetZodScheme }from '@/hooks/form/useSetZodScheme'
 
@@ -10,12 +13,15 @@ import { InputController } from '@/components/organisms/InputController'
 
 import type { DefaultValuesType } from '@/types/form/InputAttribute'
 
-type Props = {};
+type Props = ApolloQueryResult<FindBankByIdQuery>;
 
-export const BankDetail: React.FC<Props> = ({}): JSX.Element => {
+export const BankDetail: React.FC<Props> = (props): JSX.Element => {
+  const { data } = props
+  const res = data.findBankByID
+
   const defaultValues: DefaultValuesType = {
-    bankName: '',
-    bankBranchName: ''
+    bankName: res.name,
+    bankBranchName: res.branchName ?? ''
   }
 
   const { scheme } = useSetZodScheme(defaultValues)

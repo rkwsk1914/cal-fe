@@ -1,0 +1,62 @@
+query FindBankByID($findBankByIdId: String!) {
+  findBankByID(id: $findBankByIdId) {
+    _id
+    name
+    payments {
+      _id
+      name
+      payDay
+      bank {
+        _id
+        name
+        color
+      }
+      color
+    }
+    color
+    incomes {
+      _id
+      name
+      description
+      amount
+      depositDate
+      temporary
+    }
+    expenditures {
+      _id
+      name
+      description
+      amount
+      payDay
+      temporary
+      tax {
+        _id
+        name
+      }
+      loan {
+        _id
+        name
+      }
+      fixedCost {
+        _id
+        name
+      }
+      sop {
+        _id
+        name
+      }
+      subscriber {
+        _id
+        name
+      }
+      duplexingAvoidanceID
+      payment {
+        _id
+        color
+        name
+        payDay
+      }
+    }
+    branchName
+  }
+}
