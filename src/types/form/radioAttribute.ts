@@ -28,4 +28,3 @@ interface UncontrolledProps extends BaseProps { // eslint-disable-line no-unused
 }
 
 export type InputProps = ControlledProps //  | UncontrolledProps
-
