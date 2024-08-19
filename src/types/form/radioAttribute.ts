@@ -1,11 +1,11 @@
-// import { Control, ControllerRenderProps } from 'react-hook-form'
+import { Control, ControllerRenderProps } from 'react-hook-form'
 
 import { RADIO_DATA } from '@/const/form/RadioData'
 
 export type InputValue = string
-export type DefaultValuesType = Record<keyof typeof RADIO_DATA, InputProps>
+export type DefaultValuesType = Record<keyof typeof RADIO_DATA, InputValue>
 
-export type RadioFiled = any // ControllerRenderProps<DefaultValuesType>
+export type RadioFiled = ControllerRenderProps<DefaultValuesType>
 
 export type RadioElementType = {
   value: InputValue
@@ -15,7 +15,7 @@ export type RadioElementType = {
 interface BaseProps {
   id: string
   label?: string
-  control?: any // Control<DefaultValuesType, any>
+  control?: Control<DefaultValuesType, any>
 }
 interface ControlledProps extends BaseProps {
   value?: InputValue
@@ -29,5 +29,3 @@ interface UncontrolledProps extends BaseProps { // eslint-disable-line no-unused
 
 export type InputProps = ControlledProps //  | UncontrolledProps
 
-export type ChakuraUISizeTypes = 'xs' | 'sm' | 'md' | 'lg'
-export type ChakuraUIVariantTypes = 'outline' | 'filled' | 'flushed' | 'unstyled'

@@ -51,6 +51,10 @@ export const TEMPORALLY = zod
   .length(11, { message: ERROR_MESSAGE[9] })
   .regex(POST_CODE_WITH_HYPHEN, { message: ERROR_MESSAGE[11] })
 
+export const RADIO_SCHEME = zod
+  .string()
+  .min(1, { message: requiredMessage })
+
 export const SCHEMA = zod.object({
   email: EMAIL_SCHEMA,
   firstName: NAME_SCHEMA,

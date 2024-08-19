@@ -1,6 +1,7 @@
 import { AUTO_COMPLETE_OPTIONS } from '@/const/form/AutoCompleteOptions'
 
-import type { InputProps, InputStyleChakura } from '@/types/form/InputAttribute'
+import type { InputProps } from '@/types/form/InputAttribute'
+import type { InputStyleChakura } from '@/types/form/InputStyle'
 
 type Props = Pick<InputProps, 'readonly'> &
   InputStyleChakura

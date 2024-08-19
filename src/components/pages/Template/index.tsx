@@ -17,7 +17,7 @@ export const Template: React.FC<Props> = ({}): JSX.Element => {
   const defaultValues: DefaultValuesType = {
     bankName: 'ああ',
     bankBranchName: 'ああ',
-    test: '3'
+    test: '5'
   }
 
   const { scheme } = useSetZodScheme(defaultValues)
@@ -38,7 +38,7 @@ export const Template: React.FC<Props> = ({}): JSX.Element => {
     control
   }
 
-  const onSubmit = (data: DefaultValuesType) => {
+  const onSubmit = (data: any) => {
     console.info(data)
   }
 
