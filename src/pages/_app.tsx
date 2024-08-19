@@ -3,9 +3,12 @@ import * as React from 'react'
 import { ChakraProvider } from '@chakra-ui/react'
 import { Provider as ReduxProvider } from 'react-redux'
 
+
 import store from '@/stores'
 
 import { theme } from '@/const/Theme'
+
+import { AppFrame } from '@/components/layouts/AppFrame'
 
 import type { AppProps } from 'next/app'
 
@@ -13,7 +16,9 @@ export default function App ({ Component, pageProps }: AppProps): React.ReactEle
   return (
     <ChakraProvider theme={theme}>
       <ReduxProvider store={store}>
-        <Component {...pageProps} />
+        <AppFrame>
+          <Component {...pageProps} />
+        </AppFrame>
       </ReduxProvider>
     </ChakraProvider>
   )
