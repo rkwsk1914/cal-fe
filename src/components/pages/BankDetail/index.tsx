@@ -1,6 +1,8 @@
 import * as React from 'react'
 
-import { FromTemplate, DefaultValuesType } from '@/components/templates/FromTemplate'
+import { FromTemplate } from '@/components/templates/FromTemplate'
+
+import type { DefaultValuesType } from '@/types/form/InputAttribute'
 
 type Props = {};
 

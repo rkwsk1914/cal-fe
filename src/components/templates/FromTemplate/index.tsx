@@ -10,7 +10,7 @@ import { TEXT_INPUT_DATA } from '@/const/form/TextInputData'
 import { Button } from '@/components/atoms/Button'
 import { InputController } from '@/components/organisms/InputController'
 
-export type DefaultValuesType = Record<keyof typeof TEXT_INPUT_DATA, string | number | boolean | null | undefined>
+import type { DefaultValuesType } from '@/types/form/InputAttribute'
 
 type Props = {
   defaultValues: DefaultValuesType

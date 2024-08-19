@@ -1,17 +1,21 @@
 
 import { Control } from 'react-hook-form'
 
-import { AutoCompleteType } from './AutoCompleteType'
-import { TextInputTypeOptionType } from './TextInputTypeOptionType'
+import { TEXT_INPUT_DATA } from '@/const/form/TextInputData'
+
+import type { AutoCompleteType } from './AutoCompleteType'
+import type { TextInputTypeOptionType } from './TextInputTypeOptionType'
 
 //  | number | boolean | nullは許容しない
-type InputValue = string | number | undefined | boolean
+type InputValue = string | number | readonly string[] | undefined
+
+export type DefaultValuesType = Record<keyof typeof TEXT_INPUT_DATA, InputValue>
 
 interface BaseProps {
   id?: string
   label?: string
   readonly? :boolean
-  control?: Control<any>
+  control?: Control<DefaultValuesType, any>
 }
 interface ControlledProps extends BaseProps {
   value?: InputValue

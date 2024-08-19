@@ -17,17 +17,9 @@ import styles from './style.module.scss'
 
 import type { TextInputProps } from '@/types/form'
 
-type Props = {
-  isError: boolean
-  helperText?: string
-  arrangement?: 'vertically' | 'horizontally'
-  inputProps: TextInputProps
-  trigger: () => void
-};
-
 // InputMask に渡せる一般的な props の型を定義
 interface InputMaskProps {
-  mask: string;
+  mask?: string;
   value?: string;
   onChange?: (_event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (_event: React.FocusEvent<HTMLInputElement>) => void;
@@ -40,10 +32,17 @@ interface InputMaskProps {
 }
 
 const MaskedInput = React.forwardRef<HTMLInputElement, InputMaskProps>((props, ref) => (
-  <InputMask {...props} maskChar="" inputRef={ref} />
+  <InputMask {...props} mask={props.mask ?? ''} maskChar="" inputRef={ref} />
 ))
 MaskedInput.displayName = 'MyComponent'
 
+type Props = {
+  isError: boolean
+  helperText?: string
+  arrangement?: 'vertically' | 'horizontally'
+  inputProps: TextInputProps
+  trigger: () => void
+};
 
 export const InputText: React.FC<Props> = ({
   isError,
