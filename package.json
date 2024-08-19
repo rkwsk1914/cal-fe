@@ -19,6 +19,9 @@
     "test": "jest --passWithNoTests",
     "test-silent": "jest --silent --passWithNoTests"
   },
+  "lint-staged": {
+    "*.{js,ts,tsx}": "npm run fix && npm run build"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^2.1.0",
     "@vitejs/plugin-react": "^4.2.1",
@@ -74,7 +77,7 @@
     "html2canvas": "^1.4.1",
     "husky": "^8.0.0",
     "jest-environment-jsdom": "^29.7.0",
-    "lint-staged": "^15.2.2",
+    "lint-staged": "^15.2.9",
     "postcss": "^8",
     "postcss-loader": "^8.1.0",
     "react-input-mask": "^2.0.4",
