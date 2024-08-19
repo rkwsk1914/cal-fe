@@ -40,7 +40,7 @@ interface InputMaskProps {
 }
 
 const MaskedInput = React.forwardRef<HTMLInputElement, InputMaskProps>((props, ref) => (
-  <InputMask {...props} inputRef={ref} />
+  <InputMask {...props} maskChar="" inputRef={ref} />
 ))
 MaskedInput.displayName = 'MyComponent'
 

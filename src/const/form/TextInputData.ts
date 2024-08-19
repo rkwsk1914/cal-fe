@@ -121,9 +121,8 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     inputTextArgs: {
       type: 'text',
       placeholder: '〇〇銀行',
-      mask: 'aaaa',
     },
-    zod: ZodSchema.TEMPORALLY
+    zod: ZodSchema.TEXT_AREA_SCHEMA
   },
   bankBranchName: {
     id: 'bankBranchName',
@@ -131,8 +130,8 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     inputTextArgs: {
       type: 'text',
       placeholder: '〇〇支店',
-      mask: 'aaaa',
+      mask: '9999,9999'
     },
-    zod: ZodSchema.TEMPORALLY
+    zod: ZodSchema.TEXT_AREA_SCHEMA
   },
 } as const
