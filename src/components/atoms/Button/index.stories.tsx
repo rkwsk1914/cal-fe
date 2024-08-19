@@ -6,21 +6,18 @@ import { INPUT_ATTRIBUTE_OPTIONS } from '@/const/OptionStorybook'
 
 import { Button as StoryComponent } from '.'
 
-
 export default {
   title: 'atoms/Button',
   component: StoryComponent,
   argTypes: {
     size: INPUT_ATTRIBUTE_OPTIONS.size,
-    onClick: { action: 'clicked' }
-  }
+    onClick: { action: 'clicked' },
+  },
 } as Meta<typeof StoryComponent>
 
 const Template: StoryFn<typeof StoryComponent> = (
-  args: React.ComponentProps<typeof StoryComponent>
-) => (
-  <StoryComponent {...args}></StoryComponent>
-)
+  args: React.ComponentProps<typeof StoryComponent>,
+) => <StoryComponent {...args}></StoryComponent>
 
 export const Default = Template.bind({})
 Default.args = {

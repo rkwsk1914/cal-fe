@@ -2,6 +2,7 @@ const path = require('path');
 
 module.exports = {
   stories: ["../src/components/**/*.stories.@(js|jsx|ts|tsx)"],
+
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
@@ -9,18 +10,24 @@ module.exports = {
     "@storybook/addon-actions",
     "@storybook/addon-docs",
     "@storybook/addon-a11y",
+    "@chromatic-com/storybook"
   ],
+
   features: {
     emotionAlias: false,
   },
+
   framework: {
     name: "@storybook/nextjs",
     options: {}
   },
+
   staticDirs: ['../public'],
+
   core: {
     builder: "@storybook/builder-webpack5"
   },
+
   webpackFinal: async config => {
     config.resolve.alias = {
       ...config.resolve.alias,
@@ -47,10 +54,14 @@ module.exports = {
       ...config
     };
   },
-  docs: {
-    autodocs: false,
-  },
+
+  docs: {},
+
   refs: {
     '@chakra-ui/react': { disable: true },
+  },
+
+  typescript: {
+    reactDocgen: "react-docgen-typescript"
   }
 };
