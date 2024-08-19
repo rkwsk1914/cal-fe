@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { useSetZodScheme }from '@/hooks/form/useSetZodScheme'
 
 import { FromLayout } from '@/components/layouts/FromLayout'
+import { CheckBoxController } from '@/components/organisms/CheckBoxController'
 import { InputController } from '@/components/organisms/InputController'
 import { RadioController } from '@/components/organisms/RadioController'
 
@@ -17,7 +18,8 @@ export const Template: React.FC<Props> = ({}): JSX.Element => {
   const defaultValues: DefaultValuesType = {
     bankName: 'ああ',
     bankBranchName: 'ああ',
-    test: '5'
+    test: '5',
+    testCheck: ['5', '1']
   }
 
   const { scheme } = useSetZodScheme(defaultValues)
@@ -54,6 +56,18 @@ export const Template: React.FC<Props> = ({}): JSX.Element => {
       />
       <RadioController
         name="test"
+        {...args}
+        data={[
+          { value: '1', label: 'itemA' },
+          { value: '2', label: 'itemB' },
+          { value: '3', label: 'itemC' },
+          { value: '4', label: 'itemD' },
+          { value: '5', label: 'itemE' },
+          { value: '6', label: 'itemAF' },
+        ]}
+      />
+      <CheckBoxController
+        name="testCheck"
         {...args}
         data={[
           { value: '1', label: 'itemA' },

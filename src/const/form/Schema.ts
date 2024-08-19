@@ -55,6 +55,9 @@ export const RADIO_SCHEME = zod
   .string()
   .min(1, { message: requiredMessage })
 
+export const CHECKBOX_SCHEME = zod
+  .array(zod.string()).nonempty(requiredMessage)
+
 export const SCHEMA = zod.object({
   email: EMAIL_SCHEMA,
   firstName: NAME_SCHEMA,

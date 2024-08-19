@@ -1,5 +1,6 @@
 import * as zod from 'zod'
 
+import { CHECKBOX_DATA } from '@/const/form/CheckBoxData'
 import { RADIO_DATA } from '@/const/form/RadioData'
 import { TEXT_INPUT_DATA } from '@/const/form/TextInputData'
 
@@ -13,6 +14,9 @@ export const useSetZodScheme = (defaultValues: DefaultValuesType) => {
       }
       if (RADIO_DATA[key]) {
         schema[key] = RADIO_DATA[key].zod
+      }
+      if (CHECKBOX_DATA[key]) {
+        schema[key] = CHECKBOX_DATA[key].zod
       }
       return schema
     }, {} as Record<string, zod.ZodString>)
