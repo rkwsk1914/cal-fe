@@ -2,7 +2,7 @@ import * as zod from 'zod'
 
 import * as ZodSchema from '@/const/form/Schema'
 
-import { TextInputProps } from '@/types/form'
+import { TextInputProps } from '@/types/form/InputAttribute'
 
 type TextInputDataType = Record<
   string,

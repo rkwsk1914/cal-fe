@@ -15,7 +15,7 @@ import { useGetDarkModeStyleClass } from '@/hooks/useGetDarkModeStyleClass'
 
 import styles from './style.module.scss'
 
-import type { TextInputProps } from '@/types/form'
+import type { TextInputProps } from '@/types/form/InputAttribute'
 
 // InputMask に渡せる一般的な props の型を定義
 interface InputMaskProps {

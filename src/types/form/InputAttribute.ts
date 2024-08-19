@@ -1,13 +1,15 @@
 
 import { Control } from 'react-hook-form'
 
+import { AUTO_COMPLETE_OPTIONS } from '@/const/form/AutoCompleteOptions'
 import { TEXT_INPUT_DATA } from '@/const/form/TextInputData'
 
-import type { AutoCompleteType } from './AutoCompleteType'
 import type { TextInputTypeOptionType } from './TextInputTypeOptionType'
 
+type AutoCompleteType = typeof AUTO_COMPLETE_OPTIONS[number]
+
 //  | number | boolean | nullは許容しない
-type InputValue = string | number | readonly string[] | undefined
+export type InputValue = string | number | readonly string[] | undefined
 
 export type DefaultValuesType = Record<keyof typeof TEXT_INPUT_DATA, InputValue>
 
