@@ -7,6 +7,7 @@ import { useSetZodScheme }from '@/hooks/form/useSetZodScheme'
 
 import { FromLayout } from '@/components/layouts/FromLayout'
 import { InputController } from '@/components/organisms/InputController'
+import { RadioController } from '@/components/organisms/RadioController'
 
 import type { DefaultValuesType } from '@/types/form/InputAttribute'
 
@@ -14,8 +15,9 @@ type Props = {};
 
 export const Template: React.FC<Props> = ({}): JSX.Element => {
   const defaultValues: DefaultValuesType = {
-    bankName: '',
-    bankBranchName: ''
+    bankName: 'ああ',
+    bankBranchName: 'ああ',
+    test: '3'
   }
 
   const { scheme } = useSetZodScheme(defaultValues)
@@ -49,6 +51,18 @@ export const Template: React.FC<Props> = ({}): JSX.Element => {
       <InputController
         name="bankBranchName"
         {...args}
+      />
+      <RadioController
+        name="test"
+        {...args}
+        data={[
+          { value: '1', label: 'itemA' },
+          { value: '2', label: 'itemB' },
+          { value: '3', label: 'itemC' },
+          { value: '4', label: 'itemD' },
+          { value: '5', label: 'itemE' },
+          { value: '6', label: 'itemAF' },
+        ]}
       />
     </FromLayout>
   )

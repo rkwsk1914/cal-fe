@@ -13,10 +13,9 @@ export type RadioElementType = {
 }[]
 
 interface BaseProps {
-  id?: string
+  id: string
   label?: string
   control?: any // Control<DefaultValuesType, any>
-  data: RadioElementType
 }
 interface ControlledProps extends BaseProps {
   value?: InputValue

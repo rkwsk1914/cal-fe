@@ -4,12 +4,12 @@
 
 import { InputProps } from '@/types/form/radioAttribute'
 
-type TextInputDataType = Record<
+type InputDataType = Record<
   string,
   Omit<InputProps, 'data'> // & { zod: zod.ZodString}
 >
 
-export const RADIO_DATA: TextInputDataType = {
+export const RADIO_DATA: InputDataType = {
   test: {
     id: 'test',
     label: 'ラジオテスト',

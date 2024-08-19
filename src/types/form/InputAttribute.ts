@@ -13,7 +13,7 @@ export type InputValue = string | number | readonly string[] | undefined
 export type DefaultValuesType = Record<keyof typeof TEXT_INPUT_DATA, InputValue>
 
 interface BaseProps {
-  id?: string
+  id: string
   label?: string
   readonly? :boolean
   control?: Control<DefaultValuesType, any>

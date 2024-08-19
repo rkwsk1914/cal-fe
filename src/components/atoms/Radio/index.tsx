@@ -11,7 +11,7 @@ type RefProps = {
 
 export const Radio = React.forwardRef(
   function RefComponent (
-    { data, field }: RefProps,
+    { data, field, }: RefProps,
     _ref?: React.Ref<HTMLInputElement>
   ): JSX.Element {
     return (
@@ -19,7 +19,7 @@ export const Radio = React.forwardRef(
         <Grid templateColumns='repeat(4, 1fr)' gap={4}>
           {data.map((item) => (
             <React.Fragment key={item.label}>
-              <ChakuraUIRadio value={item.value}>{item.label}</ChakuraUIRadio>
+              <ChakuraUIRadio name={field.name} value={item.value}>{item.label}</ChakuraUIRadio>
             </React.Fragment>
           ))}
         </Grid>

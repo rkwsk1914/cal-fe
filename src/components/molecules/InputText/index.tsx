@@ -73,7 +73,7 @@ export const InputText: React.FC<Props> = ({
         <div className={styles.content}>
           {control ? (
           <Controller
-            name={id ?? ''}
+            name={id}
             control={control}
             render={({ field }) => (
               <ChakuraInput

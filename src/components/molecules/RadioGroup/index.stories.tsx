@@ -23,16 +23,17 @@ Default.args = {
   isError: true,
   helperText: 'いろいろ間違ってます',
   inputProps: {
+    id: 'email',
     label: 'Email',
-    data: [
-      { value: '1', label: 'itemA' },
-      { value: '2', label: 'itemB' },
-      { value: '3', label: 'itemC' },
-      { value: '4', label: 'itemD' },
-      { value: '5', label: 'itemE' },
-      { value: '6', label: 'itemAF' },
-    ]
   },
+  data: [
+    { value: '1', label: 'itemA' },
+    { value: '2', label: 'itemB' },
+    { value: '3', label: 'itemC' },
+    { value: '4', label: 'itemD' },
+    { value: '5', label: 'itemE' },
+    { value: '6', label: 'itemAF' },
+  ]
 }
 
 export const Vertically = Template.bind({})
@@ -41,14 +42,15 @@ Vertically.args = {
   helperText: 'いろいろ間違ってます',
   arrangement: 'vertically',
   inputProps: {
+    id: 'email',
     label: 'Email',
-    data: [
-      { value: '1', label: 'itemA' },
-      { value: '2', label: 'itemB' },
-      { value: '3', label: 'itemC' },
-      { value: '4', label: 'itemD' },
-      { value: '5', label: 'itemE' },
-      { value: '6', label: 'itemAF' },
-    ]
   },
+  data: [
+    { value: '1', label: 'itemA' },
+    { value: '2', label: 'itemB' },
+    { value: '3', label: 'itemC' },
+    { value: '4', label: 'itemD' },
+    { value: '5', label: 'itemE' },
+    { value: '6', label: 'itemAF' },
+  ]
 }

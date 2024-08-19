@@ -130,7 +130,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     inputTextArgs: {
       type: 'text',
       placeholder: '〇〇支店',
-      mask: '9999,9999'
     },
     zod: ZodSchema.TEXT_AREA_SCHEMA
   },
