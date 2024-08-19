@@ -15,4 +15,9 @@ export const RADIO_DATA: InputDataType = {
     label: 'ラジオテスト',
     zod: ZodSchema.RADIO_SCHEME
   },
+  bank: {
+    id: 'bank',
+    label: '引き落とし口座',
+    zod: ZodSchema.RADIO_SCHEME
+  },
 } as const
