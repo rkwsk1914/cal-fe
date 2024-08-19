@@ -23,6 +23,7 @@ Default.args = {
   isError: true,
   helperText: 'いろいろ間違ってます',
   inputProps: {
+    id: 'email',
     label: 'Email',
     inputTextArgs: {},
   },
@@ -35,6 +36,7 @@ Vertically.args = {
   arrangement: 'vertically',
   inputProps: {
     label: 'Email',
+    id: 'email',
     inputTextArgs: {},
   },
 }
