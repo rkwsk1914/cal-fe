@@ -86,7 +86,7 @@ export const InputText: React.FC<Props> = ({
           />
           ): (
             <ChakuraInput
-              as={InputMask}
+              as={MaskedInput}
               {...inputTextArgs}
             />
           )}
