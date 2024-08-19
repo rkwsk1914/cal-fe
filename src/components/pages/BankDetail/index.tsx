@@ -15,15 +15,18 @@ type Props = {};
 export const BankDetail: React.FC<Props> = ({}): JSX.Element => {
   const SCHEMA = zod.object({
     bankName: TEXT_INPUT_DATA.bankName.zod,
+    bankBranchName: TEXT_INPUT_DATA.bankBranchName.zod
   })
 
   const {
     handleSubmit,
     control,
+    trigger,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      bankName: ''
+      bankName: '',
+      bankBranchName: ''
     },
     resolver: zodResolver(SCHEMA),
   })
@@ -41,6 +44,16 @@ export const BankDetail: React.FC<Props> = ({}): JSX.Element => {
           control,
           ...TEXT_INPUT_DATA.bankName
         }}
+        trigger={() => trigger('bankName')}
+      />
+      <InputText
+        isError={!!errors.bankBranchName}
+        helperText={errors.bankBranchName?.message as string}
+        inputProps={{
+          control,
+          ...TEXT_INPUT_DATA.bankBranchName
+        }}
+        trigger={() => trigger('bankBranchName')}
       />
       <Button submit>保存</Button>
     </form>

@@ -22,6 +22,7 @@ type Props = {
   helperText?: string
   arrangement?: 'vertically' | 'horizontally'
   inputProps: TextInputProps
+  trigger: () => void
 };
 
 // InputMask に渡せる一般的な props の型を定義
@@ -49,6 +50,7 @@ export const InputText: React.FC<Props> = ({
   helperText,
   arrangement = 'horizontally',
   inputProps,
+  trigger,
 }): JSX.Element => {
   const {
     label,
@@ -79,6 +81,7 @@ export const InputText: React.FC<Props> = ({
                 as={MaskedInput}
                 {...inputTextArgs}
                 {...field}
+                onBlur={trigger}
               />
             )}
           />
