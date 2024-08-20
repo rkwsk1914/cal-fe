@@ -17,11 +17,11 @@ type Props = ApolloQueryResult<FindBankByIdQuery>;
 
 export const BankDetail: React.FC<Props> = (props): JSX.Element => {
   const { data } = props
-  const res = data.findBankByID
+  const res = data?.findBankByID
 
   const defaultValues: DefaultValuesType = {
-    bankName: res.name,
-    bankBranchName: res.branchName ?? ''
+    bankName: res?.name ?? '',
+    bankBranchName: res?.branchName ?? ''
   }
 
   const { scheme } = useSetZodScheme(defaultValues)

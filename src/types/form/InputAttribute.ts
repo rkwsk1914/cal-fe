@@ -31,11 +31,8 @@ interface UncontrolledProps extends BaseProps { // eslint-disable-line no-unused
 
 export type InputProps = ControlledProps //  | UncontrolledProps
 
-type reactInputMaskType = string
-
 export type TextInputProps = InputProps & {
   inputTextArgs: {
-    mask?: reactInputMaskType
     type?: TextInputTypeOptionType
     autoComplete?: AutoCompleteType
     autoFocus?: boolean

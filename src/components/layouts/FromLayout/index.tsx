@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Button } from '@/components/atoms/Button'
+import { Button } from '@chakra-ui/react'
 
 import styles from './style.module.scss'
 
@@ -18,7 +18,7 @@ export const FromLayout: React.FC<Props> = ({
     <form onSubmit={handleSubmit}>
       <div className={styles.content}>
         {children}
-        <Button type='prime' submit>保存</Button>
+        <Button type='submit'>保存</Button>
       </div>
     </form>
   )

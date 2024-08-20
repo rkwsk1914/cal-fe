@@ -9,7 +9,6 @@ import {
 import { Input as ChakuraInput } from '@chakra-ui/react'
 import clsx from 'clsx'
 import { Controller } from 'react-hook-form'
-import InputMask from 'react-input-mask'
 
 import { useGetDarkModeStyleClass } from '@/hooks/useGetDarkModeStyleClass'
 
@@ -17,24 +16,6 @@ import styles from './style.module.scss'
 
 import type { TextInputProps } from '@/types/form/InputAttribute'
 
-// InputMask に渡せる一般的な props の型を定義
-interface InputMaskProps {
-  mask?: string;
-  value?: string;
-  onChange?: (_event: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (_event: React.FocusEvent<HTMLInputElement>) => void;
-  onFocus?: (_event: React.FocusEvent<HTMLInputElement>) => void;
-  disabled?: boolean;
-  maskPlaceholder?: string | null;
-  alwaysShowMask?: boolean;
-  inputRef?: React.Ref<HTMLInputElement>;
-  // 他の必要な props を追加
-}
-
-const MaskedInput = React.forwardRef<HTMLInputElement, InputMaskProps>((props, ref) => (
-  <InputMask {...props} mask={props.mask ?? ''} maskChar="" inputRef={ref} />
-))
-MaskedInput.displayName = 'MyComponent'
 
 type Props = {
   isError: boolean
@@ -78,7 +59,6 @@ export const InputText: React.FC<Props> = ({
             control={control}
             render={({ field }) => (
               <ChakuraInput
-                as={MaskedInput}
                 {...inputTextArgs}
                 {...field}
                 onBlur={(e) => {
@@ -93,7 +73,6 @@ export const InputText: React.FC<Props> = ({
           />
           ): (
             <ChakuraInput
-              as={MaskedInput}
               {...inputTextArgs}
             />
           )}
