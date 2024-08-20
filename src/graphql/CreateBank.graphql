@@ -1,0 +1,6 @@
+mutation CreateBank($input: CreateBankInput!) {
+  createBank(input: $input) {
+    message
+    success
+  }
+}

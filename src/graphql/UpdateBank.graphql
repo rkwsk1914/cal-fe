@@ -1,0 +1,6 @@
+mutation UpdateBank($updateBankId: String!, $input: UpdateBankInput!) {
+  updateBank(id: $updateBankId, input: $input) {
+    success
+    message
+  }
+}

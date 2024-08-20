@@ -4,7 +4,7 @@ import type { NextPage } from 'next'
 
 const Bank: NextPage = () => {
   return (
-    <BankDetail></BankDetail>
+    <BankDetail />
   )
 }
 

@@ -1,13 +1,13 @@
-import { gql } from '@apollo/client'
-import * as Apollo from '@apollo/client'
-export type Maybe<T> = T | null
-;export type InputMaybe<T> = Maybe<T>
-;export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
-;export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> }
-;export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
-;export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never }
-;export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never }
-;const defaultOptions = {} as const
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -16,8 +16,9 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   DateTime: { input: any; output: any; }
-}
-;export type Bank = {
+};
+
+export type Bank = {
   __typename?: 'Bank';
   /** MongoDB Id */
   _id: Scalars['ID']['output'];
@@ -33,8 +34,9 @@ export type Scalars = {
   name: Scalars['String']['output'];
   /** 支払い方法 */
   payments: Array<Payment>;
-}
-;export type BankBalance = {
+};
+
+export type BankBalance = {
   __typename?: 'BankBalance';
   /** MongoDB Id */
   _id: Scalars['ID']['output'];
@@ -46,24 +48,27 @@ export type Scalars = {
   incomeData: IncomeData;
   /** MongoDB Collection Name。アイテム名 */
   name: Scalars['String']['output'];
-}
-;export type CreateBankBalanceInput = {
+};
+
+export type CreateBankBalanceInput = {
   /** 銀行リレーション */
   bank: Scalars['String']['input'];
   /** 出金データ */
   expenditureData: ExpenditureDataInput;
   /** 入金データ */
   incomeData: IncomeDataInput;
-}
-;export type CreateBankInput = {
+};
+
+export type CreateBankInput = {
   /** 支店名 */
   branchName: Scalars['String']['input'];
   /** 設定カラー */
   color?: InputMaybe<Scalars['String']['input']>;
   /** アイテム名 */
   name: Scalars['String']['input'];
-}
-;export type CreateExpenditureInput = {
+};
+
+export type CreateExpenditureInput = {
   /** 金額 */
   amount: Scalars['Int']['input'];
   /** 説明・備考 */
@@ -86,8 +91,9 @@ export type Scalars = {
   tax?: InputMaybe<Scalars['String']['input']>;
   /** 仮・未確定フラグ */
   temporary?: InputMaybe<Scalars['Boolean']['input']>;
-}
-;export type CreateFixedCostInput = {
+};
+
+export type CreateFixedCostInput = {
   /** 金額 */
   amount: Scalars['Int']['input'];
   /** 説明 */
@@ -100,14 +106,16 @@ export type Scalars = {
   payDay: Scalars['Int']['input'];
   /** 発生日 */
   payment: Scalars['String']['input'];
-}
-;export type CreateFixedCostPatternInput = {
+};
+
+export type CreateFixedCostPatternInput = {
   /** 設定カラー */
   color?: InputMaybe<Scalars['String']['input']>;
   /** アイテム名 */
   name: Scalars['String']['input'];
-}
-;export type CreateIncomeInput = {
+};
+
+export type CreateIncomeInput = {
   /** 金額 */
   amount: Scalars['Int']['input'];
   /** 入金口座 */
@@ -120,8 +128,9 @@ export type Scalars = {
   name: Scalars['String']['input'];
   /** 仮・未確定フラグ */
   temporary?: InputMaybe<Scalars['Boolean']['input']>;
-}
-;export type CreateLoanInput = {
+};
+
+export type CreateLoanInput = {
   /** 支払い総額 */
   amount: Scalars['Int']['input'];
   /** 使用金額 */
@@ -140,8 +149,9 @@ export type Scalars = {
   rate: Scalars['Float']['input'];
   /** 開始日 */
   startDate: Scalars['DateTime']['input'];
-}
-;export type CreateMonthlyDataInput = {
+};
+
+export type CreateMonthlyDataInput = {
   /** バッファ率 */
   bufferRate: Scalars['Float']['input'];
   /** 固定費パターン */
@@ -154,8 +164,9 @@ export type Scalars = {
   savingRate: Scalars['Float']['input'];
   /** 年 */
   year: Scalars['Int']['input'];
-}
-;export type CreatePaymentInput = {
+};
+
+export type CreatePaymentInput = {
   /** 引き落とし講座 */
   bank: Scalars['String']['input'];
   /** 設定カラー */
@@ -164,8 +175,9 @@ export type Scalars = {
   name: Scalars['String']['input'];
   /** 支払日 */
   payDay: Scalars['Int']['input'];
-}
-;export type CreateSopInput = {
+};
+
+export type CreateSopInput = {
   /** 基本支払い額 */
   basePrice: Scalars['Int']['input'];
   /** アイテム名 */
@@ -176,8 +188,9 @@ export type Scalars = {
   payment: Scalars['String']['input'];
   /** 月額支払額 */
   prices: Array<Scalars['Int']['input']>;
-}
-;export type CreateSubscriberInput = {
+};
+
+export type CreateSubscriberInput = {
   /** 基本支払い額 */
   basePrice: Scalars['Int']['input'];
   /** アイテム名 */
@@ -188,16 +201,18 @@ export type Scalars = {
   payment: Scalars['String']['input'];
   /** 月額支払額 */
   prices: Array<Scalars['Int']['input']>;
-}
-;export type CreateTaxInput = {
+};
+
+export type CreateTaxInput = {
   /** 説明 */
   description?: InputMaybe<Scalars['String']['input']>;
   /** アイテム名 */
   name: Scalars['String']['input'];
   /** 支払い方法 */
   payment: Scalars['String']['input'];
-}
-;export type Expenditure = {
+};
+
+export type Expenditure = {
   __typename?: 'Expenditure';
   /** MongoDB Id */
   _id: Scalars['ID']['output'];
@@ -225,8 +240,9 @@ export type Scalars = {
   tax?: Maybe<Tax>;
   /** 仮・未確定フラグ */
   temporary?: Maybe<Scalars['Boolean']['output']>;
-}
-;export type ExpenditureData = {
+};
+
+export type ExpenditureData = {
   __typename?: 'ExpenditureData';
   /** 先月までの出金総額 */
   beginningMonthExpenditure: Scalars['Int']['output'];
@@ -234,16 +250,18 @@ export type Scalars = {
   nowMonthExpenditure: Scalars['Int']['output'];
   /** 今月の出入金総額 */
   temporaryNowMonthExpenditure: Scalars['Int']['output'];
-}
-;export type ExpenditureDataInput = {
+};
+
+export type ExpenditureDataInput = {
   /** 先月までの出金総額 */
   beginningMonthExpenditure: Scalars['Int']['input'];
   /** 今月の出金総額 */
   nowMonthExpenditure: Scalars['Int']['input'];
   /** 今月の出入金総額 */
   temporaryNowMonthExpenditure: Scalars['Int']['input'];
-}
-;export type FixedCost = {
+};
+
+export type FixedCost = {
   __typename?: 'FixedCost';
   /** MongoDB Id */
   _id: Scalars['ID']['output'];
@@ -259,8 +277,9 @@ export type Scalars = {
   payDay: Scalars['Int']['output'];
   /** 支払い方法 */
   payment: Payment;
-}
-;export type FixedCostPattern = {
+};
+
+export type FixedCostPattern = {
   __typename?: 'FixedCostPattern';
   /** MongoDB Id */
   _id: Scalars['ID']['output'];
@@ -270,8 +289,9 @@ export type Scalars = {
   detail?: Maybe<Array<FixedCost>>;
   /** MongoDB Collection Name。アイテム名 */
   name: Scalars['String']['output'];
-}
-;export type Income = {
+};
+
+export type Income = {
   __typename?: 'Income';
   /** MongoDB Id */
   _id: Scalars['ID']['output'];
@@ -287,8 +307,9 @@ export type Scalars = {
   name: Scalars['String']['output'];
   /** 仮・未確定フラグ */
   temporary?: Maybe<Scalars['Boolean']['output']>;
-}
-;export type IncomeData = {
+};
+
+export type IncomeData = {
   __typename?: 'IncomeData';
   /** 先月までの入金総額 */
   beginningMonthIncome: Scalars['Int']['output'];
@@ -296,16 +317,18 @@ export type Scalars = {
   nowMonthIncome: Scalars['Int']['output'];
   /** 今月の仮入金総額 */
   temporaryNowMonthIncome: Scalars['Int']['output'];
-}
-;export type IncomeDataInput = {
+};
+
+export type IncomeDataInput = {
   /** 先月までの入金総額 */
   beginningMonthIncome: Scalars['Int']['input'];
   /** 今月の入金総額 */
   nowMonthIncome: Scalars['Int']['input'];
   /** 今月の仮入金総額 */
   temporaryNowMonthIncome: Scalars['Int']['input'];
-}
-;export type Loan = {
+};
+
+export type Loan = {
   __typename?: 'Loan';
   /** MongoDB Id */
   _id: Scalars['ID']['output'];
@@ -329,8 +352,9 @@ export type Scalars = {
   rate: Scalars['Float']['output'];
   /** 開始日 */
   startDate: Scalars['DateTime']['output'];
-}
-;export type MonthlyData = {
+};
+
+export type MonthlyData = {
   __typename?: 'MonthlyData';
   /** MongoDB Id */
   _id: Scalars['ID']['output'];
@@ -370,8 +394,9 @@ export type Scalars = {
   sumIncomeTemporary: Scalars['Int']['output'];
   /** 年 */
   year: Scalars['Int']['output'];
-}
-;export type Mutation = {
+};
+
+export type Mutation = {
   __typename?: 'Mutation';
   createBank: MutationSuccessResGraphQl;
   createExpenditure: MutationSuccessResGraphQl;
@@ -406,123 +431,191 @@ export type Scalars = {
   updateSop: MutationSuccessResGraphQl;
   updateSubscriber: MutationSuccessResGraphQl;
   updateTax: MutationSuccessResGraphQl;
-}
-;export type MutationCreateBankArgs = {
+};
+
+
+export type MutationCreateBankArgs = {
   input: CreateBankInput;
-}
-;export type MutationCreateExpenditureArgs = {
+};
+
+
+export type MutationCreateExpenditureArgs = {
   input: CreateExpenditureInput;
-}
-;export type MutationCreateFixedCostArgs = {
+};
+
+
+export type MutationCreateFixedCostArgs = {
   input: CreateFixedCostInput;
-}
-;export type MutationCreateFixedCostPatternArgs = {
+};
+
+
+export type MutationCreateFixedCostPatternArgs = {
   input: CreateFixedCostPatternInput;
-}
-;export type MutationCreateIncomeArgs = {
+};
+
+
+export type MutationCreateIncomeArgs = {
   input: CreateIncomeInput;
-}
-;export type MutationCreateLoanArgs = {
+};
+
+
+export type MutationCreateLoanArgs = {
   input: CreateLoanInput;
-}
-;export type MutationCreateMonthlyDataArgs = {
+};
+
+
+export type MutationCreateMonthlyDataArgs = {
   input: CreateMonthlyDataInput;
-}
-;export type MutationCreatePaymentArgs = {
+};
+
+
+export type MutationCreatePaymentArgs = {
   input: CreatePaymentInput;
-}
-;export type MutationCreateSopArgs = {
+};
+
+
+export type MutationCreateSopArgs = {
   input: CreateSopInput;
-}
-;export type MutationCreateSubscriberArgs = {
+};
+
+
+export type MutationCreateSubscriberArgs = {
   input: CreateSubscriberInput;
-}
-;export type MutationCreateTaxArgs = {
+};
+
+
+export type MutationCreateTaxArgs = {
   input: CreateTaxInput;
-}
-;export type MutationDeleteBankArgs = {
+};
+
+
+export type MutationDeleteBankArgs = {
   id: Scalars['String']['input'];
-}
-;export type MutationDeleteExpenditureArgs = {
+};
+
+
+export type MutationDeleteExpenditureArgs = {
   id: Scalars['String']['input'];
-}
-;export type MutationDeleteFixedCostArgs = {
+};
+
+
+export type MutationDeleteFixedCostArgs = {
   id: Scalars['String']['input'];
-}
-;export type MutationDeleteFixedCostPatternArgs = {
+};
+
+
+export type MutationDeleteFixedCostPatternArgs = {
   id: Scalars['String']['input'];
-}
-;export type MutationDeleteIncomeArgs = {
+};
+
+
+export type MutationDeleteIncomeArgs = {
   id: Scalars['String']['input'];
-}
-;export type MutationDeleteLoanArgs = {
+};
+
+
+export type MutationDeleteLoanArgs = {
   id: Scalars['String']['input'];
-}
-;export type MutationDeleteMonthlyDataArgs = {
+};
+
+
+export type MutationDeleteMonthlyDataArgs = {
   id: Scalars['String']['input'];
-}
-;export type MutationDeletePaymentArgs = {
+};
+
+
+export type MutationDeletePaymentArgs = {
   id: Scalars['String']['input'];
-}
-;export type MutationDeleteSopArgs = {
+};
+
+
+export type MutationDeleteSopArgs = {
   id: Scalars['String']['input'];
-}
-;export type MutationDeleteSubscriberArgs = {
+};
+
+
+export type MutationDeleteSubscriberArgs = {
   id: Scalars['String']['input'];
-}
-;export type MutationDeleteTaxArgs = {
+};
+
+
+export type MutationDeleteTaxArgs = {
   id: Scalars['String']['input'];
-}
-;export type MutationUpdateBankArgs = {
+};
+
+
+export type MutationUpdateBankArgs = {
   id: Scalars['String']['input'];
   input: UpdateBankInput;
-}
-;export type MutationUpdateExpenditureArgs = {
+};
+
+
+export type MutationUpdateExpenditureArgs = {
   id: Scalars['String']['input'];
   input: UpdateExpenditureInput;
-}
-;export type MutationUpdateFixedCostArgs = {
+};
+
+
+export type MutationUpdateFixedCostArgs = {
   id: Scalars['String']['input'];
   input: UpdateFixedCostInput;
-}
-;export type MutationUpdateFixedCostPatternArgs = {
+};
+
+
+export type MutationUpdateFixedCostPatternArgs = {
   id: Scalars['String']['input'];
   input: UpdateFixedCostPatternInput;
-}
-;export type MutationUpdateIncomeArgs = {
+};
+
+
+export type MutationUpdateIncomeArgs = {
   id: Scalars['String']['input'];
   input: UpdateIncomeInput;
-}
-;export type MutationUpdateLoanArgs = {
+};
+
+
+export type MutationUpdateLoanArgs = {
   id: Scalars['String']['input'];
   input: UpdateLoanInput;
-}
-;export type MutationUpdateMonthlyDataArgs = {
+};
+
+
+export type MutationUpdateMonthlyDataArgs = {
   id: Scalars['String']['input'];
   input: UpdateMonthlyDataInput;
-}
-;export type MutationUpdatePaymentArgs = {
+};
+
+
+export type MutationUpdatePaymentArgs = {
   id: Scalars['String']['input'];
   input: UpdatePaymentInput;
-}
-;export type MutationUpdateSopArgs = {
+};
+
+
+export type MutationUpdateSopArgs = {
   id: Scalars['String']['input'];
   input: UpdateSopInput;
-}
-;export type MutationUpdateSubscriberArgs = {
+};
+
+
+export type MutationUpdateSubscriberArgs = {
   id: Scalars['String']['input'];
   input: UpdateSubscriberInput;
-}
-;export type MutationUpdateTaxArgs = {
+};
+
+
+export type MutationUpdateTaxArgs = {
   id: Scalars['String']['input'];
   input: UpdateTaxInput;
-}
-;export type MutationSuccessResGraphQl = {
+};
+
+export type MutationSuccessResGraphQl = {
   __typename?: 'MutationSuccessResGraphQl';
   message: Scalars['String']['output'];
   success: Scalars['Boolean']['output'];
-}
-;export type Payment = {
+};
+
+export type Payment = {
   __typename?: 'Payment';
   /** MongoDB Id */
   _id: Scalars['ID']['output'];
@@ -534,8 +627,9 @@ export type Scalars = {
   name: Scalars['String']['output'];
   /** 支払日 */
   payDay: Scalars['Int']['output'];
-}
-;export type Query = {
+};
+
+export type Query = {
   __typename?: 'Query';
   findAllBanks: Array<Bank>;
   findAllExpenditures: Array<Expenditure>;
@@ -559,41 +653,64 @@ export type Scalars = {
   findSopByID: Sop;
   findSubscriberByID: Subscriber;
   findTaxByID: Tax;
-}
-;export type QueryFindBankByIdArgs = {
+};
+
+
+export type QueryFindBankByIdArgs = {
   id: Scalars['String']['input'];
-}
-;export type QueryFindExpenditureByIdArgs = {
+};
+
+
+export type QueryFindExpenditureByIdArgs = {
   id: Scalars['String']['input'];
-}
-;export type QueryFindFixedCostByIdArgs = {
+};
+
+
+export type QueryFindFixedCostByIdArgs = {
   id: Scalars['String']['input'];
-}
-;export type QueryFindFixedCostPatternByIdArgs = {
+};
+
+
+export type QueryFindFixedCostPatternByIdArgs = {
   id: Scalars['String']['input'];
-}
-;export type QueryFindIncomeByIdArgs = {
+};
+
+
+export type QueryFindIncomeByIdArgs = {
   id: Scalars['String']['input'];
-}
-;export type QueryFindLoanByIdArgs = {
+};
+
+
+export type QueryFindLoanByIdArgs = {
   id: Scalars['String']['input'];
-}
-;export type QueryFindMonthlyDataByIdArgs = {
+};
+
+
+export type QueryFindMonthlyDataByIdArgs = {
   id: Scalars['String']['input'];
-}
-;export type QueryFindPaymentByIdArgs = {
+};
+
+
+export type QueryFindPaymentByIdArgs = {
   id: Scalars['String']['input'];
-}
-;export type QueryFindSopByIdArgs = {
+};
+
+
+export type QueryFindSopByIdArgs = {
   id: Scalars['String']['input'];
-}
-;export type QueryFindSubscriberByIdArgs = {
+};
+
+
+export type QueryFindSubscriberByIdArgs = {
   id: Scalars['String']['input'];
-}
-;export type QueryFindTaxByIdArgs = {
+};
+
+
+export type QueryFindTaxByIdArgs = {
   id: Scalars['String']['input'];
-}
-;export type Sop = {
+};
+
+export type Sop = {
   __typename?: 'Sop';
   /** MongoDB Id */
   _id: Scalars['ID']['output'];
@@ -607,8 +724,9 @@ export type Scalars = {
   payment: Payment;
   /** 月ごとの支払い額 */
   prices: Array<Scalars['Float']['output']>;
-}
-;export type Subscriber = {
+};
+
+export type Subscriber = {
   __typename?: 'Subscriber';
   /** MongoDB Id */
   _id: Scalars['ID']['output'];
@@ -622,8 +740,9 @@ export type Scalars = {
   payment: Payment;
   /** 月ごとの支払い額 */
   prices: Array<Scalars['Float']['output']>;
-}
-;export type Tax = {
+};
+
+export type Tax = {
   __typename?: 'Tax';
   /** MongoDB Id */
   _id: Scalars['ID']['output'];
@@ -635,8 +754,9 @@ export type Scalars = {
   name: Scalars['String']['output'];
   /** 支払い方法 */
   payment: Payment;
-}
-;export type UpdateBankInput = {
+};
+
+export type UpdateBankInput = {
   /** 支店名 */
   branchName?: InputMaybe<Scalars['String']['input']>;
   /** 設定カラー */
@@ -649,8 +769,9 @@ export type Scalars = {
   name?: InputMaybe<Scalars['String']['input']>;
   /** 支払い方法 */
   payments?: InputMaybe<Array<Scalars['String']['input']>>;
-}
-;export type UpdateExpenditureInput = {
+};
+
+export type UpdateExpenditureInput = {
   /** 金額 */
   amount?: InputMaybe<Scalars['Int']['input']>;
   /** 説明・備考 */
@@ -675,8 +796,9 @@ export type Scalars = {
   tax?: InputMaybe<Scalars['String']['input']>;
   /** 仮・未確定フラグ */
   temporary?: InputMaybe<Scalars['Boolean']['input']>;
-}
-;export type UpdateFixedCostInput = {
+};
+
+export type UpdateFixedCostInput = {
   /** 金額 */
   amount?: InputMaybe<Scalars['Int']['input']>;
   /** 説明 */
@@ -689,16 +811,18 @@ export type Scalars = {
   payDay?: InputMaybe<Scalars['Int']['input']>;
   /** 発生日 */
   payment?: InputMaybe<Scalars['String']['input']>;
-}
-;export type UpdateFixedCostPatternInput = {
+};
+
+export type UpdateFixedCostPatternInput = {
   /** 設定カラー */
   color?: InputMaybe<Scalars['String']['input']>;
   /** 固定費詳細 */
   detail?: InputMaybe<Array<Scalars['String']['input']>>;
   /** アイテム名 */
   name?: InputMaybe<Scalars['String']['input']>;
-}
-;export type UpdateIncomeInput = {
+};
+
+export type UpdateIncomeInput = {
   /** 金額 */
   amount?: InputMaybe<Scalars['Int']['input']>;
   /** 入金口座 */
@@ -711,8 +835,9 @@ export type Scalars = {
   name?: InputMaybe<Scalars['String']['input']>;
   /** 仮・未確定フラグ */
   temporary?: InputMaybe<Scalars['Boolean']['input']>;
-}
-;export type UpdateLoanInput = {
+};
+
+export type UpdateLoanInput = {
   /** 支払い総額 */
   amount?: InputMaybe<Scalars['Int']['input']>;
   /** 使用金額 */
@@ -733,8 +858,9 @@ export type Scalars = {
   rate?: InputMaybe<Scalars['Float']['input']>;
   /** 開始日 */
   startDate?: InputMaybe<Scalars['DateTime']['input']>;
-}
-;export type UpdateMonthlyDataInput = {
+};
+
+export type UpdateMonthlyDataInput = {
   /** 今月の残高データ */
   bankBalances?: InputMaybe<Array<CreateBankBalanceInput>>;
   /** 今月の利益 */
@@ -771,8 +897,9 @@ export type Scalars = {
   sumIncomeTemporary?: InputMaybe<Scalars['Int']['input']>;
   /** 年 */
   year?: InputMaybe<Scalars['Int']['input']>;
-}
-;export type UpdatePaymentInput = {
+};
+
+export type UpdatePaymentInput = {
   /** 引き落とし講座 */
   bank?: InputMaybe<Scalars['String']['input']>;
   /** 設定カラー */
@@ -781,8 +908,9 @@ export type Scalars = {
   name?: InputMaybe<Scalars['String']['input']>;
   /** 支払日 */
   payDay?: InputMaybe<Scalars['Int']['input']>;
-}
-;export type UpdateSopInput = {
+};
+
+export type UpdateSopInput = {
   /** 基本支払い額 */
   basePrice?: InputMaybe<Scalars['Int']['input']>;
   /** アイテム名 */
@@ -793,8 +921,9 @@ export type Scalars = {
   payment?: InputMaybe<Scalars['String']['input']>;
   /** 月額支払額 */
   prices?: InputMaybe<Array<Scalars['Int']['input']>>;
-}
-;export type UpdateSubscriberInput = {
+};
+
+export type UpdateSubscriberInput = {
   /** 基本支払い額 */
   basePrice?: InputMaybe<Scalars['Int']['input']>;
   /** アイテム名 */
@@ -805,8 +934,9 @@ export type Scalars = {
   payment?: InputMaybe<Scalars['String']['input']>;
   /** 月額支払額 */
   prices?: InputMaybe<Array<Scalars['Int']['input']>>;
-}
-;export type UpdateTaxInput = {
+};
+
+export type UpdateTaxInput = {
   /** 説明 */
   description?: InputMaybe<Scalars['String']['input']>;
   /** 出金リレーション */
@@ -815,12 +945,66 @@ export type Scalars = {
   name?: InputMaybe<Scalars['String']['input']>;
   /** 支払い方法 */
   payment?: InputMaybe<Scalars['String']['input']>;
-}
-;export type FindBankByIdQueryVariables = Exact<{
+};
+
+export type CreateBankMutationVariables = Exact<{
+  input: CreateBankInput;
+}>;
+
+
+export type CreateBankMutation = { __typename?: 'Mutation', createBank: { __typename?: 'MutationSuccessResGraphQl', message: string, success: boolean } };
+
+export type FindBankByIdQueryVariables = Exact<{
   findBankByIdId: Scalars['String']['input'];
-}>
-;export type FindBankByIdQuery = { __typename?: 'Query', findBankByID: { __typename?: 'Bank', _id: string, name: string, color?: string | null, branchName?: string | null, payments: Array<{ __typename?: 'Payment', _id: string, name: string, payDay: number, color?: string | null, bank: { __typename?: 'Bank', _id: string, name: string, color?: string | null } }>, incomes: Array<{ __typename?: 'Income', _id: string, name: string, description?: string | null, amount: number, depositDate: any, temporary?: boolean | null }>, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null, payment: { __typename?: 'Payment', _id: string, color?: string | null, name: string, payDay: number } }> } }
-;export const FindBankByIdDocument = gql`
+}>;
+
+
+export type FindBankByIdQuery = { __typename?: 'Query', findBankByID: { __typename?: 'Bank', _id: string, name: string, color?: string | null, branchName?: string | null, payments: Array<{ __typename?: 'Payment', _id: string, name: string, payDay: number, color?: string | null, bank: { __typename?: 'Bank', _id: string, name: string, color?: string | null } }>, incomes: Array<{ __typename?: 'Income', _id: string, name: string, description?: string | null, amount: number, depositDate: any, temporary?: boolean | null }>, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null, payment: { __typename?: 'Payment', _id: string, color?: string | null, name: string, payDay: number } }> } };
+
+export type UpdateBankMutationVariables = Exact<{
+  updateBankId: Scalars['String']['input'];
+  input: UpdateBankInput;
+}>;
+
+
+export type UpdateBankMutation = { __typename?: 'Mutation', updateBank: { __typename?: 'MutationSuccessResGraphQl', success: boolean, message: string } };
+
+
+export const CreateBankDocument = gql`
+    mutation CreateBank($input: CreateBankInput!) {
+  createBank(input: $input) {
+    message
+    success
+  }
+}
+    `;
+export type CreateBankMutationFn = Apollo.MutationFunction<CreateBankMutation, CreateBankMutationVariables>;
+
+/**
+ * __useCreateBankMutation__
+ *
+ * To run a mutation, you first call `useCreateBankMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateBankMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createBankMutation, { data, loading, error }] = useCreateBankMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateBankMutation(baseOptions?: Apollo.MutationHookOptions<CreateBankMutation, CreateBankMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateBankMutation, CreateBankMutationVariables>(CreateBankDocument, options);
+      }
+export type CreateBankMutationHookResult = ReturnType<typeof useCreateBankMutation>;
+export type CreateBankMutationResult = Apollo.MutationResult<CreateBankMutation>;
+export type CreateBankMutationOptions = Apollo.BaseMutationOptions<CreateBankMutation, CreateBankMutationVariables>;
+export const FindBankByIdDocument = gql`
     query FindBankByID($findBankByIdId: String!) {
   findBankByID(id: $findBankByIdId) {
     _id
@@ -883,7 +1067,7 @@ export type Scalars = {
     branchName
   }
 }
-    `
+    `;
 
 /**
  * __useFindBankByIdQuery__
@@ -902,18 +1086,53 @@ export type Scalars = {
  * });
  */
 export function useFindBankByIdQuery(baseOptions: Apollo.QueryHookOptions<FindBankByIdQuery, FindBankByIdQueryVariables> & ({ variables: FindBankByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = { ...defaultOptions, ...baseOptions }
-        return Apollo.useQuery<FindBankByIdQuery, FindBankByIdQueryVariables>(FindBankByIdDocument, options)
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindBankByIdQuery, FindBankByIdQueryVariables>(FindBankByIdDocument, options);
       }
 export function useFindBankByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindBankByIdQuery, FindBankByIdQueryVariables>) {
-          const options = { ...defaultOptions, ...baseOptions }
-          return Apollo.useLazyQuery<FindBankByIdQuery, FindBankByIdQueryVariables>(FindBankByIdDocument, options)
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindBankByIdQuery, FindBankByIdQueryVariables>(FindBankByIdDocument, options);
         }
 export function useFindBankByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindBankByIdQuery, FindBankByIdQueryVariables>) {
-          const options = { ...defaultOptions, ...baseOptions }
-          return Apollo.useSuspenseQuery<FindBankByIdQuery, FindBankByIdQueryVariables>(FindBankByIdDocument, options)
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindBankByIdQuery, FindBankByIdQueryVariables>(FindBankByIdDocument, options);
         }
-export type FindBankByIdQueryHookResult = ReturnType<typeof useFindBankByIdQuery>
-;export type FindBankByIdLazyQueryHookResult = ReturnType<typeof useFindBankByIdLazyQuery>
-;export type FindBankByIdSuspenseQueryHookResult = ReturnType<typeof useFindBankByIdSuspenseQuery>
-;export type FindBankByIdQueryResult = Apollo.QueryResult<FindBankByIdQuery, FindBankByIdQueryVariables>;
+export type FindBankByIdQueryHookResult = ReturnType<typeof useFindBankByIdQuery>;
+export type FindBankByIdLazyQueryHookResult = ReturnType<typeof useFindBankByIdLazyQuery>;
+export type FindBankByIdSuspenseQueryHookResult = ReturnType<typeof useFindBankByIdSuspenseQuery>;
+export type FindBankByIdQueryResult = Apollo.QueryResult<FindBankByIdQuery, FindBankByIdQueryVariables>;
+export const UpdateBankDocument = gql`
+    mutation UpdateBank($updateBankId: String!, $input: UpdateBankInput!) {
+  updateBank(id: $updateBankId, input: $input) {
+    success
+    message
+  }
+}
+    `;
+export type UpdateBankMutationFn = Apollo.MutationFunction<UpdateBankMutation, UpdateBankMutationVariables>;
+
+/**
+ * __useUpdateBankMutation__
+ *
+ * To run a mutation, you first call `useUpdateBankMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateBankMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateBankMutation, { data, loading, error }] = useUpdateBankMutation({
+ *   variables: {
+ *      updateBankId: // value for 'updateBankId'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateBankMutation(baseOptions?: Apollo.MutationHookOptions<UpdateBankMutation, UpdateBankMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateBankMutation, UpdateBankMutationVariables>(UpdateBankDocument, options);
+      }
+export type UpdateBankMutationHookResult = ReturnType<typeof useUpdateBankMutation>;
+export type UpdateBankMutationResult = Apollo.MutationResult<UpdateBankMutation>;
+export type UpdateBankMutationOptions = Apollo.BaseMutationOptions<UpdateBankMutation, UpdateBankMutationVariables>;

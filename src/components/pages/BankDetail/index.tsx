@@ -2,9 +2,10 @@ import * as React from 'react'
 
 import { ApolloQueryResult } from '@apollo/client'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
-import { FindBankByIdQuery } from '@/generated/graphql'
+import { FindBankByIdQuery, useCreateBankMutation, useUpdateBankMutation } from '@/generated/graphql'
 
 import { useSetZodScheme }from '@/hooks/form/useSetZodScheme'
 
@@ -13,9 +14,12 @@ import { InputController } from '@/components/organisms/InputController'
 
 import type { DefaultValuesType } from '@/types/form/InputAttribute'
 
-type Props = ApolloQueryResult<FindBankByIdQuery>;
+type Props = Partial<ApolloQueryResult<FindBankByIdQuery>>
 
 export const BankDetail: React.FC<Props> = (props): JSX.Element => {
+  const router = useRouter()
+  const { id } = router.query
+
   const { data } = props
   const res = data?.findBankByID
 
@@ -36,14 +40,50 @@ export const BankDetail: React.FC<Props> = (props): JSX.Element => {
     resolver: zodResolver(scheme),
   })
 
+  const [ mutateCreateBank ] = useCreateBankMutation()
+  const [ mutateUpdateBank ] = useUpdateBankMutation()
+
   const args = {
     errors,
     trigger,
     control
   }
 
-  const onSubmit = (data: DefaultValuesType) => {
-    console.info(data)
+  const onCreate = async (data: DefaultValuesType) => {
+    try {
+      await mutateCreateBank({
+        variables: {
+          input: {
+            name: data.bankName as string,
+            branchName: data.bankBranchName as string,
+          }
+        },
+      })
+      alert('Bank name created successfully')
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const onUpdate = async (data: DefaultValuesType) => {
+    try {
+      await mutateUpdateBank({
+        variables: {
+          updateBankId: id as string,
+          input: {
+            name: data.bankName as string,
+            branchName: data.bankBranchName as string,
+          }
+        },
+      })
+      alert('Bank name updated successfully')
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  const onSubmit = async (data: DefaultValuesType) => {
+    id ? onUpdate(data) : onCreate(data)
   }
 
   return (
