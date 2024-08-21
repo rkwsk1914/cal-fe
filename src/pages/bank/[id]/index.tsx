@@ -10,7 +10,7 @@ import { BankDetail } from '@/components/pages/BankDetail'
 import type { NextPage, GetServerSideProps } from 'next'
 
 
-const Bank: NextPage<ApolloQueryResult<FindBankByIdQuery>> = (props) => {
+const BankUpdate: NextPage<ApolloQueryResult<FindBankByIdQuery>> = (props) => {
   return (
     <BankDetail {...props} />
   )
@@ -38,4 +38,4 @@ export const getServerSideProps: GetServerSideProps<ApolloQueryResult<FindBankBy
   return { props: result }
 }
 
-export default Bank
+export default BankUpdate

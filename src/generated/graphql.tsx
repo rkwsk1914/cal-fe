@@ -966,6 +966,11 @@ export type CreateBankMutationVariables = Exact<{
 
 export type CreateBankMutation = { __typename?: 'Mutation', createBank: { __typename?: 'MutationSuccessResGraphQl', message: string, success: boolean } };
 
+export type FindAllBanksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindAllBanksQuery = { __typename?: 'Query', findAllBanks: Array<{ __typename?: 'Bank', _id: string, branchName?: string | null, name: string }> };
+
 export type FindBankByIdQueryVariables = Exact<{
   findBankByIdId: Scalars['String']['input'];
 }>;
@@ -1016,6 +1021,47 @@ export function useCreateBankMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateBankMutationHookResult = ReturnType<typeof useCreateBankMutation>;
 export type CreateBankMutationResult = Apollo.MutationResult<CreateBankMutation>;
 export type CreateBankMutationOptions = Apollo.BaseMutationOptions<CreateBankMutation, CreateBankMutationVariables>;
+export const FindAllBanksDocument = gql`
+    query FindAllBanks {
+  findAllBanks {
+    _id
+    branchName
+    name
+  }
+}
+    `;
+
+/**
+ * __useFindAllBanksQuery__
+ *
+ * To run a query within a React component, call `useFindAllBanksQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAllBanksQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindAllBanksQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFindAllBanksQuery(baseOptions?: Apollo.QueryHookOptions<FindAllBanksQuery, FindAllBanksQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindAllBanksQuery, FindAllBanksQueryVariables>(FindAllBanksDocument, options);
+      }
+export function useFindAllBanksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAllBanksQuery, FindAllBanksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindAllBanksQuery, FindAllBanksQueryVariables>(FindAllBanksDocument, options);
+        }
+export function useFindAllBanksSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindAllBanksQuery, FindAllBanksQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindAllBanksQuery, FindAllBanksQueryVariables>(FindAllBanksDocument, options);
+        }
+export type FindAllBanksQueryHookResult = ReturnType<typeof useFindAllBanksQuery>;
+export type FindAllBanksLazyQueryHookResult = ReturnType<typeof useFindAllBanksLazyQuery>;
+export type FindAllBanksSuspenseQueryHookResult = ReturnType<typeof useFindAllBanksSuspenseQuery>;
+export type FindAllBanksQueryResult = Apollo.QueryResult<FindAllBanksQuery, FindAllBanksQueryVariables>;
 export const FindBankByIdDocument = gql`
     query FindBankByID($findBankByIdId: String!) {
   findBankByID(id: $findBankByIdId) {

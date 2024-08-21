@@ -1,11 +1,41 @@
-import { BankDetail } from '@/components/pages/BankDetail'
+import { ApolloQueryResult } from '@apollo/client'
 
-import type { NextPage } from 'next'
+import { FindAllBanksQuery, FindAllBanksQueryVariables, FindAllBanksDocument } from '@/generated/graphql'
 
-const Bank: NextPage = () => {
+import { doQueryServerSide } from '@/utils/doQueryServerSide'
+
+import { BankList } from '@/components/pages/BankList'
+
+
+import type { NextPage, GetServerSideProps } from 'next'
+
+
+const Bank: NextPage<ApolloQueryResult<FindAllBanksQuery>> = (props) => {
   return (
-    <BankDetail />
+    <BankList {...props} />
   )
+}
+
+export const getServerSideProps: GetServerSideProps<ApolloQueryResult<FindAllBanksQuery>> = async (context) => {
+  const { id } = context.query
+
+  if (!id || typeof id !== 'string') {
+    return { notFound: true }
+  }
+
+  const result = await doQueryServerSide<
+    FindAllBanksQuery, FindAllBanksQueryVariables
+  >({
+    name: 'FindAllBanks',
+    query: FindAllBanksDocument,
+    variables: {},
+  })
+
+  if (!result) {
+    return { notFound: true }
+  }
+
+  return { props: result }
 }
 
 export default Bank
