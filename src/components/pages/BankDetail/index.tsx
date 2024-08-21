@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import { ApolloQueryResult } from '@apollo/client'
+import { useToast } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
@@ -9,6 +10,7 @@ import { FindBankByIdQuery, useCreateBankMutation, useUpdateBankMutation } from 
 
 import { useSetZodScheme }from '@/hooks/form/useSetZodScheme'
 
+import { Alert } from '@/components/atoms/Alert'
 import { FromLayout } from '@/components/layouts/FromLayout'
 import { InputController } from '@/components/organisms/InputController'
 
@@ -17,6 +19,7 @@ import type { DefaultValuesType } from '@/types/form/InputAttribute'
 type Props = Partial<ApolloQueryResult<FindBankByIdQuery>>
 
 export const BankDetail: React.FC<Props> = (props): JSX.Element => {
+  const toast = useToast()
   const router = useRouter()
   const { id } = router.query
 
@@ -59,9 +62,17 @@ export const BankDetail: React.FC<Props> = (props): JSX.Element => {
           }
         },
       })
-      alert('Bank name created successfully')
+      toast({
+        render: () => (
+          <Alert status="success" title='create success!'>mutate success!</Alert>
+        ),
+      })
     } catch (e) {
-      console.error(e)
+      toast({
+        render: () => (
+          <Alert status="error" title='create Missed!'>mutate missed!</Alert>
+        ),
+      })
     }
   }
 
@@ -76,9 +87,17 @@ export const BankDetail: React.FC<Props> = (props): JSX.Element => {
           }
         },
       })
-      alert('Bank name updated successfully')
+      toast({
+        render: () => (
+          <Alert status="success" title='update success!'>mutate success!</Alert>
+        ),
+      })
     } catch (e) {
-      console.error(e)
+      toast({
+        render: () => (
+          <Alert status="error" title='update Missed!'>mutate missed!</Alert>
+        ),
+      })
     }
   }
 
