@@ -170,15 +170,15 @@ export type CreatePaymentInput = {
   /** 引き落とし口座 */
   bank: Scalars['String']['input'];
   /** 締め日 */
-  closingDay: Scalars['Int']['input'];
+  closingDay?: InputMaybe<Scalars['Int']['input']>;
   /** 設定カラー */
   color?: InputMaybe<Scalars['String']['input']>;
-  /** 支払日 */
-  isCredit: Scalars['Int']['input'];
+  /** クレジットかどうか */
+  isCredit?: InputMaybe<Scalars['Int']['input']>;
   /** アイテム名 */
   name: Scalars['String']['input'];
   /** 引き落とし日 */
-  payDay: Scalars['Int']['input'];
+  payDay?: InputMaybe<Scalars['Int']['input']>;
   /** 編集不可フラグ */
   uneditable?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -628,17 +628,17 @@ export type Payment = {
   /** 引き落とし口座 */
   bank: Bank;
   /** 締め日 */
-  closingDay: Scalars['Int']['output'];
+  closingDay?: Maybe<Scalars['Int']['output']>;
   /** 設定カラー */
   color?: Maybe<Scalars['String']['output']>;
-  /** 引き落とし日 */
-  isCredit: Scalars['Boolean']['output'];
+  /** クレジットかどうか */
+  isCredit?: Maybe<Scalars['Boolean']['output']>;
   /** MongoDB Collection Name。アイテム名 */
   name: Scalars['String']['output'];
   /** 引き落とし日 */
-  payDay: Scalars['Int']['output'];
+  payDay?: Maybe<Scalars['Int']['output']>;
   /** 編集不可フラグ */
-  uneditable: Scalars['Boolean']['output'];
+  uneditable?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type Query = {
@@ -918,7 +918,7 @@ export type UpdatePaymentInput = {
   closingDay?: InputMaybe<Scalars['Int']['input']>;
   /** 設定カラー */
   color?: InputMaybe<Scalars['String']['input']>;
-  /** 支払日 */
+  /** クレジットかどうか */
   isCredit?: InputMaybe<Scalars['Int']['input']>;
   /** アイテム名 */
   name?: InputMaybe<Scalars['String']['input']>;
@@ -980,14 +980,21 @@ export type FindAllBanksQuery = { __typename?: 'Query', findAllBanks: Array<{ __
 export type FindAllPaymentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllPaymentsQuery = { __typename?: 'Query', findAllPayments: Array<{ __typename?: 'Payment', _id: string, closingDay: number, color?: string | null, isCredit: boolean, name: string, payDay: number, uneditable: boolean, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, name: string, color?: string | null } }> };
+export type FindAllPaymentsQuery = { __typename?: 'Query', findAllPayments: Array<{ __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, uneditable?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, name: string, color?: string | null } }> };
 
 export type FindBankByIdQueryVariables = Exact<{
   findBankByIdId: Scalars['String']['input'];
 }>;
 
 
-export type FindBankByIdQuery = { __typename?: 'Query', findBankByID: { __typename?: 'Bank', _id: string, name: string, color?: string | null, branchName?: string | null, payments: Array<{ __typename?: 'Payment', _id: string, name: string, payDay: number, color?: string | null, bank: { __typename?: 'Bank', _id: string, name: string, color?: string | null } }>, incomes: Array<{ __typename?: 'Income', _id: string, name: string, description?: string | null, amount: number, depositDate: any, temporary?: boolean | null }>, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null, payment: { __typename?: 'Payment', _id: string, color?: string | null, name: string, payDay: number } }> } };
+export type FindBankByIdQuery = { __typename?: 'Query', findBankByID: { __typename?: 'Bank', _id: string, name: string, color?: string | null, branchName?: string | null, payments: Array<{ __typename?: 'Payment', _id: string, name: string, payDay?: number | null, color?: string | null, bank: { __typename?: 'Bank', _id: string, name: string, color?: string | null } }>, incomes: Array<{ __typename?: 'Income', _id: string, name: string, description?: string | null, amount: number, depositDate: any, temporary?: boolean | null }>, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null, payment: { __typename?: 'Payment', _id: string, color?: string | null, name: string, payDay?: number | null } }> } };
+
+export type FindPaymentByIdQueryVariables = Exact<{
+  findPaymentByIdId: Scalars['String']['input'];
+}>;
+
+
+export type FindPaymentByIdQuery = { __typename?: 'Query', findPaymentByID: { __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, uneditable?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, name: string, color?: string | null } } };
 
 export type UpdateBankMutationVariables = Exact<{
   updateBankId: Scalars['String']['input'];
@@ -1221,6 +1228,58 @@ export type FindBankByIdQueryHookResult = ReturnType<typeof useFindBankByIdQuery
 export type FindBankByIdLazyQueryHookResult = ReturnType<typeof useFindBankByIdLazyQuery>;
 export type FindBankByIdSuspenseQueryHookResult = ReturnType<typeof useFindBankByIdSuspenseQuery>;
 export type FindBankByIdQueryResult = Apollo.QueryResult<FindBankByIdQuery, FindBankByIdQueryVariables>;
+export const FindPaymentByIdDocument = gql`
+    query FindPaymentByID($findPaymentByIdId: String!) {
+  findPaymentByID(id: $findPaymentByIdId) {
+    _id
+    bank {
+      _id
+      branchName
+      name
+      color
+    }
+    closingDay
+    color
+    isCredit
+    name
+    payDay
+    uneditable
+  }
+}
+    `;
+
+/**
+ * __useFindPaymentByIdQuery__
+ *
+ * To run a query within a React component, call `useFindPaymentByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindPaymentByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindPaymentByIdQuery({
+ *   variables: {
+ *      findPaymentByIdId: // value for 'findPaymentByIdId'
+ *   },
+ * });
+ */
+export function useFindPaymentByIdQuery(baseOptions: Apollo.QueryHookOptions<FindPaymentByIdQuery, FindPaymentByIdQueryVariables> & ({ variables: FindPaymentByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindPaymentByIdQuery, FindPaymentByIdQueryVariables>(FindPaymentByIdDocument, options);
+      }
+export function useFindPaymentByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindPaymentByIdQuery, FindPaymentByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindPaymentByIdQuery, FindPaymentByIdQueryVariables>(FindPaymentByIdDocument, options);
+        }
+export function useFindPaymentByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindPaymentByIdQuery, FindPaymentByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindPaymentByIdQuery, FindPaymentByIdQueryVariables>(FindPaymentByIdDocument, options);
+        }
+export type FindPaymentByIdQueryHookResult = ReturnType<typeof useFindPaymentByIdQuery>;
+export type FindPaymentByIdLazyQueryHookResult = ReturnType<typeof useFindPaymentByIdLazyQuery>;
+export type FindPaymentByIdSuspenseQueryHookResult = ReturnType<typeof useFindPaymentByIdSuspenseQuery>;
+export type FindPaymentByIdQueryResult = Apollo.QueryResult<FindPaymentByIdQuery, FindPaymentByIdQueryVariables>;
 export const UpdateBankDocument = gql`
     mutation UpdateBank($updateBankId: String!, $input: UpdateBankInput!) {
   updateBank(id: $updateBankId, input: $input) {

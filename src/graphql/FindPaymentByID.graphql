@@ -1,0 +1,17 @@
+query FindPaymentByID($findPaymentByIdId: String!) {
+  findPaymentByID(id: $findPaymentByIdId) {
+    _id
+    bank {
+      _id
+      branchName
+      name
+      color
+    }
+    closingDay
+    color
+    isCredit
+    name
+    payDay
+    uneditable
+  }
+}
