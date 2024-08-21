@@ -25,4 +25,9 @@ export const CHECKBOX_DATA: InputDataType = {
     label: '引き落とし口座',
     zod: ZodSchema.CHECKBOX_SCHEME
   },
+  isCredit: {
+    id: 'isCredit',
+    label: 'クレジット払い',
+    zod: ZodSchema.CHECKBOX_SCHEME_BOOLEAN
+  },
 } as const

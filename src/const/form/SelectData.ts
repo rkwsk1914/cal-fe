@@ -15,9 +15,9 @@ export const SELECT_DATA: InputDataType = {
     label: 'セレクトテスト',
     zod: ZodSchema.TEXT_SCHEMA
   },
-  color: {
-    id: 'color',
-    label: 'カラー',
+  bank: {
+    id: 'bank',
+    label: '引き落とし口座',
     zod: ZodSchema.TEXT_SCHEMA
   },
 } as const

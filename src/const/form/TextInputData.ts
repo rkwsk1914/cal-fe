@@ -147,4 +147,46 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
       )
     }
   },
+  paymentName: {
+    id: 'paymentName',
+    label: '支払い方法',
+    inputTextArgs: {
+      type: 'text',
+      placeholder: '〇〇払い',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.fixFullWidth(
+        value
+      )
+    }
+  },
+  closingDay: {
+    id: 'closingDay',
+    label: '締め日',
+    inputTextArgs: {
+      type: 'tel',
+      maxLength: 2,
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.removeOtherHalfNumber(
+        value
+      )
+    }
+  },
+  payDay: {
+    id: 'payDay',
+    label: '引き落とし日',
+    inputTextArgs: {
+      type: 'tel',
+      maxLength: 2,
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.removeOtherHalfNumber(
+        value
+      )
+    }
+  },
 } as const

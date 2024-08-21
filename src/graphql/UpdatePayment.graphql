@@ -1,0 +1,6 @@
+mutation UpdatePayment($updatePaymentId: String!, $input: UpdatePaymentInput!) {
+  updatePayment(id: $updatePaymentId, input: $input) {
+    success
+    message
+  }
+}

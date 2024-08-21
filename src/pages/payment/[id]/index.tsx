@@ -1,41 +1,67 @@
 import { ApolloQueryResult } from '@apollo/client'
 
-import { FindBankByIdQuery, FindBankByIdQueryVariables, FindBankByIdDocument } from '@/generated/graphql'
+import {
+  FindPaymentByIdQuery,
+  FindPaymentByIdQueryVariables,
+  FindPaymentByIdDocument,
+  FindAllBanksQuery,
+  FindAllBanksQueryVariables,
+  FindAllBanksDocument
+} from '@/generated/graphql'
 
 import { doQueryServerSide } from '@/utils/doQueryServerSide'
 
-import { BankDetail } from '@/components/pages/BankDetail'
+import { PaymentDetail } from '@/components/pages/payment/PaymentDetail'
 
 
 import type { NextPage, GetServerSideProps } from 'next'
 
+interface Props {
+  payment: ApolloQueryResult<FindPaymentByIdQuery>
+  banks: ApolloQueryResult<FindAllBanksQuery>
+}
 
-const BankUpdate: NextPage<ApolloQueryResult<FindBankByIdQuery>> = (props) => {
+const PaymentUpdate: NextPage<Props> = (props) => {
   return (
-    <BankDetail {...props} />
+    <PaymentDetail {...props} />
   )
 }
 
-export const getServerSideProps: GetServerSideProps<ApolloQueryResult<FindBankByIdQuery>> = async (context) => {
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   const { id } = context.query
 
   if (!id || typeof id !== 'string') {
     return { notFound: true }
   }
 
-  const result = await doQueryServerSide<
-    FindBankByIdQuery, FindBankByIdQueryVariables
+  const paymentResult = await doQueryServerSide<
+    FindPaymentByIdQuery, FindPaymentByIdQueryVariables
   >({
-    name: 'findBankByID',
-    query: FindBankByIdDocument,
-    variables: { findBankByIdId: id },
+    name: 'findPaymentByID',
+    query: FindPaymentByIdDocument,
+    variables: { findPaymentByIdId: id },
   })
 
-  if (!result) {
+  if (!paymentResult) {
     return { notFound: true }
   }
 
-  return { props: result }
+  const banksResult = await doQueryServerSide<
+    FindAllBanksQuery, FindAllBanksQueryVariables
+    >({
+      name: 'FindAllBanks',
+      query: FindAllBanksDocument,
+      variables: {},
+    })
+
+  if (!banksResult) {
+    return { notFound: true }
+  }
+
+  return { props: {
+    payment: paymentResult,
+    banks: banksResult
+  } }
 }
 
-export default BankUpdate
+export default PaymentUpdate
