@@ -6,11 +6,13 @@ import { CHECKBOX_DATA } from '@/const/form/CheckBoxData'
 
 import { CheckBoxGroup } from '@/components/molecules/CheckBoxGroup'
 
+import type { CheckBoxElementType } from '@/types/form/checkBoxAttribute'
+
 type Props = {
   name: keyof typeof CHECKBOX_DATA
   control: Control<any>
   errors: FieldErrors<any>
-  data: any
+  data: CheckBoxElementType
 };
 
 export const CheckBoxController: React.FC<Props> = (
@@ -21,6 +23,7 @@ export const CheckBoxController: React.FC<Props> = (
     data
   }
 ): JSX.Element => {
+  if (!CHECKBOX_DATA[name]) new Error(`CHECKBOX_DATA[${name}] no Found!`)
   return (
     <CheckBoxGroup
       isError={!!errors[name]}

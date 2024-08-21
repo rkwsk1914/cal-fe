@@ -11,8 +11,10 @@ import { FindBankByIdQuery, useCreateBankMutation, useUpdateBankMutation } from 
 import { useSetZodScheme }from '@/hooks/form/useSetZodScheme'
 
 import { Alert } from '@/components/atoms/Alert'
+import { Badge, BadgeColorOptions } from '@/components/atoms/Badge'
 import { FromLayout } from '@/components/layouts/FromLayout'
 import { InputController } from '@/components/organisms/InputController'
+import { RadioController } from '@/components/organisms/RadioController'
 
 import type { DefaultValuesType } from '@/types/form/InputAttribute'
 
@@ -28,7 +30,8 @@ export const BankDetail: React.FC<Props> = (props): JSX.Element => {
 
   const defaultValues: DefaultValuesType = {
     bankName: res?.name ?? '',
-    bankBranchName: res?.branchName ?? ''
+    bankBranchName: res?.branchName ?? '',
+    color: res?.color ?? ''
   }
 
   const { scheme } = useSetZodScheme(defaultValues)
@@ -59,6 +62,7 @@ export const BankDetail: React.FC<Props> = (props): JSX.Element => {
           input: {
             name: data.bankName as string,
             branchName: data.bankBranchName as string,
+            color: data.color as string
           }
         },
       })
@@ -84,6 +88,7 @@ export const BankDetail: React.FC<Props> = (props): JSX.Element => {
           input: {
             name: data.bankName as string,
             branchName: data.bankBranchName as string,
+            color: data.color as string,
           }
         },
       })
@@ -114,6 +119,15 @@ export const BankDetail: React.FC<Props> = (props): JSX.Element => {
       <InputController
         name="bankBranchName"
         {...args}
+      />
+      <RadioController
+        name="color"
+        errors={errors}
+        control={control}
+        data={BadgeColorOptions.map((BadgeColorOption) => ({
+          value: BadgeColorOption as string,
+          label: <Badge colorScheme={BadgeColorOption}>BadgeColorOption</Badge>
+        }))}
       />
     </FromLayout>
   )

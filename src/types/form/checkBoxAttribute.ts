@@ -1,16 +1,16 @@
-import { Control, ControllerRenderProps } from 'react-hook-form'
+import * as React from 'react'
 
-import { CHECKBOX_DATA } from '@/const/form/CheckBoxData'
+import { Control, ControllerRenderProps } from 'react-hook-form'
 
 type InputValueType = string | number
 export type InputValue = InputValueType[]
-export type DefaultValuesType = Record<keyof typeof CHECKBOX_DATA, InputValue>
+export type DefaultValuesType = Record<string, InputValue>
 
 export type CheckBoxFiled = ControllerRenderProps<DefaultValuesType>
 
 export type CheckBoxElementType = {
   value: InputValueType
-  label: string
+  label: string | React.ReactNode
 }[]
 
 interface BaseProps {

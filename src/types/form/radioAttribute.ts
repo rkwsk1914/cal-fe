@@ -1,15 +1,15 @@
+import * as React from 'react'
+
 import { Control, ControllerRenderProps } from 'react-hook-form'
 
-import { RADIO_DATA } from '@/const/form/RadioData'
-
 export type InputValue = string
-export type DefaultValuesType = Record<keyof typeof RADIO_DATA, InputValue>
+export type DefaultValuesType = Record<string, InputValue>
 
 export type RadioFiled = ControllerRenderProps<DefaultValuesType>
 
 export type RadioElementType = {
   value: InputValue
-  label: string
+  label: string | React.ReactNode
 }[]
 
 interface BaseProps {

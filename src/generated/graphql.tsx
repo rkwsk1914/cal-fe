@@ -167,13 +167,17 @@ export type CreateMonthlyDataInput = {
 };
 
 export type CreatePaymentInput = {
-  /** 引き落とし講座 */
+  /** 引き落とし口座 */
   bank: Scalars['String']['input'];
+  /** 締め日 */
+  closingDay: Scalars['Int']['input'];
   /** 設定カラー */
   color?: InputMaybe<Scalars['String']['input']>;
+  /** 支払日 */
+  isCredit: Scalars['Int']['input'];
   /** アイテム名 */
   name: Scalars['String']['input'];
-  /** 支払日 */
+  /** 引き落とし日 */
   payDay: Scalars['Int']['input'];
 };
 
@@ -619,13 +623,17 @@ export type Payment = {
   __typename?: 'Payment';
   /** MongoDB Id */
   _id: Scalars['ID']['output'];
-  /** 引き落とし講座 */
+  /** 引き落とし口座 */
   bank: Bank;
+  /** 締め日 */
+  closingDay: Scalars['Int']['output'];
   /** 設定カラー */
   color?: Maybe<Scalars['String']['output']>;
+  /** 引き落とし日 */
+  isCredit: Scalars['Boolean']['output'];
   /** MongoDB Collection Name。アイテム名 */
   name: Scalars['String']['output'];
-  /** 支払日 */
+  /** 引き落とし日 */
   payDay: Scalars['Int']['output'];
 };
 
@@ -900,13 +908,17 @@ export type UpdateMonthlyDataInput = {
 };
 
 export type UpdatePaymentInput = {
-  /** 引き落とし講座 */
+  /** 引き落とし口座 */
   bank?: InputMaybe<Scalars['String']['input']>;
+  /** 締め日 */
+  closingDay?: InputMaybe<Scalars['Int']['input']>;
   /** 設定カラー */
   color?: InputMaybe<Scalars['String']['input']>;
+  /** 支払日 */
+  isCredit?: InputMaybe<Scalars['Int']['input']>;
   /** アイテム名 */
   name?: InputMaybe<Scalars['String']['input']>;
-  /** 支払日 */
+  /** 引き落とし日 */
   payDay?: InputMaybe<Scalars['Int']['input']>;
 };
 
