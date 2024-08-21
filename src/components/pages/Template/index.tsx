@@ -9,6 +9,7 @@ import { FromLayout } from '@/components/layouts/FromLayout'
 import { CheckBoxController } from '@/components/organisms/CheckBoxController'
 import { InputController } from '@/components/organisms/InputController'
 import { RadioController } from '@/components/organisms/RadioController'
+import { SelectController } from '@/components/organisms/SelectController'
 
 import type { DefaultValuesType } from '@/types/form/InputAttribute'
 
@@ -20,7 +21,8 @@ export const Template: React.FC<Props> = ({}): JSX.Element => {
     bankBranchName: 'ああ',
     test: '5',
     testCheck: ['5', '1'],
-    testCheckBoolean: [`true`]
+    testCheckBoolean: [`true`],
+    testSelect: '',
   }
 
   const { scheme } = useSetZodScheme(defaultValues)
@@ -84,6 +86,18 @@ export const Template: React.FC<Props> = ({}): JSX.Element => {
         {...args}
         data={[
           { value: 'true', label: 'フラグ' },
+        ]}
+      />
+      <SelectController
+        name="testSelect"
+        {...args}
+        data={[
+          { value: '1', label: 'itemA' },
+          { value: '2', label: 'itemB' },
+          { value: '3', label: 'itemC' },
+          { value: '4', label: 'itemD' },
+          { value: '5', label: 'itemE' },
+          { value: '6', label: 'itemAF' },
         ]}
       />
     </FromLayout>

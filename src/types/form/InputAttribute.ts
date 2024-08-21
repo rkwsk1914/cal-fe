@@ -40,3 +40,8 @@ export type TextInputProps = InputProps & {
     maxLength?: number
   }
 }
+
+export type SelectOptionType = {
+  value: string
+  label: string
+}[]
