@@ -5,7 +5,7 @@ import { Badge as ChakuraUIBadge } from '@chakra-ui/react'
 type ColorSchemeType = 'gray' | 'red' | 'orange' | 'yellow' | 'green' | 'teal' | 'blue' | 'cyan' | 'purple' | 'pink'
 
 type Props = {
-  children: string
+  children: React.ReactNode
   colorScheme?: ColorSchemeType
 };
 

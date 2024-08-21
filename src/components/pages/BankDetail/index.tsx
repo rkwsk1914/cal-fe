@@ -122,11 +122,10 @@ export const BankDetail: React.FC<Props> = (props): JSX.Element => {
       />
       <RadioController
         name="color"
-        errors={errors}
-        control={control}
+        {...args}
         data={BadgeColorOptions.map((BadgeColorOption) => ({
-          value: BadgeColorOption as string,
-          label: <Badge colorScheme={BadgeColorOption}>BadgeColorOption</Badge>
+          value: BadgeColorOption,
+          label: <Badge colorScheme={BadgeColorOption}>{BadgeColorOption}</Badge>
         }))}
       />
     </FromLayout>

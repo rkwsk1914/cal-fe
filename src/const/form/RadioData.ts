@@ -20,4 +20,9 @@ export const RADIO_DATA: InputDataType = {
     label: '引き落とし口座',
     zod: ZodSchema.RADIO_SCHEME
   },
+  color: {
+    id: 'color',
+    label: 'カラー',
+    zod: ZodSchema.RADIO_SCHEME
+  },
 } as const
