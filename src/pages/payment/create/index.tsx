@@ -1,4 +1,4 @@
-import { BankDetail } from '@/components/pages/bank/BankDetail'
+import { BankDetail } from '@/components/pages/BankDetail'
 
 import type { NextPage } from 'next'
 

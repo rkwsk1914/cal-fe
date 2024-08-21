@@ -179,6 +179,8 @@ export type CreatePaymentInput = {
   name: Scalars['String']['input'];
   /** 引き落とし日 */
   payDay: Scalars['Int']['input'];
+  /** 編集不可フラグ */
+  uneditable?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type CreateSopInput = {
@@ -635,6 +637,8 @@ export type Payment = {
   name: Scalars['String']['output'];
   /** 引き落とし日 */
   payDay: Scalars['Int']['output'];
+  /** 編集不可フラグ */
+  uneditable: Scalars['Boolean']['output'];
 };
 
 export type Query = {
@@ -920,6 +924,8 @@ export type UpdatePaymentInput = {
   name?: InputMaybe<Scalars['String']['input']>;
   /** 引き落とし日 */
   payDay?: InputMaybe<Scalars['Int']['input']>;
+  /** 編集不可フラグ */
+  uneditable?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type UpdateSopInput = {
@@ -970,6 +976,11 @@ export type FindAllBanksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type FindAllBanksQuery = { __typename?: 'Query', findAllBanks: Array<{ __typename?: 'Bank', _id: string, branchName?: string | null, name: string }> };
+
+export type FindAllPaymentsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindAllPaymentsQuery = { __typename?: 'Query', findAllPayments: Array<{ __typename?: 'Payment', _id: string, closingDay: number, color?: string | null, isCredit: boolean, name: string, payDay: number, uneditable: boolean, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, name: string, color?: string | null } }> };
 
 export type FindBankByIdQueryVariables = Exact<{
   findBankByIdId: Scalars['String']['input'];
@@ -1062,6 +1073,57 @@ export type FindAllBanksQueryHookResult = ReturnType<typeof useFindAllBanksQuery
 export type FindAllBanksLazyQueryHookResult = ReturnType<typeof useFindAllBanksLazyQuery>;
 export type FindAllBanksSuspenseQueryHookResult = ReturnType<typeof useFindAllBanksSuspenseQuery>;
 export type FindAllBanksQueryResult = Apollo.QueryResult<FindAllBanksQuery, FindAllBanksQueryVariables>;
+export const FindAllPaymentsDocument = gql`
+    query FindAllPayments {
+  findAllPayments {
+    _id
+    bank {
+      _id
+      branchName
+      name
+      color
+    }
+    closingDay
+    color
+    isCredit
+    name
+    payDay
+    uneditable
+  }
+}
+    `;
+
+/**
+ * __useFindAllPaymentsQuery__
+ *
+ * To run a query within a React component, call `useFindAllPaymentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAllPaymentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindAllPaymentsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFindAllPaymentsQuery(baseOptions?: Apollo.QueryHookOptions<FindAllPaymentsQuery, FindAllPaymentsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindAllPaymentsQuery, FindAllPaymentsQueryVariables>(FindAllPaymentsDocument, options);
+      }
+export function useFindAllPaymentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAllPaymentsQuery, FindAllPaymentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindAllPaymentsQuery, FindAllPaymentsQueryVariables>(FindAllPaymentsDocument, options);
+        }
+export function useFindAllPaymentsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindAllPaymentsQuery, FindAllPaymentsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindAllPaymentsQuery, FindAllPaymentsQueryVariables>(FindAllPaymentsDocument, options);
+        }
+export type FindAllPaymentsQueryHookResult = ReturnType<typeof useFindAllPaymentsQuery>;
+export type FindAllPaymentsLazyQueryHookResult = ReturnType<typeof useFindAllPaymentsLazyQuery>;
+export type FindAllPaymentsSuspenseQueryHookResult = ReturnType<typeof useFindAllPaymentsSuspenseQuery>;
+export type FindAllPaymentsQueryResult = Apollo.QueryResult<FindAllPaymentsQuery, FindAllPaymentsQueryVariables>;
 export const FindBankByIdDocument = gql`
     query FindBankByID($findBankByIdId: String!) {
   findBankByID(id: $findBankByIdId) {

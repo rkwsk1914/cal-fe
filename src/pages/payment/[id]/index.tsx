@@ -4,7 +4,7 @@ import { FindBankByIdQuery, FindBankByIdQueryVariables, FindBankByIdDocument } f
 
 import { doQueryServerSide } from '@/utils/doQueryServerSide'
 
-import { BankDetail } from '@/components/pages/bank/BankDetail'
+import { BankDetail } from '@/components/pages/BankDetail'
 
 
 import type { NextPage, GetServerSideProps } from 'next'

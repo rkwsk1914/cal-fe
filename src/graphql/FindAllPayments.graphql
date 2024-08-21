@@ -1,0 +1,17 @@
+query FindAllPayments {
+  findAllPayments {
+    _id
+    bank {
+      _id
+      branchName
+      name
+      color
+    }
+    closingDay
+    color
+    isCredit
+    name
+    payDay
+    uneditable
+  }
+}
