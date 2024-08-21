@@ -19,7 +19,7 @@ export const useSetZodScheme = (defaultValues: DefaultValuesType) => {
         schema[key] = CHECKBOX_DATA[key].zod
       }
       return schema
-    }, {} as Record<string, zod.ZodString>)
+    }, {} as Record<string, zod.ZodString | zod.ZodArray<zod.ZodString, 'atleastone' | 'many'>>)
   )
 
   return {
