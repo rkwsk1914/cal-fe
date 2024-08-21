@@ -7,6 +7,8 @@ import {
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
+import styles from './style.module.scss'
+
 export type ListItemType = {
   href?: string
   label: string
@@ -23,7 +25,7 @@ export const LinkMenu: React.FC<Props> = (
   }
 ): JSX.Element => {
   return (
-    <UnorderedList>
+    <UnorderedList className={styles.list}>
       {list.map((item) => (
         <React.Fragment key={item.label}>
           <ListItem>
@@ -32,7 +34,7 @@ export const LinkMenu: React.FC<Props> = (
               item.label
             }
             {item.subList && (
-              <UnorderedList>
+              <UnorderedList className={styles.list}>
                 {item.subList.map((subItem) => (
                   <React.Fragment key={subItem.label}>
                     <ListItem>

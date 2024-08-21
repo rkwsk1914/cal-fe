@@ -16,13 +16,7 @@ const Bank: NextPage<ApolloQueryResult<FindAllBanksQuery>> = (props) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps<ApolloQueryResult<FindAllBanksQuery>> = async (context) => {
-  const { id } = context.query
-
-  if (!id || typeof id !== 'string') {
-    return { notFound: true }
-  }
-
+export const getServerSideProps: GetServerSideProps<ApolloQueryResult<FindAllBanksQuery>> = async () => {
   const result = await doQueryServerSide<
     FindAllBanksQuery, FindAllBanksQueryVariables
   >({
