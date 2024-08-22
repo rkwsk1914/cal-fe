@@ -2,7 +2,7 @@
 import { Control, ControllerRenderProps, UseControllerProps } from 'react-hook-form'
 
 import { AUTO_COMPLETE_OPTIONS } from '@/const/form/AutoCompleteOptions'
-import { INPUT_DATA } from '@/const/form/TextInputData'
+import { INPUT_DATA } from '@/const/form/InputData'
 
 import type { TextInputTypeOptionType } from './TextInputTypeOptionType'
 
@@ -19,7 +19,6 @@ export type ControllerFiled = ControllerRenderProps<DefaultValuesType>
 
 export type ControlType = Control<DefaultValuesType, any>
 export type ControlRules = UseControllerProps<DefaultValuesType>['rules']
-
 interface InputTextArgs {
   type?: TextInputTypeOptionType
   autoComplete?: AutoCompleteType

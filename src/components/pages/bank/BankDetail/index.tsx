@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form'
 
 import { FindBankByIdQuery, useCreateBankMutation, useUpdateBankMutation } from '@/generated/graphql'
 
-import { useSetZodScheme }from '@/hooks/form/useSetZodScheme'
+import { useSetZodScheme, DefaultValuesRequiredType }from '@/hooks/form/useSetZodScheme'
 
 import { Alert } from '@/components/atoms/Alert'
 import { Badge, BadgeColorOptions } from '@/components/atoms/Badge'
@@ -34,7 +34,13 @@ export const BankDetail: React.FC<Props> = (props): JSX.Element => {
     color: res?.color ?? ''
   }
 
-  const { scheme } = useSetZodScheme(defaultValues)
+  const requiredValues: DefaultValuesRequiredType = {
+    bankName: true,
+    bankBranchName: true,
+    color: false,
+  }
+
+  const { scheme } = useSetZodScheme(defaultValues, requiredValues)
 
   const {
     handleSubmit,

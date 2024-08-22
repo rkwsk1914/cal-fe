@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useState, useEffect } from 'react'
 
 import { ApolloQueryResult } from '@apollo/client'
 import { useToast, Link } from '@chakra-ui/react'
@@ -14,7 +15,7 @@ import {
   useUpdatePaymentMutation
 } from '@/generated/graphql'
 
-import { useSetZodScheme }from '@/hooks/form/useSetZodScheme'
+import { useSetZodScheme, DefaultValuesRequiredType }from '@/hooks/form/useSetZodScheme'
 
 import { Alert } from '@/components/atoms/Alert'
 import { Badge, BadgeColorOptions } from '@/components/atoms/Badge'
@@ -38,16 +39,25 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
 
   const { payment, banks } = props
   const res = payment?.data?.findPaymentByID
+  const [isCredit, setIsCredit] = useState<string[]>(res?.isCredit ? ['true'] : [])
 
-  const disabled = res?.uneditable ? true : false
+  const isUneditable = res?.uneditable ? true : false
 
   const defaultValues: DefaultValuesType = {
     paymentName: res?.name ?? '',
     bank: res?.bank._id ?? '',
-    closingDay: res?.closingDay ? String(res?.closingDay) : '',
     color: res?.color ?? '',
-    payDay: res?.payDay ? String(res?.payDay) : '',
     isCredit: res?.isCredit ? ['true'] : [],
+    closingDay: res?.closingDay ? String(res?.closingDay) : '',
+    payDay: res?.payDay ? String(res?.payDay) : '',
+  }
+  const requiredValues: DefaultValuesRequiredType = {
+    paymentName: isUneditable ? false : true,
+    bank: isUneditable ? false : true,
+    color: false,
+    isCredit: false,
+    payDay: isCredit.length > 0,
+    closingDay: isCredit.length > 0,
   }
 
   const bankSelect: SelectOptionType | undefined = banks.data?.findAllBanks?.map((resBank) => ({
@@ -55,19 +65,23 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
     label: `${resBank.name} ${resBank.branchName}`
   }))
 
-  const { scheme } = useSetZodScheme(defaultValues)
+  const { scheme } = useSetZodScheme(
+    defaultValues,
+    requiredValues
+  )
 
   const {
     handleSubmit,
     control,
     trigger,
-    formState: { errors, isValid },
+    setValue,
+    formState: { errors },
   } = useForm({
-    mode: 'onSubmit',
+    mode: 'onChange',
     defaultValues,
     resolver: zodResolver(scheme),
   })
-  const isCredit = useWatch({ control, name: 'isCredit' }) as string[]
+  const isCreditValue = useWatch({ control, name: 'isCredit' }) as string[]
 
   const [ mutateCreate ] = useCreatePaymentMutation()
   const [ mutateUpdate ] = useUpdatePaymentMutation()
@@ -139,16 +153,25 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
     id ? onUpdate(data) : onCreate(data)
   }
 
+  useEffect(() => {
+    if (isCreditValue.length === 0) {
+      setValue('payDay', '')
+      setValue('closingDay', '')
+      trigger('payDay')
+      trigger('closingDay')
+    }
+    setIsCredit(isCreditValue)
+  }, [isCreditValue, setIsCredit])
+
   return (
     <FromLayout
       handleSubmit={handleSubmit(onSubmit)}
-      hasError={!isValid}
     >
       <InputController
         name="paymentName"
         {...args}
-        disabled={disabled}
-        helperText={disabled ?
+        disabled={isUneditable}
+        helperText={isUneditable ?
           <>引き落とし口座名を編集してください。<Link as={NextLink} href={`/bank/${res?.bank._id}`}>編集画面はこちら</Link></> :
           undefined
         }
@@ -157,7 +180,7 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
         name="bank"
         {...args}
         data={bankSelect ?? []}
-        disabled={disabled}
+        disabled={isUneditable}
       />
       <CheckBoxController
         name="isCredit"
@@ -165,19 +188,17 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
         data={[
           { value: 'true', label: 'クレジット払い' },
         ]}
-        disabled={disabled}
+        disabled={isUneditable}
       />
       {isCredit?.length > 0 && (
         <>
           <InputController
             name="closingDay"
             {...args}
-            shouldUnregister={false}
           />
           <InputController
             name="payDay"
             {...args}
-            shouldUnregister={false}
           />
         </>
       )}

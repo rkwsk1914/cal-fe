@@ -41,7 +41,7 @@ export const BankList: React.FC<Props> = (props): JSX.Element => {
   return (
     <>
       <LinkMenu list={list} />
-      <Button type='prime' href='payment/create'>新規作成</Button>
+      <Button type='prime' href='/bank/create'>新規作成</Button>
     </>
   )
 }

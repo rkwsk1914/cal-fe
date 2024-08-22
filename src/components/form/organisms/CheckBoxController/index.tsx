@@ -1,9 +1,8 @@
 import * as React from 'react'
 
-import { FieldErrors } from 'react-hook-form'
-import { Controller } from 'react-hook-form'
+import { FieldErrors, Controller } from 'react-hook-form'
 
-import { INPUT_DATA } from '@/const/form/TextInputData'
+import { INPUT_DATA } from '@/const/form/InputData'
 
 import { CheckBox } from '@/components/form/molecules/CheckBox'
 import { FormControl, ArrangementType } from '@/components/form/molecules/FormControl'
@@ -15,7 +14,6 @@ type Props = {
   control: ControlType
   errors: FieldErrors<any>
   data: CheckBoxElementType
-  shouldUnregister?: boolean
   arrangement?: ArrangementType
   disabled?: boolean
   helperText?: React.ReactNode | string
@@ -27,9 +25,8 @@ export const CheckBoxController: React.FC<Props> = (
     control,
     errors,
     data,
-    shouldUnregister = true,
     disabled,
-    helperText
+    helperText,
   }
 ): JSX.Element => {
   if (!INPUT_DATA[name]) new Error(`INPUT_DATA[${name}] no Found!`)
@@ -38,23 +35,22 @@ export const CheckBoxController: React.FC<Props> = (
   } =  INPUT_DATA[name]
 
   return (
-    <FormControl
-      label={label}
-      isError={!!errors[name]}
-      helperText={errors[name]?.message ? errors[name]?.message  as string : helperText}
-    >
-      {control ? (
-      <Controller
-        name={name}
-        control={control}
-        shouldUnregister={shouldUnregister}
-        render={({ field }) => (
-          <CheckBox data={data} field={field} disabled={disabled}/>
-        )}
-      />
-      ): (
-        <CheckBox data={data} />
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
+        <FormControl
+          label={label}
+          isError={!!errors[name]}
+          helperText={errors[name]?.message ? errors[name]?.message  as string : helperText}
+        >
+          <CheckBox
+            data={data}
+            field={field}
+            disabled={disabled}
+          />
+        </FormControl>
       )}
-    </FormControl>
+    />
   )
 }

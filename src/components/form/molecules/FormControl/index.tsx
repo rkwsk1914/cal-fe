@@ -44,11 +44,9 @@ export const FormControl: React.FC<Props> = ({
         <div className={styles.content}>
           {children}
           {!isError ? (
-            <FormHelperText>
-              {helperText}
-            </FormHelperText>
+            <>{helperText && <FormHelperText>{helperText}</FormHelperText>}</>
           ) : (
-            <FormErrorMessage>{helperText}</FormErrorMessage>
+            <>{helperText && <FormErrorMessage>{helperText}</FormErrorMessage>}</>
           )}
         </div>
       </div>

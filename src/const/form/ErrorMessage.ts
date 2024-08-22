@@ -16,7 +16,7 @@ export const MIN_LENGTH_LIST = {
   year: 4,
 }
 
-export const ERROR_MESSAGE: { [key: number | string]: string } = {
+export const ERROR_MESSAGE = {
   0: 'メールアドレスの形式で入力してください。例）sample@sample.com',
   required: '入力必須項目です。',
   2: maxLengthErrorMessage(MAX_LENGTH_LIST.email),
@@ -33,4 +33,4 @@ export const ERROR_MESSAGE: { [key: number | string]: string } = {
   13: maxLengthErrorMessage(MAX_LENGTH_LIST.monthAndDay),
   14: minLengthErrorMessage(MIN_LENGTH_LIST.year),
   dataError: '無効です。'
-}
+} as const satisfies { [key: number | string]: string }

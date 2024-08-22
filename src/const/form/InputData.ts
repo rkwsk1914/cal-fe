@@ -36,7 +36,7 @@ export const INPUT_DATA = {
   },
   testCheckBoolean: {
     label: 'チェックボックステスト フラグ',
-    zod: ZodSchema.CHECKBOX_SCHEME_BOOLEAN
+    zod: ZodSchema.CHECKBOX_SCHEME
   },
   // サイト側
   firstName: {
@@ -177,7 +177,7 @@ export const INPUT_DATA = {
       type: 'tel',
       maxLength: 2,
     },
-    zod: ZodSchema.TEXT_SCHEMA,
+    zod: ZodSchema.DAY_TEXT_SCHEMA,
     onBlurFormat: (value) => {
       return chrFormatChange.removeOtherHalfNumber(
         value
@@ -190,7 +190,7 @@ export const INPUT_DATA = {
       type: 'tel',
       maxLength: 2,
     },
-    zod: ZodSchema.TEXT_SCHEMA,
+    zod: ZodSchema.DAY_TEXT_SCHEMA,
     onBlurFormat: (value) => {
       return chrFormatChange.removeOtherHalfNumber(
         value
@@ -207,6 +207,6 @@ export const INPUT_DATA = {
   },
   isCredit: {
     label: 'クレジット払い',
-    zod: ZodSchema.CHECKBOX_SCHEME_BOOLEAN
+    zod: ZodSchema.CHECKBOX_SCHEME
   },
 } as const satisfies InputDataType

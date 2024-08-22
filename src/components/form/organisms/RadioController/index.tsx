@@ -3,12 +3,12 @@ import * as React from 'react'
 import { FieldErrors } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
 
-import { INPUT_DATA } from '@/const/form/TextInputData'
+import { INPUT_DATA } from '@/const/form/InputData'
 
 import { FormControl, ArrangementType } from '@/components/form/molecules/FormControl'
 import { Radio } from '@/components/form/molecules/Radio'
 
-import type { RadioElementType, FieldKey, ControlType } from '@/types/form/InputAttribute'
+import type { RadioElementType, FieldKey, ControlType, ControlRules } from '@/types/form/InputAttribute'
 
 type Props = {
   name: FieldKey
@@ -19,6 +19,8 @@ type Props = {
   arrangement?: ArrangementType
   disabled?: boolean
   helperText?: React.ReactNode | string
+  rules?: ControlRules
+  required?: boolean
 };
 
 export const RadioController: React.FC<Props> = (
@@ -27,9 +29,8 @@ export const RadioController: React.FC<Props> = (
     control,
     errors,
     data,
-    shouldUnregister = true,
     disabled,
-    helperText
+    helperText,
   }
 ): JSX.Element => {
   if (!INPUT_DATA[name]) new Error(`INPUT_DATA[${name}] no Found!`)
@@ -38,23 +39,18 @@ export const RadioController: React.FC<Props> = (
   } =  INPUT_DATA[name]
 
   return (
-    <FormControl
-      label={label}
-      isError={!!errors[name]}
-      helperText={errors[name]?.message ? errors[name]?.message  as string : helperText}
-    >
-      {control ? (
-      <Controller
-        name={name}
-        control={control}
-        shouldUnregister={shouldUnregister}
-        render={({ field }) => (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field }) => (
+        <FormControl
+          label={label}
+          isError={!!errors[name]}
+          helperText={errors[name]?.message ? errors[name]?.message  as string : helperText}
+        >
           <Radio data={data} field={field} disabled={disabled} />
-        )}
-      />
-      ): (
-        <Radio data={data} />
+        </FormControl>
       )}
-    </FormControl>
+    />
   )
 }
