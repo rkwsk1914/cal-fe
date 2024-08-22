@@ -14,18 +14,19 @@ import { useGetDarkModeStyleClass } from '@/hooks/useGetDarkModeStyleClass'
 
 import styles from './style.module.scss'
 
-import type { TextInputProps } from '@/types/form/InputAttribute'
-
+import type { InputProps, FieldKey } from '@/types/form/InputAttribute'
 
 type Props = {
+  name: FieldKey
   isError: boolean
   helperText?: string
   arrangement?: 'vertically' | 'horizontally'
-  inputProps: TextInputProps
+  inputProps: InputProps
   trigger: () => void
 };
 
 export const InputText: React.FC<Props> = ({
+  name,
   isError,
   helperText,
   arrangement = 'horizontally',
@@ -35,7 +36,6 @@ export const InputText: React.FC<Props> = ({
   const {
     label,
     control,
-    id,
     inputTextArgs,
     onBlurFormat,
   } = inputProps
@@ -55,7 +55,7 @@ export const InputText: React.FC<Props> = ({
         <div className={styles.content}>
           {control ? (
           <Controller
-            name={id}
+            name={name}
             control={control}
             render={({ field }) => (
               <ChakuraInput

@@ -17,9 +17,8 @@ type Props = {};
 
 export const Template: React.FC<Props> = ({}): JSX.Element => {
   const defaultValues: DefaultValuesType = {
-    bankName: 'ああ',
-    bankBranchName: 'ああ',
-    test: '5',
+    testTextInput: 'ああ',
+    testRadio: '5',
     testCheck: ['5', '1'],
     testCheckBoolean: [`true`],
     testSelect: '',
@@ -50,15 +49,11 @@ export const Template: React.FC<Props> = ({}): JSX.Element => {
   return (
     <FromLayout handleSubmit={handleSubmit(onSubmit)}>
       <InputController
-        name="bankName"
-        {...args}
-      />
-      <InputController
-        name="bankBranchName"
+        name="testTextInput"
         {...args}
       />
       <RadioController
-        name="test"
+        name="testRadio"
         {...args}
         data={[
           { value: '1', label: 'itemA' },

@@ -1,45 +1,70 @@
 
-import { Control } from 'react-hook-form'
+import { Control, ControllerRenderProps } from 'react-hook-form'
 
 import { AUTO_COMPLETE_OPTIONS } from '@/const/form/AutoCompleteOptions'
+import { INPUT_DATA } from '@/const/form/TextInputData'
 
 import type { TextInputTypeOptionType } from './TextInputTypeOptionType'
 
 type AutoCompleteType = typeof AUTO_COMPLETE_OPTIONS[number]
 
-//  | number | boolean | nullは許容しない
-export type InputValue = string | number | readonly string[] | undefined
-export type DefaultValuesType = Record<string, InputValue>
+export type FieldKey = keyof typeof INPUT_DATA
 
-interface BaseProps {
-  id: string
+//  | number | boolean | nullは許容しない
+export type InputValue = string | string[] | undefined
+export type DefaultValuesType = Partial<Record<FieldKey, InputValue>>
+
+// checkBoxやRadioのReact Hook Formのcontrolから受け取るfield型情報
+export type ControllerFiled = ControllerRenderProps<DefaultValuesType>
+
+interface InputTextArgs {
+  type?: TextInputTypeOptionType
+  autoComplete?: AutoCompleteType
+  autoFocus?: boolean
+  placeholder?: string
+  minLength?: number
+  maxLength?: number
+}
+
+interface CommonProps {
+  // id: string
   label?: string
   readonly? :boolean
   control?: Control<DefaultValuesType, any>
-  onBlurFormat?: (_value: string) => string
-}
-interface ControlledProps extends BaseProps {
-  value?: InputValue
-  defaultValue?: never
 }
 
-interface UncontrolledProps extends BaseProps { // eslint-disable-line no-unused-vars
+interface NotOtherTextInputProps extends CommonProps {
+  onBlurFormat?: never
+  inputTextArgs?: never
+}
+
+interface TextInputProps extends CommonProps {
+  onBlurFormat?: (_value: string) => string
+  inputTextArgs?: InputTextArgs
+}
+
+type BaseProps = NotOtherTextInputProps | TextInputProps
+
+type ControlledProps = {
+  value?: InputValue
+  defaultValue?: never
+} & BaseProps
+
+type UncontrolledProps = { // eslint-disable-line no-unused-vars
   value?: never
   defaultValue?: InputValue
-}
+} & BaseProps
 
 export type InputProps = ControlledProps //  | UncontrolledProps
 
-export type TextInputProps = InputProps & {
-  inputTextArgs: {
-    type?: TextInputTypeOptionType
-    autoComplete?: AutoCompleteType
-    autoFocus?: boolean
-    placeholder?: string
-    minLength?: number
-    maxLength?: number
-  }
-}
+
+// 選択要素の型
+export type RadioElementType = {
+  value: string
+  label: string | React.ReactNode
+}[]
+
+export type CheckBoxElementType = RadioElementType
 
 export type SelectOptionType = {
   value: string

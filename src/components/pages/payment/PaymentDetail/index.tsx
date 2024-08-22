@@ -23,8 +23,7 @@ import { InputController } from '@/components/organisms/InputController'
 import { RadioController } from '@/components/organisms/RadioController'
 import { SelectController } from '@/components/organisms/SelectController'
 
-import type { DefaultValuesType } from '@/types/form/InputAttribute'
-import type { SelectOptionType } from '@/types/form/InputAttribute'
+import type { DefaultValuesType, SelectOptionType } from '@/types/form/InputAttribute'
 
 type Props = {
   payment?: Partial<ApolloQueryResult<FindPaymentByIdQuery>>

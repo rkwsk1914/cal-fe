@@ -16,9 +16,10 @@ import { Radio } from '@/components/atoms/Radio'
 
 import styles from './style.module.scss'
 
-import type { InputProps, RadioElementType } from '@/types/form/radioAttribute'
+import type { InputProps, RadioElementType, FieldKey } from '@/types/form/InputAttribute'
 
 type Props = {
+  name: FieldKey
   isError: boolean
   helperText?: string
   arrangement?: 'vertically' | 'horizontally'
@@ -27,6 +28,7 @@ type Props = {
 };
 
 export const RadioGroup: React.FC<Props> = ({
+  name,
   isError,
   helperText,
   arrangement = 'horizontally',
@@ -36,7 +38,6 @@ export const RadioGroup: React.FC<Props> = ({
   const {
     label,
     control,
-    id,
   } = inputProps
 
   const wrap = clsx(styles.wrap, {
@@ -54,7 +55,7 @@ export const RadioGroup: React.FC<Props> = ({
         <div className={styles.content}>
           {control ? (
           <Controller
-            name={id}
+            name={name}
             control={control}
             render={({ field }) => (
               <Radio data={data} field={field} />

@@ -16,9 +16,10 @@ import { CheckBox } from '@/components/atoms/CheckBox'
 
 import styles from './style.module.scss'
 
-import type { InputProps, CheckBoxElementType } from '@/types/form/checkBoxAttribute'
+import type { InputProps, CheckBoxElementType, FieldKey } from '@/types/form/InputAttribute'
 
 type Props = {
+  name: FieldKey
   isError: boolean
   helperText?: string
   arrangement?: 'vertically' | 'horizontally'
@@ -27,6 +28,7 @@ type Props = {
 };
 
 export const CheckBoxGroup: React.FC<Props> = ({
+  name,
   isError,
   helperText,
   arrangement = 'horizontally',
@@ -36,7 +38,6 @@ export const CheckBoxGroup: React.FC<Props> = ({
   const {
     label,
     control,
-    id,
   } = inputProps
 
   const wrap = clsx(styles.wrap, {
@@ -54,7 +55,7 @@ export const CheckBoxGroup: React.FC<Props> = ({
         <div className={styles.content}>
           {control ? (
           <Controller
-            name={id}
+            name={name}
             control={control}
             render={({ field }) => (
               <CheckBox data={data} field={field} ref={field.ref} />

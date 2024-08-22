@@ -2,14 +2,14 @@ import * as React from 'react'
 
 import { FieldErrors, Control } from 'react-hook-form'
 
-import { RADIO_DATA } from '@/const/form/RadioData'
+import { INPUT_DATA } from '@/const/form/TextInputData'
 
 import { RadioGroup } from '@/components/molecules/RadioGroup'
 
-import type { RadioElementType } from '@/types/form/radioAttribute'
+import type { FieldKey, RadioElementType } from '@/types/form/InputAttribute'
 
 type Props = {
-  name: keyof typeof RADIO_DATA
+  name: FieldKey
   control: Control<any>
   errors: FieldErrors<any>
   data: RadioElementType
@@ -23,14 +23,15 @@ export const RadioController: React.FC<Props> = (
     data
   }
 ): JSX.Element => {
-  if (!RADIO_DATA[name]) new Error(`RADIO_DATA[${name}] no Found!`)
+  if (!INPUT_DATA[name]) new Error(`INPUT_DATA[${name}] no Found!`)
   return (
     <RadioGroup
+      name={name}
       isError={!!errors[name]}
       helperText={errors[name]?.message as string}
       inputProps={{
         control,
-        ...RADIO_DATA[name]
+        ...INPUT_DATA[name]
       }}
       data={data}
     />

@@ -4,19 +4,42 @@ import * as chrFormatChange from '@/utils/chrFormatChange'
 
 import * as ZodSchema from '@/const/form/Schema'
 
-import { TextInputProps } from '@/types/form/InputAttribute'
+import { InputProps } from '@/types/form/InputAttribute'
 
-
-
-type TextInputDataType = Record<
+type InputDataType = Record<
   string,
-  TextInputProps &
-  { zod: zod.ZodString}
+  InputProps &
+  { zod: zod.ZodString | zod.ZodArray<zod.ZodString, 'atleastone' | 'many'>}
 >
 
-export const TEXT_INPUT_DATA: TextInputDataType = {
+export const INPUT_DATA = {
+  // テスト側
+  testTextInput: {
+    label: 'テキストテスト',
+    inputTextArgs: {
+      type: 'text',
+      placeholder: 'テスト',
+    },
+    zod: ZodSchema.TEMPORALLY
+  },
+  testSelect: {
+    label: 'セレクトテスト',
+    zod: ZodSchema.TEXT_SCHEMA
+  },
+  testRadio: {
+    label: 'ラジオテスト',
+    zod: ZodSchema.RADIO_SCHEME
+  },
+  testCheck: {
+    label: 'チェックボックステスト',
+    zod: ZodSchema.CHECKBOX_SCHEME
+  },
+  testCheckBoolean: {
+    label: 'チェックボックステスト フラグ',
+    zod: ZodSchema.CHECKBOX_SCHEME_BOOLEAN
+  },
+  // サイト側
   firstName: {
-    id: 'firstName',
     label: '姓',
     inputTextArgs: {
       type: 'text',
@@ -26,7 +49,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     zod: ZodSchema.NAME_SCHEMA
   },
   lastName: {
-    id: 'lastName',
     label: '名',
     inputTextArgs: {
       type: 'text',
@@ -36,7 +58,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     zod: ZodSchema.NAME_SCHEMA
   },
   firstKanaName: {
-    id: 'firstKanaName',
     label: 'ふりがな（姓）',
     inputTextArgs: {
     type: 'text',
@@ -45,7 +66,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     zod: ZodSchema.NAME_KANA_SCHEMA
   },
   lastKanaName: {
-    id: 'lastKanaName',
     label: 'ふりがな（名）',
     inputTextArgs: {
       type: 'text',
@@ -54,7 +74,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     zod: ZodSchema.NAME_KANA_SCHEMA
   },
   email: {
-    id: 'email',
     label: 'メールアドレス',
     inputTextArgs: {
       type: 'email',
@@ -64,7 +83,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     zod: ZodSchema.EMAIL_SCHEMA
   },
   tel: {
-    id: 'tel',
     label: '電話番号',
     inputTextArgs: {
       type: 'tel',
@@ -73,7 +91,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     zod: ZodSchema.TEL_SCHEMA
   },
   postalCode: {
-    id: 'postalCode',
     label: '郵便番号',
     inputTextArgs: {
       type: 'text',
@@ -83,7 +100,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     zod: ZodSchema.TEMPORALLY
   },
   address1: {
-    id: 'address1',
     label: '住所１',
     inputTextArgs: {
       type: 'text',
@@ -93,7 +109,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     zod: ZodSchema.TEMPORALLY
   },
   address2: {
-    id: 'address2',
     label: '住所１',
     inputTextArgs: {
       type: 'text',
@@ -103,7 +118,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     zod: ZodSchema.TEMPORALLY
   },
   password: {
-    id: 'password',
     label: 'パスワード',
     inputTextArgs: {
       type: 'password',
@@ -112,7 +126,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     zod: ZodSchema.TEMPORALLY
   },
   contact: {
-    id: 'content',
     label: 'お問い合わせ内容',
     inputTextArgs: {
       type: 'text',
@@ -120,7 +133,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     zod: ZodSchema.TEXT_AREA_SCHEMA
   },
   bankName: {
-    id: 'bankName',
     label: '口座名',
     inputTextArgs: {
       type: 'text',
@@ -134,7 +146,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     }
   },
   bankBranchName: {
-    id: 'bankBranchName',
     label: '支店名',
     inputTextArgs: {
       type: 'text',
@@ -148,7 +159,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     }
   },
   paymentName: {
-    id: 'paymentName',
     label: '支払い方法',
     inputTextArgs: {
       type: 'text',
@@ -162,7 +172,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     }
   },
   closingDay: {
-    id: 'closingDay',
     label: '締め日',
     inputTextArgs: {
       type: 'tel',
@@ -176,7 +185,6 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
     }
   },
   payDay: {
-    id: 'payDay',
     label: '引き落とし日',
     inputTextArgs: {
       type: 'tel',
@@ -189,4 +197,16 @@ export const TEXT_INPUT_DATA: TextInputDataType = {
       )
     }
   },
-} as const
+  color: {
+    label: 'カラー',
+    zod: ZodSchema.RADIO_SCHEME,
+  },
+  bank: {
+    label: '引き落とし口座',
+    zod: ZodSchema.TEXT_SCHEMA
+  },
+  isCredit: {
+    label: 'クレジット払い',
+    zod: ZodSchema.CHECKBOX_SCHEME_BOOLEAN
+  },
+} as const satisfies InputDataType

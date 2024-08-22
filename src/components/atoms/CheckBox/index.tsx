@@ -2,10 +2,10 @@ import * as React from 'react'
 
 import { Checkbox as ChakuraUICheckbox, CheckboxGroup, Grid } from '@chakra-ui/react'
 
-import type { CheckBoxFiled, CheckBoxElementType } from '@/types/form/checkBoxAttribute'
+import type { ControllerFiled, CheckBoxElementType } from '@/types/form/InputAttribute'
 
 type RefProps = {
-  field?: CheckBoxFiled
+  field?: ControllerFiled
   data: CheckBoxElementType
 }
 
@@ -15,7 +15,7 @@ export const CheckBox = React.forwardRef(
     _ref?: React.Ref<HTMLInputElement>
   ): JSX.Element {
     return (
-      <CheckboxGroup {...field}>
+      <CheckboxGroup {...field} value={field?.value as string[]}>
         <Grid templateColumns='repeat(4, 1fr)' gap={4}>
           {data.map((item) => (
             <React.Fragment key={item.value}>

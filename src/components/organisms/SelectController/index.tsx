@@ -2,14 +2,15 @@ import * as React from 'react'
 
 import { FieldErrors, Control } from 'react-hook-form'
 
-import { SELECT_DATA } from '@/const/form/SelectData'
+import { INPUT_DATA } from '@/const/form/TextInputData'
 
 import { Select } from '@/components/molecules/Select'
 
+import type { FieldKey } from '@/types/form/InputAttribute'
 import type { SelectOptionType } from '@/types/form/InputAttribute'
 
 type Props = {
-  name: keyof typeof SELECT_DATA
+  name: FieldKey
   control: Control<any>
   errors: FieldErrors<any>
   data: SelectOptionType
@@ -17,20 +18,21 @@ type Props = {
 
 export const SelectController: React.FC<Props> = (
   {
-    name,
     control,
     errors,
-    data
+    data,
+    name
   }
 ): JSX.Element => {
-  if (!SELECT_DATA[name]) new Error(`SELECT_DATA[${name}] no Found!`)
+  if (!INPUT_DATA[name]) new Error(`INPUT_DATA[${name}] no Found!`)
   return (
     <Select
+      name={name}
       isError={!!errors[name]}
       helperText={errors[name]?.message as string}
       inputProps={{
         control,
-        ...SELECT_DATA[name]
+        ...INPUT_DATA[name]
       }}
       data={data}
     />

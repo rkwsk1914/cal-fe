@@ -4,7 +4,7 @@ import { Input } from '@chakra-ui/react'
 
 import { StoryFn, Meta } from '@storybook/react'
 
-import { InputText as StoryComponent } from '.'
+import { Select as StoryComponent } from '.'
 
 export default {
   component: StoryComponent,
@@ -23,7 +23,6 @@ Default.args = {
   isError: true,
   helperText: 'いろいろ間違ってます',
   inputProps: {
-    id: 'email',
     label: 'Email',
   },
   data: [
@@ -43,7 +42,6 @@ Vertically.args = {
   arrangement: 'vertically',
   inputProps: {
     label: 'Email',
-    id: 'email',
   },
   data: [
     { value: '1', label: 'itemA' },

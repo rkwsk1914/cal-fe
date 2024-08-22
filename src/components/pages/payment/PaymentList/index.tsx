@@ -22,7 +22,7 @@ export const PaymentList: React.FC<Props> = (props): JSX.Element => {
     }
     acc[bank.name].push(current)
     return acc
-  }, {} as { [key: string]: Array<{ __typename?: 'Payment', _id: string, closingDay: number, color?: string | null, isCredit: boolean, name: string, payDay: number, uneditable: boolean, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, name: string, color?: string | null } }> })
+  }, {} as { [key: string]: FindAllPaymentsQuery['findAllPayments'] })
 
   const keys = Object.keys(groupedData)
   const list: ListItemType[] = keys.map((key) => {

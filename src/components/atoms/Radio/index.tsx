@@ -2,10 +2,10 @@ import * as React from 'react'
 
 import { Radio as ChakuraUIRadio, RadioGroup, Grid } from '@chakra-ui/react'
 
-import type { RadioFiled, RadioElementType } from '@/types/form/radioAttribute'
+import type { ControllerFiled, RadioElementType } from '@/types/form/InputAttribute'
 
 type RefProps = {
-  field?: RadioFiled
+  field?: ControllerFiled
   data: RadioElementType
 }
 
@@ -15,11 +15,14 @@ export const Radio = React.forwardRef(
     _ref?: React.Ref<HTMLInputElement>
   ): JSX.Element {
     return (
-      <RadioGroup {...field}>
+      <RadioGroup {...field} value={field?.value as string}>
         <Grid templateColumns='repeat(4, 1fr)' gap={4}>
           {data.map((item) => (
             <React.Fragment key={item.value}>
-              <ChakuraUIRadio name={field?.name} value={item.value}>{item.label}</ChakuraUIRadio>
+              <ChakuraUIRadio
+                name={field?.name}
+                value={item.value}
+              >{item.label}</ChakuraUIRadio>
             </React.Fragment>
           ))}
         </Grid>

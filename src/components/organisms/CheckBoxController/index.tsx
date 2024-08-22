@@ -2,14 +2,14 @@ import * as React from 'react'
 
 import { FieldErrors, Control } from 'react-hook-form'
 
-import { CHECKBOX_DATA } from '@/const/form/CheckBoxData'
+import { INPUT_DATA } from '@/const/form/TextInputData'
 
 import { CheckBoxGroup } from '@/components/molecules/CheckBoxGroup'
 
-import type { CheckBoxElementType } from '@/types/form/checkBoxAttribute'
+import type { FieldKey, CheckBoxElementType } from '@/types/form/InputAttribute'
 
 type Props = {
-  name: keyof typeof CHECKBOX_DATA
+  name: FieldKey
   control: Control<any>
   errors: FieldErrors<any>
   data: CheckBoxElementType
@@ -23,14 +23,15 @@ export const CheckBoxController: React.FC<Props> = (
     data
   }
 ): JSX.Element => {
-  if (!CHECKBOX_DATA[name]) new Error(`CHECKBOX_DATA[${name}] no Found!`)
+  if (!INPUT_DATA[name]) new Error(`INPUT_DATA[${name}] no Found!`)
   return (
     <CheckBoxGroup
+      name={name}
       isError={!!errors[name]}
       helperText={errors[name]?.message as string}
       inputProps={{
         control,
-        ...CHECKBOX_DATA[name]
+        ...INPUT_DATA[name]
       }}
       data={data}
     />

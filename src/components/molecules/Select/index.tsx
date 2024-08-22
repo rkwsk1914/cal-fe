@@ -14,7 +14,7 @@ import { useGetDarkModeStyleClass } from '@/hooks/useGetDarkModeStyleClass'
 
 import styles from './style.module.scss'
 
-import type { InputProps, SelectOptionType } from '@/types/form/InputAttribute'
+import type { InputProps, SelectOptionType, FieldKey } from '@/types/form/InputAttribute'
 
 
 type Props = {
@@ -23,6 +23,7 @@ type Props = {
   arrangement?: 'vertically' | 'horizontally'
   inputProps: InputProps
   data: SelectOptionType
+  name: FieldKey
 };
 
 export const Select: React.FC<Props> = ({
@@ -30,12 +31,12 @@ export const Select: React.FC<Props> = ({
   helperText,
   arrangement = 'horizontally',
   inputProps,
-  data
+  data,
+  name
 }): JSX.Element => {
   const {
     label,
     control,
-    id,
   } = inputProps
 
   const wrap = clsx(styles.wrap, {
@@ -53,7 +54,7 @@ export const Select: React.FC<Props> = ({
         <div className={styles.content}>
           {control ? (
           <Controller
-            name={id}
+            name={name}
             control={control}
             render={({ field }) => (
               <ChakuraSelect {...field} placeholder='Select option'>
