@@ -1,0 +1,6 @@
+mutation UpdateFixedCostPattern($updateFixedCostPatternId: String!, $input: UpdateFixedCostPatternInput!) {
+  updateFixedCostPattern(id: $updateFixedCostPatternId, input: $input) {
+    message
+    success
+  }
+}

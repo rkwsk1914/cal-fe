@@ -209,4 +209,16 @@ export const INPUT_DATA = {
     label: 'クレジット払い',
     zod: ZodSchema.CHECKBOX_SCHEME
   },
+  fixedCostPatternName: {
+    label: '固定費パターン名',
+    inputTextArgs: {
+      type: 'text',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.fixFullWidth(
+        value
+      )
+    }
+  }
 } as const satisfies InputDataType

@@ -1,0 +1,6 @@
+mutation CreateFixedCostPattern($input: CreateFixedCostPatternInput!) {
+  createFixedCostPattern(input: $input) {
+    success
+    message
+  }
+}

@@ -1,0 +1,18 @@
+query FindAllFixedCostPatterns {
+  findAllFixedCostPatterns {
+    _id
+    name
+    color
+    detail {
+      _id
+      payment {
+        _id
+        name
+      }
+      amount
+      description
+      name
+      payDay
+    }
+  }
+}
