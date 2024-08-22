@@ -54,7 +54,7 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
   }
   const requiredValues: DefaultValuesRequiredType = {
     paymentName: isUneditable ? false : true,
-    bank: isUneditable ? false : true,
+    bank: true,
     color: false,
     isCredit: false,
     payDay: isCredit.length > 0,
@@ -78,7 +78,7 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
     setValue,
     formState: { errors },
   } = useForm({
-    mode: 'onChange',
+    mode: 'onSubmit',
     defaultValues,
     resolver: zodResolver(scheme),
   })

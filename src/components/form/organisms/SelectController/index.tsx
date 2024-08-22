@@ -47,14 +47,18 @@ export const SelectController: React.FC<Props> = (
           isError={!!errors[name]}
           helperText={errors[name]?.message ? errors[name]?.message  as string : helperText}
         >
-          <ChakuraSelect {...field} placeholder={placeholder}>
+          <ChakuraSelect
+            {...field}
+            isDisabled={disabled}
+            placeholder={placeholder}
+            isReadOnly={disabled}
+          >
             {data.map((item) => (
               <option key={item.value} value={item.value}>{item.label}</option>
             ))}
           </ChakuraSelect>
         </FormControl>
       )}
-      disabled={disabled}
     />
   )
 }
