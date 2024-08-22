@@ -1,29 +1,33 @@
 import { ApolloQueryResult } from '@apollo/client'
 
 import {
-  FindPaymentByIdQuery,
-  FindPaymentByIdQueryVariables,
-  FindPaymentByIdDocument,
-  FindAllBanksQuery,
-  FindAllBanksQueryVariables,
-  FindAllBanksDocument
+  FindFixedCostByIdQuery,
+  FindAllPaymentsQuery,
+  FindAllFixedCostPatternsQuery,
+  FindFixedCostByIdQueryVariables,
+  FindFixedCostByIdDocument,
+  FindAllPaymentsQueryVariables,
+  FindAllPaymentsDocument,
+  FindAllFixedCostPatternsQueryVariables,
+  FindAllFixedCostPatternsDocument
 } from '@/generated/graphql'
 
 import { doQueryServerSide } from '@/utils/doQueryServerSide'
 
-import { PaymentDetail } from '@/components/pages/payment/PaymentDetail'
+import { FixedCostDetail } from '@/components/pages/fixedCost/FixedCostDetail'
 
 
 import type { NextPage, GetServerSideProps } from 'next'
 
 interface Props {
-  payment: ApolloQueryResult<FindPaymentByIdQuery>
-  banks: ApolloQueryResult<FindAllBanksQuery>
+  fixedCost?: Partial<ApolloQueryResult<FindFixedCostByIdQuery>>
+  payments: Partial<ApolloQueryResult<FindAllPaymentsQuery>>
+  patterns: Partial<ApolloQueryResult<FindAllFixedCostPatternsQuery>>
 }
 
-const PaymentUpdate: NextPage<Props> = (props) => {
+const UpdateFixedCost: NextPage<Props> = (props) => {
   return (
-    <PaymentDetail {...props} />
+    <FixedCostDetail {...props} />
   )
 }
 
@@ -34,34 +38,47 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     return { notFound: true }
   }
 
-  const paymentResult = await doQueryServerSide<
-    FindPaymentByIdQuery, FindPaymentByIdQueryVariables
+  const fixedCostResult = await doQueryServerSide<
+    FindFixedCostByIdQuery, FindFixedCostByIdQueryVariables
   >({
-    name: 'findPaymentByID',
-    query: FindPaymentByIdDocument,
-    variables: { findPaymentByIdId: id },
+    name: 'findFixedCostByID',
+    query: FindFixedCostByIdDocument,
+    variables: { findFixedCostByIdId: id },
   })
 
-  if (!paymentResult) {
+  if (!fixedCostResult) {
     return { notFound: true }
   }
 
-  const banksResult = await doQueryServerSide<
-    FindAllBanksQuery, FindAllBanksQueryVariables
-    >({
-      name: 'FindAllBanks',
-      query: FindAllBanksDocument,
-      variables: {},
-    })
+  const paymentsResult = await doQueryServerSide<
+    FindAllPaymentsQuery, FindAllPaymentsQueryVariables
+  >({
+    name: 'findAllPayments',
+    query: FindAllPaymentsDocument,
+    variables: {},
+  })
 
-  if (!banksResult) {
+  if (!paymentsResult) {
+    return { notFound: true }
+  }
+
+  const patternsResult = await doQueryServerSide<
+    FindAllFixedCostPatternsQuery, FindAllFixedCostPatternsQueryVariables
+  >({
+    name: 'findAllFixedCostPatterns',
+    query: FindAllFixedCostPatternsDocument,
+    variables: {},
+  })
+
+  if (!patternsResult) {
     return { notFound: true }
   }
 
   return { props: {
-    payment: paymentResult,
-    banks: banksResult
+    fixedCost: fixedCostResult,
+    payments: paymentsResult,
+    patterns: patternsResult,
   } }
 }
 
-export default PaymentUpdate
+export default UpdateFixedCost

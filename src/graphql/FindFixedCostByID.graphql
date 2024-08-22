@@ -1,0 +1,25 @@
+query FindFixedCostByID($findFixedCostByIdId: String!) {
+  findFixedCostByID(id: $findFixedCostByIdId) {
+    _id
+    name
+    description
+    amount
+    payment {
+      bank {
+        branchName
+        name
+        color
+        _id
+      }
+      name
+      color
+      _id
+    }
+    payDay
+    pattern {
+      _id
+      color
+      name
+    }
+  }
+}

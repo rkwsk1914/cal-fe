@@ -47,7 +47,7 @@ export const Template: React.FC<Props> = ({}): JSX.Element => {
   }
 
   return (
-    <FromLayout handleSubmit={handleSubmit(onSubmit)}>
+    <FromLayout handleSubmit={handleSubmit(onSubmit)} listHref=''>
       <InputController
         name="testTextInput"
         {...args}

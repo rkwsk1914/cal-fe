@@ -1,45 +1,63 @@
 import { ApolloQueryResult } from '@apollo/client'
 
 import {
-  FindAllBanksQuery,
-  FindAllBanksQueryVariables,
-  FindAllBanksDocument
+  FindFixedCostByIdQuery,
+  FindAllPaymentsQuery,
+  FindAllFixedCostPatternsQuery,
+  FindAllPaymentsQueryVariables,
+  FindAllPaymentsDocument,
+  FindAllFixedCostPatternsQueryVariables,
+  FindAllFixedCostPatternsDocument
 } from '@/generated/graphql'
 
 import { doQueryServerSide } from '@/utils/doQueryServerSide'
 
-import { PaymentDetail } from '@/components/pages/payment/PaymentDetail'
+import { FixedCostDetail } from '@/components/pages/fixedCost/FixedCostDetail'
 
 
 import type { NextPage, GetServerSideProps } from 'next'
 
 interface Props {
-  payment?: undefined
-  banks: ApolloQueryResult<FindAllBanksQuery>
+  fixedCost?: Partial<ApolloQueryResult<FindFixedCostByIdQuery>>
+  payments: Partial<ApolloQueryResult<FindAllPaymentsQuery>>
+  patterns: Partial<ApolloQueryResult<FindAllFixedCostPatternsQuery>>
 }
 
-const PaymentCreate: NextPage<Props> = (props) => {
+const CreateFixedCost: NextPage<Props> = (props) => {
   return (
-    <PaymentDetail {...props} />
+    <FixedCostDetail {...props} />
   )
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const banksResult = await doQueryServerSide<
-    FindAllBanksQuery, FindAllBanksQueryVariables
-    >({
-      name: 'FindAllBanks',
-      query: FindAllBanksDocument,
-      variables: {},
-    })
+export const getServerSideProps: GetServerSideProps<Props> = async (_context) => {
+  const paymentsResult = await doQueryServerSide<
+    FindAllPaymentsQuery, FindAllPaymentsQueryVariables
+  >({
+    name: 'findAllPayments',
+    query: FindAllPaymentsDocument,
+    variables: {},
+  })
 
-  if (!banksResult) {
+  if (!paymentsResult) {
+    return { notFound: true }
+  }
+
+  const patternsResult = await doQueryServerSide<
+    FindAllFixedCostPatternsQuery, FindAllFixedCostPatternsQueryVariables
+  >({
+    name: 'findAllFixedCostPatterns',
+    query: FindAllFixedCostPatternsDocument,
+    variables: {},
+  })
+
+  if (!patternsResult) {
     return { notFound: true }
   }
 
   return { props: {
-    banks: banksResult
+    payments: paymentsResult,
+    patterns: patternsResult,
   } }
 }
 
-export default PaymentCreate
+export default CreateFixedCost

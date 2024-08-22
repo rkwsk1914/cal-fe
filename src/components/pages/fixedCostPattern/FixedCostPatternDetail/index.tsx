@@ -12,6 +12,7 @@ import { useSetZodScheme, DefaultValuesRequiredType }from '@/hooks/form/useSetZo
 
 import { Alert } from '@/components/atoms/Alert'
 import { Badge, BadgeColorOptions } from '@/components/atoms/Badge'
+import { Button } from '@/components/atoms/Button'
 import { InputController } from '@/components/form/organisms/InputController'
 import { RadioController } from '@/components/form/organisms/RadioController'
 import { FromLayout } from '@/components/layouts/FromLayout'
@@ -114,7 +115,7 @@ export const FixedCostPatternDetail: React.FC<Props> = (props): JSX.Element => {
   }
 
   return (
-    <PageLayout title='口座詳細'>
+    <PageLayout title='固定費パターン詳細'>
       <FromLayout
         handleSubmit={handleSubmit(onSubmit)}
         listHref='/fixed-cost'
@@ -131,6 +132,7 @@ export const FixedCostPatternDetail: React.FC<Props> = (props): JSX.Element => {
             label: <Badge colorScheme={BadgeColorOption}>{BadgeColorOption}</Badge>
           }))}
         />
+        <Button type='prime' href={`/fixed-cost/${pattern}/create`}>新規固定費作成</Button>
       </FromLayout>
     </PageLayout>
   )

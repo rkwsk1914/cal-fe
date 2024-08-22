@@ -220,5 +220,49 @@ export const INPUT_DATA = {
         value
       )
     }
-  }
+  },
+  fixedCostName: {
+    label: '固定費名',
+    inputTextArgs: {
+      type: 'text',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.fixFullWidth(
+        value
+      )
+    }
+  },
+  description: {
+    label: '備考',
+    inputTextArgs: {
+      type: 'text',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.fixFullWidth(
+        value
+      )
+    }
+  },
+  amount: {
+    label: '金額',
+    inputTextArgs: {
+      type: 'tel',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.fixHalfWidth(
+        chrFormatChange.removeOtherHalfNumber(value)
+      )
+    }
+  },
+  fixedCostPattern: {
+    label: '固定費パターン',
+    zod: ZodSchema.TEXT_SCHEMA
+  },
+  payment: {
+    label: '支払い方法',
+    zod: ZodSchema.TEXT_SCHEMA
+  },
 } as const satisfies InputDataType

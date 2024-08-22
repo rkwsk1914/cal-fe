@@ -162,7 +162,7 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
       trigger('closingDay')
     }
     setIsCredit(isCreditValue)
-  }, [isCreditValue, setIsCredit])
+  }, [isCreditValue, setIsCredit, setValue, trigger])
 
   return (
     <PageLayout title='支払い方法詳細'>
