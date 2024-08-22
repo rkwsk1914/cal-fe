@@ -6,7 +6,7 @@ import { Controller } from 'react-hook-form'
 
 import { INPUT_DATA, InputDataType } from '@/const/form/TextInputData'
 
-import { FormControl, ArrangementType } from '@/components/molecules/FormControl'
+import { FormControl, ArrangementType } from '@/components/form/molecules/FormControl'
 
 import type { FieldKey, ControlType } from '@/types/form/InputAttribute'
 

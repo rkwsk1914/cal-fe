@@ -12,9 +12,9 @@ import { useSetZodScheme }from '@/hooks/form/useSetZodScheme'
 
 import { Alert } from '@/components/atoms/Alert'
 import { Badge, BadgeColorOptions } from '@/components/atoms/Badge'
+import { InputController } from '@/components/form/organisms/InputController'
+import { RadioController } from '@/components/form/organisms/RadioController'
 import { FromLayout } from '@/components/layouts/FromLayout'
-import { InputController } from '@/components/organisms/InputController'
-import { RadioController } from '@/components/organisms/RadioController'
 
 import type { DefaultValuesType } from '@/types/form/InputAttribute'
 

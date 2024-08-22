@@ -1,25 +1,25 @@
 import * as React from 'react'
 
+import { Select as ChakuraSelect } from '@chakra-ui/react'
 import { FieldErrors } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
 
 import { INPUT_DATA } from '@/const/form/TextInputData'
 
-import { Radio } from '@/components/atoms/Radio'
-import { FormControl, ArrangementType } from '@/components/molecules/FormControl'
+import { FormControl, ArrangementType } from '@/components/form/molecules/FormControl'
 
-import type { RadioElementType, FieldKey, ControlType } from '@/types/form/InputAttribute'
+import type { CheckBoxElementType, FieldKey, ControlType } from '@/types/form/InputAttribute'
 
 type Props = {
   name: FieldKey
   control: ControlType
   errors: FieldErrors<any>
-  data: RadioElementType
+  data: CheckBoxElementType
   shouldUnregister?: boolean
   arrangement?: ArrangementType
 };
 
-export const RadioController: React.FC<Props> = (
+export const SelectController: React.FC<Props> = (
   {
     name,
     control,
@@ -33,6 +33,8 @@ export const RadioController: React.FC<Props> = (
     label,
   } =  INPUT_DATA[name]
 
+  const placeholder = '選択してください'
+
   return (
     <FormControl label={label} isError={!!errors[name]} helperText={errors[name]?.message as string}>
       {control ? (
@@ -41,11 +43,19 @@ export const RadioController: React.FC<Props> = (
         control={control}
         shouldUnregister={shouldUnregister}
         render={({ field }) => (
-          <Radio data={data} field={field} />
+          <ChakuraSelect {...field} placeholder={placeholder}>
+            {data.map((item) => (
+              <option key={item.value} value={item.value}>{item.label}</option>
+            ))}
+          </ChakuraSelect>
         )}
       />
       ): (
-        <Radio data={data} />
+        <ChakuraSelect placeholder={placeholder}>
+          {data.map((item) => (
+            <option key={item.value} value={item.value}>{item.label}</option>
+          ))}
+        </ChakuraSelect>
       )}
     </FormControl>
   )

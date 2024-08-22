@@ -5,21 +5,21 @@ import { Controller } from 'react-hook-form'
 
 import { INPUT_DATA } from '@/const/form/TextInputData'
 
-import { CheckBox } from '@/components/atoms/CheckBox'
-import { FormControl, ArrangementType } from '@/components/molecules/FormControl'
+import { FormControl, ArrangementType } from '@/components/form/molecules/FormControl'
+import { Radio } from '@/components/form/molecules/Radio'
 
-import type { CheckBoxElementType, FieldKey, ControlType } from '@/types/form/InputAttribute'
+import type { RadioElementType, FieldKey, ControlType } from '@/types/form/InputAttribute'
 
 type Props = {
   name: FieldKey
   control: ControlType
   errors: FieldErrors<any>
-  data: CheckBoxElementType
+  data: RadioElementType
   shouldUnregister?: boolean
   arrangement?: ArrangementType
 };
 
-export const CheckBoxController: React.FC<Props> = (
+export const RadioController: React.FC<Props> = (
   {
     name,
     control,
@@ -41,11 +41,11 @@ export const CheckBoxController: React.FC<Props> = (
         control={control}
         shouldUnregister={shouldUnregister}
         render={({ field }) => (
-          <CheckBox data={data} field={field} />
+          <Radio data={data} field={field} />
         )}
       />
       ): (
-        <CheckBox data={data} />
+        <Radio data={data} />
       )}
     </FormControl>
   )
