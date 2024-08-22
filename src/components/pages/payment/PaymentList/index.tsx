@@ -4,7 +4,7 @@ import { ApolloQueryResult } from '@apollo/client'
 
 import { FindAllPaymentsQuery } from '@/generated/graphql'
 
-
+import { Button } from '@/components/atoms/Button'
 import { LinkMenu, ListItemType } from '@/components/molecules/LinkMenu'
 
 type Props = Partial<ApolloQueryResult<FindAllPaymentsQuery>>
@@ -17,7 +17,7 @@ export const PaymentList: React.FC<Props> = (props): JSX.Element => {
 
   const groupedData = listData && listData.reduce((acc, current) => {
     const { bank } = current
-    if (!acc[bank._id]) {
+    if (!acc[bank.name]) {
       acc[bank.name] = []
     }
     acc[bank.name].push(current)
@@ -39,6 +39,9 @@ export const PaymentList: React.FC<Props> = (props): JSX.Element => {
   })
 
   return (
-    <LinkMenu list={list} />
+    <>
+      <LinkMenu list={list} />
+      <Button type='prime' href='payment/create'>新規作成</Button>
+    </>
   )
 }

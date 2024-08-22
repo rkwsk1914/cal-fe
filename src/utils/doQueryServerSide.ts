@@ -24,6 +24,7 @@ export const doQueryServerSide = async <
     return await APOLLO_CLIENT.query<Query, Variables>({
       query,
       variables,
+      fetchPolicy: 'no-cache',
     })
   } catch {
     return undefined
