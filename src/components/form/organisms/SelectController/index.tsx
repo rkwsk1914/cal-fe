@@ -17,6 +17,8 @@ type Props = {
   data: CheckBoxElementType
   shouldUnregister?: boolean
   arrangement?: ArrangementType
+  disabled?: boolean
+  helperText?: React.ReactNode | string
 };
 
 export const SelectController: React.FC<Props> = (
@@ -25,7 +27,9 @@ export const SelectController: React.FC<Props> = (
     control,
     errors,
     data,
-    shouldUnregister = true
+    shouldUnregister = true,
+    disabled,
+    helperText
   }
 ): JSX.Element => {
   if (!INPUT_DATA[name]) new Error(`INPUT_DATA[${name}] no Found!`)
@@ -36,7 +40,11 @@ export const SelectController: React.FC<Props> = (
   const placeholder = '選択してください'
 
   return (
-    <FormControl label={label} isError={!!errors[name]} helperText={errors[name]?.message as string}>
+    <FormControl
+      label={label}
+      isError={!!errors[name]}
+      helperText={errors[name]?.message ? errors[name]?.message  as string : helperText}
+    >
       {control ? (
       <Controller
         name={name}
@@ -49,9 +57,10 @@ export const SelectController: React.FC<Props> = (
             ))}
           </ChakuraSelect>
         )}
+        disabled={disabled}
       />
       ): (
-        <ChakuraSelect placeholder={placeholder}>
+        <ChakuraSelect placeholder={placeholder} disabled={disabled}>
           {data.map((item) => (
             <option key={item.value} value={item.value}>{item.label}</option>
           ))}

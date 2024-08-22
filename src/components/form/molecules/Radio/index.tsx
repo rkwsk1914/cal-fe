@@ -7,15 +7,20 @@ import type { ControllerFiled, RadioElementType } from '@/types/form/InputAttrib
 type RefProps = {
   field?: ControllerFiled
   data: RadioElementType
+  disabled?: boolean
 }
 
 export const Radio = React.forwardRef(
   function RefComponent (
-    { data, field, }: RefProps,
+    { data, field, disabled }: RefProps,
     _ref?: React.Ref<HTMLInputElement>
   ): JSX.Element {
     return (
-      <RadioGroup onChange={field?.onChange} value={field?.value as string}>
+      <RadioGroup
+        onChange={field?.onChange}
+        value={field?.value as string}
+        isDisabled={disabled}
+      >
         <Grid templateColumns='repeat(4, 1fr)' gap={4}>
           {data.map((item) => (
             <React.Fragment key={item.value}>

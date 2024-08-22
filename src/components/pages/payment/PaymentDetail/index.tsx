@@ -1,8 +1,9 @@
 import * as React from 'react'
 
 import { ApolloQueryResult } from '@apollo/client'
-import { useToast } from '@chakra-ui/react'
+import { useToast, Link } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
+import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { useForm, useWatch } from 'react-hook-form'
 
@@ -38,12 +39,14 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
   const { payment, banks } = props
   const res = payment?.data?.findPaymentByID
 
+  const disabled = res?.uneditable ? true : false
+
   const defaultValues: DefaultValuesType = {
     paymentName: res?.name ?? '',
     bank: res?.bank._id ?? '',
-    closingDay: String(res?.closingDay) ?? '',
+    closingDay: res?.closingDay ? String(res?.closingDay) : '',
     color: res?.color ?? '',
-    payDay: String(res?.payDay) ?? '',
+    payDay: res?.payDay ? String(res?.payDay) : '',
     isCredit: res?.isCredit ? ['true'] : [],
   }
 
@@ -60,6 +63,7 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
     trigger,
     formState: { errors, isValid },
   } = useForm({
+    mode: 'onSubmit',
     defaultValues,
     resolver: zodResolver(scheme),
   })
@@ -138,16 +142,22 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
   return (
     <FromLayout
       handleSubmit={handleSubmit(onSubmit)}
-      hasError={isValid}
+      hasError={!isValid}
     >
       <InputController
         name="paymentName"
         {...args}
+        disabled={disabled}
+        helperText={disabled ?
+          <>引き落とし口座名を編集してください。<Link as={NextLink} href={`/bank/${res?.bank._id}`}>編集画面はこちら</Link></> :
+          undefined
+        }
       />
       <SelectController
         name="bank"
         {...args}
         data={bankSelect ?? []}
+        disabled={disabled}
       />
       <CheckBoxController
         name="isCredit"
@@ -155,18 +165,19 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
         data={[
           { value: 'true', label: 'クレジット払い' },
         ]}
+        disabled={disabled}
       />
       {isCredit?.length > 0 && (
         <>
           <InputController
             name="closingDay"
             {...args}
-            shouldUnregister
+            shouldUnregister={false}
           />
           <InputController
             name="payDay"
             {...args}
-            shouldUnregister
+            shouldUnregister={false}
           />
         </>
       )}

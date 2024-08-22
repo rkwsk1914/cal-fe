@@ -17,7 +17,7 @@ export type ArrangementType = 'vertically' | 'horizontally'
 type Props = {
   label?: string
   isError: boolean
-  helperText?: string
+  helperText?: React.ReactNode | string
   arrangement?: ArrangementType
   children?: React.ReactNode
 };

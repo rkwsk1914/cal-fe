@@ -17,6 +17,8 @@ type Props = {
   data: RadioElementType
   shouldUnregister?: boolean
   arrangement?: ArrangementType
+  disabled?: boolean
+  helperText?: React.ReactNode | string
 };
 
 export const RadioController: React.FC<Props> = (
@@ -25,7 +27,9 @@ export const RadioController: React.FC<Props> = (
     control,
     errors,
     data,
-    shouldUnregister = true
+    shouldUnregister = true,
+    disabled,
+    helperText
   }
 ): JSX.Element => {
   if (!INPUT_DATA[name]) new Error(`INPUT_DATA[${name}] no Found!`)
@@ -34,14 +38,18 @@ export const RadioController: React.FC<Props> = (
   } =  INPUT_DATA[name]
 
   return (
-    <FormControl label={label} isError={!!errors[name]} helperText={errors[name]?.message as string}>
+    <FormControl
+      label={label}
+      isError={!!errors[name]}
+      helperText={errors[name]?.message ? errors[name]?.message  as string : helperText}
+    >
       {control ? (
       <Controller
         name={name}
         control={control}
         shouldUnregister={shouldUnregister}
         render={({ field }) => (
-          <Radio data={data} field={field} />
+          <Radio data={data} field={field} disabled={disabled} />
         )}
       />
       ): (

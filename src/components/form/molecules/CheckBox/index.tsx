@@ -7,15 +7,16 @@ import type { ControllerFiled, CheckBoxElementType } from '@/types/form/InputAtt
 type RefProps = {
   field?: ControllerFiled
   data: CheckBoxElementType
+  disabled?: boolean
 }
 
 export const CheckBox = React.forwardRef(
   function RefComponent (
-    { data, field, }: RefProps,
+    { data, field, disabled }: RefProps,
     _ref?: React.Ref<any>
   ): JSX.Element {
     return (
-      <CheckboxGroup value={field?.value as string[]} onChange={field?.onChange}>
+      <CheckboxGroup value={field?.value as string[]} onChange={field?.onChange} isDisabled={disabled}>
         <Grid templateColumns='repeat(4, 1fr)' gap={4} ref={_ref}>
           {data.map((item) => (
             <React.Fragment key={item.value}>
