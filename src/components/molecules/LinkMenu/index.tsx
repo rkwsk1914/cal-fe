@@ -34,7 +34,7 @@ export const LinkMenu: React.FC<Props> = (
               item.label
             }
             {item.subList && (
-              <UnorderedList className={styles.list}>
+              <UnorderedList className={styles.subList}>
                 {item.subList.map((subItem) => (
                   <React.Fragment key={subItem.label}>
                     <ListItem>

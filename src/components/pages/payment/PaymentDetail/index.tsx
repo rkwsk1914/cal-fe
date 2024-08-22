@@ -24,6 +24,7 @@ import { InputController } from '@/components/form/organisms/InputController'
 import { RadioController } from '@/components/form/organisms/RadioController'
 import { SelectController } from '@/components/form/organisms/SelectController'
 import { FromLayout } from '@/components/layouts/FromLayout'
+import { PageLayout } from '@/components/layouts/PageLayout'
 
 import type { DefaultValuesType, SelectOptionType } from '@/types/form/InputAttribute'
 
@@ -164,52 +165,55 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
   }, [isCreditValue, setIsCredit])
 
   return (
-    <FromLayout
-      handleSubmit={handleSubmit(onSubmit)}
-    >
-      <InputController
-        name="paymentName"
-        {...args}
-        disabled={isUneditable}
-        helperText={isUneditable ?
-          <>引き落とし口座名を編集してください。<Link as={NextLink} href={`/bank/${res?.bank._id}`}>編集画面はこちら</Link></> :
-          undefined
-        }
-      />
-      <SelectController
-        name="bank"
-        {...args}
-        data={bankSelect ?? []}
-        disabled={isUneditable}
-      />
-      <CheckBoxController
-        name="isCredit"
-        {...args}
-        data={[
-          { value: 'true', label: 'クレジット払い' },
-        ]}
-        disabled={isUneditable}
-      />
-      {isCredit?.length > 0 && (
-        <>
-          <InputController
-            name="closingDay"
-            {...args}
-          />
-          <InputController
-            name="payDay"
-            {...args}
-          />
-        </>
-      )}
-      <RadioController
-        name="color"
-        {...args}
-        data={BadgeColorOptions.map((BadgeColorOption) => ({
-          value: BadgeColorOption,
-          label: <Badge colorScheme={BadgeColorOption}>{BadgeColorOption}</Badge>
-        }))}
-      />
-    </FromLayout>
+    <PageLayout title='支払い方法詳細'>
+      <FromLayout
+        handleSubmit={handleSubmit(onSubmit)}
+        listHref='/payment'
+      >
+        <InputController
+          name="paymentName"
+          {...args}
+          disabled={isUneditable}
+          helperText={isUneditable ?
+            <>引き落とし口座名を編集してください。<Link as={NextLink} href={`/bank/${res?.bank._id}`}>編集画面はこちら</Link></> :
+            undefined
+          }
+        />
+        <SelectController
+          name="bank"
+          {...args}
+          data={bankSelect ?? []}
+          disabled={isUneditable}
+        />
+        <CheckBoxController
+          name="isCredit"
+          {...args}
+          data={[
+            { value: 'true', label: 'クレジット払い' },
+          ]}
+          disabled={isUneditable}
+        />
+        {isCredit?.length > 0 && (
+          <>
+            <InputController
+              name="closingDay"
+              {...args}
+            />
+            <InputController
+              name="payDay"
+              {...args}
+            />
+          </>
+        )}
+        <RadioController
+          name="color"
+          {...args}
+          data={BadgeColorOptions.map((BadgeColorOption) => ({
+            value: BadgeColorOption,
+            label: <Badge colorScheme={BadgeColorOption}>{BadgeColorOption}</Badge>
+          }))}
+        />
+      </FromLayout>
+    </PageLayout>
   )
 }

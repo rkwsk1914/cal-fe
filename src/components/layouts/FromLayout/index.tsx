@@ -9,12 +9,14 @@ type Props = {
   children?: React.ReactNode
   handleSubmit: React.FormEventHandler<HTMLFormElement>
   hasError?: boolean
+  listHref: string
 };
 
 export const FromLayout: React.FC<Props> = ({
   children,
   handleSubmit,
-  hasError
+  hasError,
+  listHref
 }): JSX.Element => {
 
   return (
@@ -22,6 +24,7 @@ export const FromLayout: React.FC<Props> = ({
       <div className={styles.content}>
         {children}
         <Button type='prime' submit disabled={hasError}>保存</Button>
+        <Button type='warning' href={listHref}>一覧に戻る</Button>
       </div>
     </form>
   )

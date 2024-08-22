@@ -15,6 +15,7 @@ import { Badge, BadgeColorOptions } from '@/components/atoms/Badge'
 import { InputController } from '@/components/form/organisms/InputController'
 import { RadioController } from '@/components/form/organisms/RadioController'
 import { FromLayout } from '@/components/layouts/FromLayout'
+import { PageLayout } from '@/components/layouts/PageLayout'
 
 import type { DefaultValuesType } from '@/types/form/InputAttribute'
 
@@ -117,23 +118,28 @@ export const BankDetail: React.FC<Props> = (props): JSX.Element => {
   }
 
   return (
-    <FromLayout handleSubmit={handleSubmit(onSubmit)}>
-      <InputController
-        name="bankName"
-        {...args}
-      />
-      <InputController
-        name="bankBranchName"
-        {...args}
-      />
-      <RadioController
-        name="color"
-        {...args}
-        data={BadgeColorOptions.map((BadgeColorOption) => ({
-          value: BadgeColorOption,
-          label: <Badge colorScheme={BadgeColorOption}>{BadgeColorOption}</Badge>
-        }))}
-      />
-    </FromLayout>
+    <PageLayout title='口座詳細'>
+      <FromLayout
+        handleSubmit={handleSubmit(onSubmit)}
+        listHref='/bank'
+      >
+        <InputController
+          name="bankName"
+          {...args}
+        />
+        <InputController
+          name="bankBranchName"
+          {...args}
+        />
+        <RadioController
+          name="color"
+          {...args}
+          data={BadgeColorOptions.map((BadgeColorOption) => ({
+            value: BadgeColorOption,
+            label: <Badge colorScheme={BadgeColorOption}>{BadgeColorOption}</Badge>
+          }))}
+        />
+      </FromLayout>
+    </PageLayout>
   )
 }

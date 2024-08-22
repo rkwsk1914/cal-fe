@@ -1,8 +1,11 @@
 import * as React from 'react'
 
-import { Radio as ChakuraUIRadio, RadioGroup, Grid } from '@chakra-ui/react'
+import { Radio as ChakuraUIRadio, RadioGroup } from '@chakra-ui/react'
+
+import styles from './style.module.scss'
 
 import type { ControllerFiled, RadioElementType } from '@/types/form/InputAttribute'
+
 
 type RefProps = {
   field?: ControllerFiled
@@ -21,7 +24,7 @@ export const Radio = React.forwardRef(
         value={field?.value as string}
         isDisabled={disabled}
       >
-        <Grid templateColumns='repeat(4, 1fr)' gap={4}>
+        <div className={styles.radios}>
           {data.map((item) => (
             <React.Fragment key={item.value}>
               <ChakuraUIRadio
@@ -31,7 +34,7 @@ export const Radio = React.forwardRef(
               >{item.label}</ChakuraUIRadio>
             </React.Fragment>
           ))}
-        </Grid>
+        </div>
       </RadioGroup>
     )
   }

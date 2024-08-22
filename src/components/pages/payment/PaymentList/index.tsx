@@ -4,7 +4,8 @@ import { ApolloQueryResult } from '@apollo/client'
 
 import { FindAllPaymentsQuery } from '@/generated/graphql'
 
-import { Button } from '@/components/atoms/Button'
+import { ListPageLayout } from '@/components/layouts/ListPageLayout'
+import { PageLayout } from '@/components/layouts/PageLayout'
 import { LinkMenu, ListItemType } from '@/components/molecules/LinkMenu'
 
 type Props = Partial<ApolloQueryResult<FindAllPaymentsQuery>>
@@ -39,9 +40,10 @@ export const PaymentList: React.FC<Props> = (props): JSX.Element => {
   })
 
   return (
-    <>
-      <LinkMenu list={list} />
-      <Button type='prime' href='/payment/create'>新規作成</Button>
-    </>
+    <PageLayout  title='支払い方法一覧'>
+      <ListPageLayout createBtnHref='/payment/create'>
+        <LinkMenu list={list} />
+      </ListPageLayout>
+    </PageLayout>
   )
 }
