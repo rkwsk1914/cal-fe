@@ -6,9 +6,9 @@ import * as ZodSchema from '@/const/form/Schema'
 
 import { InputProps } from '@/types/form/InputAttribute'
 
-type InputDataType = Record<
+export type InputDataType = Record<
   string,
-  InputProps &
+  Omit<InputProps, 'control'> &
   { zod: zod.ZodString | zod.ZodArray<zod.ZodString, 'atleastone' | 'many'>}
 >
 

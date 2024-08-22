@@ -1,18 +1,22 @@
 import * as React from 'react'
 
-import { FieldErrors, Control } from 'react-hook-form'
+import { FieldErrors } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 
 import { INPUT_DATA } from '@/const/form/TextInputData'
 
-import { RadioGroup } from '@/components/molecules/RadioGroup'
+import { Radio } from '@/components/atoms/Radio'
+import { FormControl, ArrangementType } from '@/components/molecules/FormControl'
 
-import type { FieldKey, RadioElementType } from '@/types/form/InputAttribute'
+import type { RadioElementType, FieldKey, ControlType } from '@/types/form/InputAttribute'
 
 type Props = {
   name: FieldKey
-  control: Control<any>
+  control: ControlType
   errors: FieldErrors<any>
   data: RadioElementType
+  shouldUnregister?: boolean
+  arrangement?: ArrangementType
 };
 
 export const RadioController: React.FC<Props> = (
@@ -20,20 +24,29 @@ export const RadioController: React.FC<Props> = (
     name,
     control,
     errors,
-    data
+    data,
+    shouldUnregister = true
   }
 ): JSX.Element => {
   if (!INPUT_DATA[name]) new Error(`INPUT_DATA[${name}] no Found!`)
+  const {
+    label,
+  } =  INPUT_DATA[name]
+
   return (
-    <RadioGroup
-      name={name}
-      isError={!!errors[name]}
-      helperText={errors[name]?.message as string}
-      inputProps={{
-        control,
-        ...INPUT_DATA[name]
-      }}
-      data={data}
-    />
+    <FormControl label={label} isError={!!errors[name]} helperText={errors[name]?.message as string}>
+      {control ? (
+      <Controller
+        name={name}
+        control={control}
+        shouldUnregister={shouldUnregister}
+        render={({ field }) => (
+          <Radio data={data} field={field} />
+        )}
+      />
+      ): (
+        <Radio data={data} />
+      )}
+    </FormControl>
   )
 }

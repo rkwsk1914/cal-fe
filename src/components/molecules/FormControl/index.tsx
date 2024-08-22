@@ -12,11 +12,13 @@ import { useGetDarkModeStyleClass } from '@/hooks/useGetDarkModeStyleClass'
 
 import styles from './style.module.scss'
 
+export type ArrangementType = 'vertically' | 'horizontally'
+
 type Props = {
   label?: string
   isError: boolean
   helperText?: string
-  arrangement?: 'vertically' | 'horizontally'
+  arrangement?: ArrangementType
   children?: React.ReactNode
 };
 

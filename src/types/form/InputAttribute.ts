@@ -17,6 +17,7 @@ export type DefaultValuesType = Partial<Record<FieldKey, InputValue>>
 // checkBoxやRadioのReact Hook Formのcontrolから受け取るfield型情報
 export type ControllerFiled = ControllerRenderProps<DefaultValuesType>
 
+export type ControlType = Control<DefaultValuesType, any>
 interface InputTextArgs {
   type?: TextInputTypeOptionType
   autoComplete?: AutoCompleteType
@@ -30,7 +31,7 @@ interface CommonProps {
   // id: string
   label?: string
   readonly? :boolean
-  control?: Control<DefaultValuesType, any>
+  control?: ControlType
 }
 
 interface NotOtherTextInputProps extends CommonProps {
