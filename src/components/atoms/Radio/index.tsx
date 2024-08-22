@@ -15,13 +15,14 @@ export const Radio = React.forwardRef(
     _ref?: React.Ref<HTMLInputElement>
   ): JSX.Element {
     return (
-      <RadioGroup value={field?.value as string}>
+      <RadioGroup onChange={field?.onChange} value={field?.value as string}>
         <Grid templateColumns='repeat(4, 1fr)' gap={4}>
           {data.map((item) => (
             <React.Fragment key={item.value}>
               <ChakuraUIRadio
                 name={field?.name}
                 value={item.value}
+                ref={field?.ref}
               >{item.label}</ChakuraUIRadio>
             </React.Fragment>
           ))}

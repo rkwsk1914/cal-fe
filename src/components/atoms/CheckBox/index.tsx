@@ -15,7 +15,7 @@ export const CheckBox = React.forwardRef(
     _ref?: React.Ref<any>
   ): JSX.Element {
     return (
-      <CheckboxGroup value={field?.value as string[]}>
+      <CheckboxGroup value={field?.value as string[]} onChange={field?.onChange}>
         <Grid templateColumns='repeat(4, 1fr)' gap={4} ref={_ref}>
           {data.map((item) => (
             <React.Fragment key={item.value}>
