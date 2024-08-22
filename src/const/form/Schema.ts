@@ -57,7 +57,6 @@ export const TEMPORALLY = zod
 
 export const RADIO_SCHEME = zod
   .string()
-  .min(1, { message: requiredMessage })
 
 export const CHECKBOX_SCHEME = zod
   .array(zod.string()).nonempty(requiredMessage)

@@ -58,7 +58,7 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
     handleSubmit,
     control,
     trigger,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     defaultValues,
     resolver: zodResolver(scheme),
@@ -136,7 +136,10 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
   }
 
   return (
-    <FromLayout handleSubmit={handleSubmit(onSubmit)}>
+    <FromLayout
+      handleSubmit={handleSubmit(onSubmit)}
+      hasError={isValid}
+    >
       <InputController
         name="paymentName"
         {...args}
@@ -158,10 +161,12 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
           <InputController
             name="closingDay"
             {...args}
+            shouldUnregister
           />
           <InputController
             name="payDay"
             {...args}
+            shouldUnregister
           />
         </>
       )}

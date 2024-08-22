@@ -8,18 +8,20 @@ import styles from './style.module.scss'
 type Props = {
   children?: React.ReactNode
   handleSubmit: React.FormEventHandler<HTMLFormElement>
+  hasError?: boolean
 };
 
 export const FromLayout: React.FC<Props> = ({
   children,
-  handleSubmit
+  handleSubmit,
+  hasError
 }): JSX.Element => {
 
   return (
     <form onSubmit={handleSubmit}>
       <div className={styles.content}>
         {children}
-        <Button type='prime' submit>保存</Button>
+        <Button type='prime' submit disabled={hasError}>保存</Button>
       </div>
     </form>
   )
