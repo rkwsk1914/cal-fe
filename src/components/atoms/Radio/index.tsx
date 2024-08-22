@@ -15,7 +15,7 @@ export const Radio = React.forwardRef(
     _ref?: React.Ref<HTMLInputElement>
   ): JSX.Element {
     return (
-      <RadioGroup {...field} value={field?.value as string}>
+      <RadioGroup value={field?.value as string}>
         <Grid templateColumns='repeat(4, 1fr)' gap={4}>
           {data.map((item) => (
             <React.Fragment key={item.value}>

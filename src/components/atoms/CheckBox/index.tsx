@@ -12,11 +12,11 @@ type RefProps = {
 export const CheckBox = React.forwardRef(
   function RefComponent (
     { data, field, }: RefProps,
-    _ref?: React.Ref<HTMLInputElement>
+    _ref?: React.Ref<any>
   ): JSX.Element {
     return (
-      <CheckboxGroup {...field} value={field?.value as string[]}>
-        <Grid templateColumns='repeat(4, 1fr)' gap={4}>
+      <CheckboxGroup value={field?.value as string[]}>
+        <Grid templateColumns='repeat(4, 1fr)' gap={4} ref={_ref}>
           {data.map((item) => (
             <React.Fragment key={item.value}>
               <ChakuraUICheckbox
