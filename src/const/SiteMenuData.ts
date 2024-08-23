@@ -5,4 +5,5 @@ export const SITE_MENU_DATA: ListItemType[] = [
   { label: '口座情報', href: '/bank' },
   { label: '支払い方法情報', href: '/payment' },
   { label: '固定費情報', href: '/fixed-cost' },
+  { label: 'ローン情報', href: '/loan' },
 ]

@@ -63,7 +63,7 @@ export const SiteMenu: React.FC<Props> = (
               </div>
             </FormControl>
             <Divider />
-            <div className={styles.menuArea}>
+            <div className={styles.menuArea} onClick={onClose}>
               <LinkMenu list={list} />
             </div>
           </DrawerBody>
