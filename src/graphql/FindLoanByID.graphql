@@ -1,0 +1,46 @@
+query FindLoanByID($findLoanByIdId: String!) {
+  findLoanByID(id: $findLoanByIdId) {
+    _id
+    name
+    payment {
+      _id
+      bank {
+        _id
+        branchName
+        color
+        name
+      }
+      color
+      name
+      payDay
+      isCredit
+    }
+    installmentsCount
+    payDay
+    basePrice
+    amount
+    commission
+    rate
+    detail {
+      _id
+      amount
+      description
+      duplexingAvoidanceID
+      name
+      payDay
+      payment {
+        _id
+        bank {
+          _id
+          branchName
+          color
+          name
+        }
+        name
+        payDay
+      }
+      temporary
+    }
+    startDate
+  }
+}

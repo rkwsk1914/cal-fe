@@ -972,6 +972,13 @@ export type CreateBankMutationVariables = Exact<{
 
 export type CreateBankMutation = { __typename?: 'Mutation', createBank: { __typename?: 'MutationSuccessResGraphQl', message: string, success: boolean } };
 
+export type CreateExpenditureMutationVariables = Exact<{
+  input: CreateExpenditureInput;
+}>;
+
+
+export type CreateExpenditureMutation = { __typename?: 'Mutation', createExpenditure: { __typename?: 'MutationSuccessResGraphQl', message: string, success: boolean } };
+
 export type CreateFixedCostMutationVariables = Exact<{
   input: CreateFixedCostInput;
 }>;
@@ -985,6 +992,13 @@ export type CreateFixedCostPatternMutationVariables = Exact<{
 
 
 export type CreateFixedCostPatternMutation = { __typename?: 'Mutation', createFixedCostPattern: { __typename?: 'MutationSuccessResGraphQl', success: boolean, message: string } };
+
+export type CreateLoanMutationVariables = Exact<{
+  input: CreateLoanInput;
+}>;
+
+
+export type CreateLoanMutation = { __typename?: 'Mutation', createLoan: { __typename?: 'MutationSuccessResGraphQl', success: boolean, message: string } };
 
 export type CreatePaymentMutationVariables = Exact<{
   input: CreatePaymentInput;
@@ -1002,6 +1016,11 @@ export type FindAllFixedCostPatternsQueryVariables = Exact<{ [key: string]: neve
 
 
 export type FindAllFixedCostPatternsQuery = { __typename?: 'Query', findAllFixedCostPatterns: Array<{ __typename?: 'FixedCostPattern', _id: string, name: string, color?: string | null, detail?: Array<{ __typename?: 'FixedCost', _id: string, amount: number, description?: string | null, name: string, payDay: number, payment: { __typename?: 'Payment', _id: string, name: string } }> | null }> };
+
+export type FindAllLoansQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindAllLoansQuery = { __typename?: 'Query', findAllLoans: Array<{ __typename?: 'Loan', _id: string, name: string, installmentsCount: number, payDay: number, basePrice: number, amount: number, commission: number, rate: number, startDate: any, payment: { __typename?: 'Payment', _id: string, color?: string | null, name: string, payDay?: number | null, isCredit?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, detail?: Array<{ __typename?: 'Expenditure', _id: string, amount: number, description?: string | null, duplexingAvoidanceID?: string | null, name: string, payDay: any, temporary?: boolean | null, payment: { __typename?: 'Payment', _id: string, name: string, payDay?: number | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } } }> | null }> };
 
 export type FindAllPaymentsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1029,6 +1048,13 @@ export type FindFixedCostPatternByIdQueryVariables = Exact<{
 
 export type FindFixedCostPatternByIdQuery = { __typename?: 'Query', findFixedCostPatternByID: { __typename?: 'FixedCostPattern', _id: string, name: string, color?: string | null, detail?: Array<{ __typename?: 'FixedCost', _id: string, amount: number, description?: string | null, name: string, payDay: number, payment: { __typename?: 'Payment', _id: string, name: string } }> | null } };
 
+export type FindLoanByIdQueryVariables = Exact<{
+  findLoanByIdId: Scalars['String']['input'];
+}>;
+
+
+export type FindLoanByIdQuery = { __typename?: 'Query', findLoanByID: { __typename?: 'Loan', _id: string, name: string, installmentsCount: number, payDay: number, basePrice: number, amount: number, commission: number, rate: number, startDate: any, payment: { __typename?: 'Payment', _id: string, color?: string | null, name: string, payDay?: number | null, isCredit?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, detail?: Array<{ __typename?: 'Expenditure', _id: string, amount: number, description?: string | null, duplexingAvoidanceID?: string | null, name: string, payDay: any, temporary?: boolean | null, payment: { __typename?: 'Payment', _id: string, name: string, payDay?: number | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } } }> | null } };
+
 export type FindPaymentByIdQueryVariables = Exact<{
   findPaymentByIdId: Scalars['String']['input'];
 }>;
@@ -1043,6 +1069,14 @@ export type UpdateBankMutationVariables = Exact<{
 
 
 export type UpdateBankMutation = { __typename?: 'Mutation', updateBank: { __typename?: 'MutationSuccessResGraphQl', success: boolean, message: string } };
+
+export type UpdateExpenditureMutationVariables = Exact<{
+  updateExpenditureId: Scalars['String']['input'];
+  input: UpdateExpenditureInput;
+}>;
+
+
+export type UpdateExpenditureMutation = { __typename?: 'Mutation', updateExpenditure: { __typename?: 'MutationSuccessResGraphQl', message: string, success: boolean } };
 
 export type UpdateFixedCostMutationVariables = Exact<{
   updateFixedCostId: Scalars['String']['input'];
@@ -1059,6 +1093,14 @@ export type UpdateFixedCostPatternMutationVariables = Exact<{
 
 
 export type UpdateFixedCostPatternMutation = { __typename?: 'Mutation', updateFixedCostPattern: { __typename?: 'MutationSuccessResGraphQl', message: string, success: boolean } };
+
+export type UpdateLoanMutationVariables = Exact<{
+  updateLoanId: Scalars['String']['input'];
+  input: UpdateLoanInput;
+}>;
+
+
+export type UpdateLoanMutation = { __typename?: 'Mutation', updateLoan: { __typename?: 'MutationSuccessResGraphQl', success: boolean, message: string } };
 
 export type UpdatePaymentMutationVariables = Exact<{
   updatePaymentId: Scalars['String']['input'];
@@ -1103,6 +1145,40 @@ export function useCreateBankMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateBankMutationHookResult = ReturnType<typeof useCreateBankMutation>;
 export type CreateBankMutationResult = Apollo.MutationResult<CreateBankMutation>;
 export type CreateBankMutationOptions = Apollo.BaseMutationOptions<CreateBankMutation, CreateBankMutationVariables>;
+export const CreateExpenditureDocument = gql`
+    mutation CreateExpenditure($input: CreateExpenditureInput!) {
+  createExpenditure(input: $input) {
+    message
+    success
+  }
+}
+    `;
+export type CreateExpenditureMutationFn = Apollo.MutationFunction<CreateExpenditureMutation, CreateExpenditureMutationVariables>;
+
+/**
+ * __useCreateExpenditureMutation__
+ *
+ * To run a mutation, you first call `useCreateExpenditureMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateExpenditureMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createExpenditureMutation, { data, loading, error }] = useCreateExpenditureMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateExpenditureMutation(baseOptions?: Apollo.MutationHookOptions<CreateExpenditureMutation, CreateExpenditureMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateExpenditureMutation, CreateExpenditureMutationVariables>(CreateExpenditureDocument, options);
+      }
+export type CreateExpenditureMutationHookResult = ReturnType<typeof useCreateExpenditureMutation>;
+export type CreateExpenditureMutationResult = Apollo.MutationResult<CreateExpenditureMutation>;
+export type CreateExpenditureMutationOptions = Apollo.BaseMutationOptions<CreateExpenditureMutation, CreateExpenditureMutationVariables>;
 export const CreateFixedCostDocument = gql`
     mutation CreateFixedCost($input: CreateFixedCostInput!) {
   createFixedCost(input: $input) {
@@ -1171,6 +1247,40 @@ export function useCreateFixedCostPatternMutation(baseOptions?: Apollo.MutationH
 export type CreateFixedCostPatternMutationHookResult = ReturnType<typeof useCreateFixedCostPatternMutation>;
 export type CreateFixedCostPatternMutationResult = Apollo.MutationResult<CreateFixedCostPatternMutation>;
 export type CreateFixedCostPatternMutationOptions = Apollo.BaseMutationOptions<CreateFixedCostPatternMutation, CreateFixedCostPatternMutationVariables>;
+export const CreateLoanDocument = gql`
+    mutation CreateLoan($input: CreateLoanInput!) {
+  createLoan(input: $input) {
+    success
+    message
+  }
+}
+    `;
+export type CreateLoanMutationFn = Apollo.MutationFunction<CreateLoanMutation, CreateLoanMutationVariables>;
+
+/**
+ * __useCreateLoanMutation__
+ *
+ * To run a mutation, you first call `useCreateLoanMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateLoanMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createLoanMutation, { data, loading, error }] = useCreateLoanMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateLoanMutation(baseOptions?: Apollo.MutationHookOptions<CreateLoanMutation, CreateLoanMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateLoanMutation, CreateLoanMutationVariables>(CreateLoanDocument, options);
+      }
+export type CreateLoanMutationHookResult = ReturnType<typeof useCreateLoanMutation>;
+export type CreateLoanMutationResult = Apollo.MutationResult<CreateLoanMutation>;
+export type CreateLoanMutationOptions = Apollo.BaseMutationOptions<CreateLoanMutation, CreateLoanMutationVariables>;
 export const CreatePaymentDocument = gql`
     mutation CreatePayment($input: CreatePaymentInput!) {
   createPayment(input: $input) {
@@ -1298,6 +1408,86 @@ export type FindAllFixedCostPatternsQueryHookResult = ReturnType<typeof useFindA
 export type FindAllFixedCostPatternsLazyQueryHookResult = ReturnType<typeof useFindAllFixedCostPatternsLazyQuery>;
 export type FindAllFixedCostPatternsSuspenseQueryHookResult = ReturnType<typeof useFindAllFixedCostPatternsSuspenseQuery>;
 export type FindAllFixedCostPatternsQueryResult = Apollo.QueryResult<FindAllFixedCostPatternsQuery, FindAllFixedCostPatternsQueryVariables>;
+export const FindAllLoansDocument = gql`
+    query FindAllLoans {
+  findAllLoans {
+    _id
+    name
+    payment {
+      _id
+      bank {
+        _id
+        branchName
+        color
+        name
+      }
+      color
+      name
+      payDay
+      isCredit
+    }
+    installmentsCount
+    payDay
+    basePrice
+    amount
+    commission
+    rate
+    detail {
+      _id
+      amount
+      description
+      duplexingAvoidanceID
+      name
+      payDay
+      payment {
+        _id
+        bank {
+          _id
+          branchName
+          color
+          name
+        }
+        name
+        payDay
+      }
+      temporary
+    }
+    startDate
+  }
+}
+    `;
+
+/**
+ * __useFindAllLoansQuery__
+ *
+ * To run a query within a React component, call `useFindAllLoansQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAllLoansQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindAllLoansQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFindAllLoansQuery(baseOptions?: Apollo.QueryHookOptions<FindAllLoansQuery, FindAllLoansQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindAllLoansQuery, FindAllLoansQueryVariables>(FindAllLoansDocument, options);
+      }
+export function useFindAllLoansLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAllLoansQuery, FindAllLoansQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindAllLoansQuery, FindAllLoansQueryVariables>(FindAllLoansDocument, options);
+        }
+export function useFindAllLoansSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindAllLoansQuery, FindAllLoansQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindAllLoansQuery, FindAllLoansQueryVariables>(FindAllLoansDocument, options);
+        }
+export type FindAllLoansQueryHookResult = ReturnType<typeof useFindAllLoansQuery>;
+export type FindAllLoansLazyQueryHookResult = ReturnType<typeof useFindAllLoansLazyQuery>;
+export type FindAllLoansSuspenseQueryHookResult = ReturnType<typeof useFindAllLoansSuspenseQuery>;
+export type FindAllLoansQueryResult = Apollo.QueryResult<FindAllLoansQuery, FindAllLoansQueryVariables>;
 export const FindAllPaymentsDocument = gql`
     query FindAllPayments {
   findAllPayments {
@@ -1559,6 +1749,87 @@ export type FindFixedCostPatternByIdQueryHookResult = ReturnType<typeof useFindF
 export type FindFixedCostPatternByIdLazyQueryHookResult = ReturnType<typeof useFindFixedCostPatternByIdLazyQuery>;
 export type FindFixedCostPatternByIdSuspenseQueryHookResult = ReturnType<typeof useFindFixedCostPatternByIdSuspenseQuery>;
 export type FindFixedCostPatternByIdQueryResult = Apollo.QueryResult<FindFixedCostPatternByIdQuery, FindFixedCostPatternByIdQueryVariables>;
+export const FindLoanByIdDocument = gql`
+    query FindLoanByID($findLoanByIdId: String!) {
+  findLoanByID(id: $findLoanByIdId) {
+    _id
+    name
+    payment {
+      _id
+      bank {
+        _id
+        branchName
+        color
+        name
+      }
+      color
+      name
+      payDay
+      isCredit
+    }
+    installmentsCount
+    payDay
+    basePrice
+    amount
+    commission
+    rate
+    detail {
+      _id
+      amount
+      description
+      duplexingAvoidanceID
+      name
+      payDay
+      payment {
+        _id
+        bank {
+          _id
+          branchName
+          color
+          name
+        }
+        name
+        payDay
+      }
+      temporary
+    }
+    startDate
+  }
+}
+    `;
+
+/**
+ * __useFindLoanByIdQuery__
+ *
+ * To run a query within a React component, call `useFindLoanByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindLoanByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindLoanByIdQuery({
+ *   variables: {
+ *      findLoanByIdId: // value for 'findLoanByIdId'
+ *   },
+ * });
+ */
+export function useFindLoanByIdQuery(baseOptions: Apollo.QueryHookOptions<FindLoanByIdQuery, FindLoanByIdQueryVariables> & ({ variables: FindLoanByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindLoanByIdQuery, FindLoanByIdQueryVariables>(FindLoanByIdDocument, options);
+      }
+export function useFindLoanByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindLoanByIdQuery, FindLoanByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindLoanByIdQuery, FindLoanByIdQueryVariables>(FindLoanByIdDocument, options);
+        }
+export function useFindLoanByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindLoanByIdQuery, FindLoanByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindLoanByIdQuery, FindLoanByIdQueryVariables>(FindLoanByIdDocument, options);
+        }
+export type FindLoanByIdQueryHookResult = ReturnType<typeof useFindLoanByIdQuery>;
+export type FindLoanByIdLazyQueryHookResult = ReturnType<typeof useFindLoanByIdLazyQuery>;
+export type FindLoanByIdSuspenseQueryHookResult = ReturnType<typeof useFindLoanByIdSuspenseQuery>;
+export type FindLoanByIdQueryResult = Apollo.QueryResult<FindLoanByIdQuery, FindLoanByIdQueryVariables>;
 export const FindPaymentByIdDocument = gql`
     query FindPaymentByID($findPaymentByIdId: String!) {
   findPaymentByID(id: $findPaymentByIdId) {
@@ -1646,6 +1917,41 @@ export function useUpdateBankMutation(baseOptions?: Apollo.MutationHookOptions<U
 export type UpdateBankMutationHookResult = ReturnType<typeof useUpdateBankMutation>;
 export type UpdateBankMutationResult = Apollo.MutationResult<UpdateBankMutation>;
 export type UpdateBankMutationOptions = Apollo.BaseMutationOptions<UpdateBankMutation, UpdateBankMutationVariables>;
+export const UpdateExpenditureDocument = gql`
+    mutation UpdateExpenditure($updateExpenditureId: String!, $input: UpdateExpenditureInput!) {
+  updateExpenditure(id: $updateExpenditureId, input: $input) {
+    message
+    success
+  }
+}
+    `;
+export type UpdateExpenditureMutationFn = Apollo.MutationFunction<UpdateExpenditureMutation, UpdateExpenditureMutationVariables>;
+
+/**
+ * __useUpdateExpenditureMutation__
+ *
+ * To run a mutation, you first call `useUpdateExpenditureMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateExpenditureMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateExpenditureMutation, { data, loading, error }] = useUpdateExpenditureMutation({
+ *   variables: {
+ *      updateExpenditureId: // value for 'updateExpenditureId'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateExpenditureMutation(baseOptions?: Apollo.MutationHookOptions<UpdateExpenditureMutation, UpdateExpenditureMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateExpenditureMutation, UpdateExpenditureMutationVariables>(UpdateExpenditureDocument, options);
+      }
+export type UpdateExpenditureMutationHookResult = ReturnType<typeof useUpdateExpenditureMutation>;
+export type UpdateExpenditureMutationResult = Apollo.MutationResult<UpdateExpenditureMutation>;
+export type UpdateExpenditureMutationOptions = Apollo.BaseMutationOptions<UpdateExpenditureMutation, UpdateExpenditureMutationVariables>;
 export const UpdateFixedCostDocument = gql`
     mutation UpdateFixedCost($updateFixedCostId: String!, $input: UpdateFixedCostInput!) {
   updateFixedCost(id: $updateFixedCostId, input: $input) {
@@ -1716,6 +2022,41 @@ export function useUpdateFixedCostPatternMutation(baseOptions?: Apollo.MutationH
 export type UpdateFixedCostPatternMutationHookResult = ReturnType<typeof useUpdateFixedCostPatternMutation>;
 export type UpdateFixedCostPatternMutationResult = Apollo.MutationResult<UpdateFixedCostPatternMutation>;
 export type UpdateFixedCostPatternMutationOptions = Apollo.BaseMutationOptions<UpdateFixedCostPatternMutation, UpdateFixedCostPatternMutationVariables>;
+export const UpdateLoanDocument = gql`
+    mutation UpdateLoan($updateLoanId: String!, $input: UpdateLoanInput!) {
+  updateLoan(id: $updateLoanId, input: $input) {
+    success
+    message
+  }
+}
+    `;
+export type UpdateLoanMutationFn = Apollo.MutationFunction<UpdateLoanMutation, UpdateLoanMutationVariables>;
+
+/**
+ * __useUpdateLoanMutation__
+ *
+ * To run a mutation, you first call `useUpdateLoanMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateLoanMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateLoanMutation, { data, loading, error }] = useUpdateLoanMutation({
+ *   variables: {
+ *      updateLoanId: // value for 'updateLoanId'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateLoanMutation(baseOptions?: Apollo.MutationHookOptions<UpdateLoanMutation, UpdateLoanMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateLoanMutation, UpdateLoanMutationVariables>(UpdateLoanDocument, options);
+      }
+export type UpdateLoanMutationHookResult = ReturnType<typeof useUpdateLoanMutation>;
+export type UpdateLoanMutationResult = Apollo.MutationResult<UpdateLoanMutation>;
+export type UpdateLoanMutationOptions = Apollo.BaseMutationOptions<UpdateLoanMutation, UpdateLoanMutationVariables>;
 export const UpdatePaymentDocument = gql`
     mutation UpdatePayment($updatePaymentId: String!, $input: UpdatePaymentInput!) {
   updatePayment(id: $updatePaymentId, input: $input) {

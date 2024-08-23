@@ -1,0 +1,6 @@
+mutation UpdateLoan($updateLoanId: String!, $input: UpdateLoanInput!) {
+  updateLoan(id: $updateLoanId, input: $input) {
+    success
+    message
+  }
+}

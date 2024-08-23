@@ -1,0 +1,6 @@
+mutation CreateLoan($input: CreateLoanInput!) {
+  createLoan(input: $input) {
+    success
+    message
+  }
+}

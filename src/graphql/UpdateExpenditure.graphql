@@ -1,0 +1,6 @@
+mutation UpdateExpenditure($updateExpenditureId: String!, $input: UpdateExpenditureInput!) {
+  updateExpenditure(id: $updateExpenditureId, input: $input) {
+    message
+    success
+  }
+}

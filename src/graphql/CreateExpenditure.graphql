@@ -1,0 +1,6 @@
+mutation CreateExpenditure($input: CreateExpenditureInput!) {
+  createExpenditure(input: $input) {
+    message
+    success
+  }
+}
