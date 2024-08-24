@@ -13,7 +13,7 @@ export type InputDataType = Record<
 >
 
 export const INPUT_DATA = {
-  // テスト側
+  // テスト
   testTextInput: {
     label: 'テキストテスト',
     inputTextArgs: {
@@ -38,41 +38,8 @@ export const INPUT_DATA = {
     label: 'チェックボックステスト フラグ',
     zod: ZodSchema.CHECKBOX_SCHEME
   },
-  // サイト側
-  firstName: {
-    label: '姓',
-    inputTextArgs: {
-      type: 'text',
-      autoComplete: 'family-name',
-      placeholder: '山田',
-    },
-    zod: ZodSchema.NAME_SCHEMA
-  },
-  lastName: {
-    label: '名',
-    inputTextArgs: {
-      type: 'text',
-      autoComplete: 'given-name',
-      placeholder: '太郎',
-    },
-    zod: ZodSchema.NAME_SCHEMA
-  },
-  firstKanaName: {
-    label: 'ふりがな（姓）',
-    inputTextArgs: {
-    type: 'text',
-    placeholder: 'やまだ',
-    },
-    zod: ZodSchema.NAME_KANA_SCHEMA
-  },
-  lastKanaName: {
-    label: 'ふりがな（名）',
-    inputTextArgs: {
-      type: 'text',
-      placeholder: 'たろう',
-    },
-    zod: ZodSchema.NAME_KANA_SCHEMA
-  },
+
+  // INPUT系
   email: {
     label: 'メールアドレス',
     inputTextArgs: {
@@ -132,6 +99,54 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_AREA_SCHEMA
   },
+  description: {
+    label: '備考',
+    inputTextArgs: {
+      type: 'text',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.fixFullWidth(
+        value
+      )
+    }
+  },
+
+  // INPUT系　名前
+  firstName: {
+    label: '姓',
+    inputTextArgs: {
+      type: 'text',
+      autoComplete: 'family-name',
+      placeholder: '山田',
+    },
+    zod: ZodSchema.NAME_SCHEMA
+  },
+  lastName: {
+    label: '名',
+    inputTextArgs: {
+      type: 'text',
+      autoComplete: 'given-name',
+      placeholder: '太郎',
+    },
+    zod: ZodSchema.NAME_SCHEMA
+  },
+  firstKanaName: {
+    label: 'ふりがな（姓）',
+    inputTextArgs: {
+    type: 'text',
+    placeholder: 'やまだ',
+    },
+    zod: ZodSchema.NAME_KANA_SCHEMA
+  },
+  lastKanaName: {
+    label: 'ふりがな（名）',
+    inputTextArgs: {
+      type: 'text',
+      placeholder: 'たろう',
+    },
+    zod: ZodSchema.NAME_KANA_SCHEMA
+  },
   bankName: {
     label: '口座名',
     inputTextArgs: {
@@ -171,6 +186,89 @@ export const INPUT_DATA = {
       )
     }
   },
+  fixedCostPatternName: {
+    label: '固定費パターン名',
+    inputTextArgs: {
+      type: 'text',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.fixFullWidth(
+        value
+      )
+    }
+  },
+  fixedCostName: {
+    label: '固定費名',
+    inputTextArgs: {
+      type: 'text',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.fixFullWidth(
+        value
+      )
+    }
+  },
+  loanName: {
+    label: 'ローン名',
+    inputTextArgs: {
+      type: 'text',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.fixFullWidth(
+        value
+      )
+    }
+  },
+
+  // INPUT系　金額系
+  amount: {
+    label: '金額',
+    inputTextArgs: {
+      type: 'tel',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.fixHalfWidth(
+        chrFormatChange.removeOtherHalfNumber(value)
+      )
+    }
+  },
+  basePrice: {
+    label: '使用額',
+    inputTextArgs: {
+      type: 'tel',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.fixHalfWidth(
+        chrFormatChange.removeOtherHalfNumber(value)
+      )
+    }
+  },
+  rate: {
+    label: '利率',
+    inputTextArgs: {
+      type: 'tel',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+  },
+  commission: {
+    label: '手数料',
+    inputTextArgs: {
+      type: 'tel',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return chrFormatChange.fixHalfWidth(
+        chrFormatChange.removeOtherHalfNumber(value)
+      )
+    }
+  },
+
+  // INPUT系　日にち系
   closingDay: {
     label: '締め日',
     inputTextArgs: {
@@ -197,65 +295,19 @@ export const INPUT_DATA = {
       )
     }
   },
-  color: {
-    label: 'カラー',
-    zod: ZodSchema.RADIO_SCHEME,
+  startDate: {
+    label: '開始日',
+    inputTextArgs: {
+      type: 'tel',
+      maxLength: 2,
+    },
+    zod: ZodSchema.DAY_TEXT_SCHEMA,
   },
+
+  // SELECT系
   bank: {
     label: '引き落とし口座',
     zod: ZodSchema.TEXT_SCHEMA
-  },
-  isCredit: {
-    label: 'クレジット払い',
-    zod: ZodSchema.CHECKBOX_SCHEME
-  },
-  fixedCostPatternName: {
-    label: '固定費パターン名',
-    inputTextArgs: {
-      type: 'text',
-    },
-    zod: ZodSchema.TEXT_SCHEMA,
-    onBlurFormat: (value) => {
-      return chrFormatChange.fixFullWidth(
-        value
-      )
-    }
-  },
-  fixedCostName: {
-    label: '固定費名',
-    inputTextArgs: {
-      type: 'text',
-    },
-    zod: ZodSchema.TEXT_SCHEMA,
-    onBlurFormat: (value) => {
-      return chrFormatChange.fixFullWidth(
-        value
-      )
-    }
-  },
-  description: {
-    label: '備考',
-    inputTextArgs: {
-      type: 'text',
-    },
-    zod: ZodSchema.TEXT_SCHEMA,
-    onBlurFormat: (value) => {
-      return chrFormatChange.fixFullWidth(
-        value
-      )
-    }
-  },
-  amount: {
-    label: '金額',
-    inputTextArgs: {
-      type: 'tel',
-    },
-    zod: ZodSchema.TEXT_SCHEMA,
-    onBlurFormat: (value) => {
-      return chrFormatChange.fixHalfWidth(
-        chrFormatChange.removeOtherHalfNumber(value)
-      )
-    }
   },
   fixedCostPattern: {
     label: '固定費パターン',
@@ -264,5 +316,21 @@ export const INPUT_DATA = {
   payment: {
     label: '支払い方法',
     zod: ZodSchema.TEXT_SCHEMA
+  },
+  installmentsCount: {
+    label: '分割回数',
+    zod: ZodSchema.TEXT_SCHEMA
+  },
+
+  // ラジオ系
+  color: {
+    label: 'カラー',
+    zod: ZodSchema.RADIO_SCHEME,
+  },
+
+  //　チェックボックス系
+  isCredit: {
+    label: 'クレジット払い',
+    zod: ZodSchema.CHECKBOX_SCHEME
   },
 } as const satisfies InputDataType
