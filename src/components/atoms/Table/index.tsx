@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react'
 import clsx from 'clsx'
 
+import { useGetDarkModeStyleClass } from '@/hooks/useGetDarkModeStyleClass'
 
 import styles from './style.module.scss'
 
@@ -27,6 +28,8 @@ export const Table: React.FC<Props> = (
     thRow = 0
   }
 ): JSX.Element => {
+  const containerClassName = useGetDarkModeStyleClass(styles.tableContainer, styles.dark)
+
   // 最大の1次元配列の要素数を取得する
   const maxColLength = data.reduce((max, current) => {
     return current.length > max ? current.length : max
@@ -36,8 +39,11 @@ export const Table: React.FC<Props> = (
     <TableContainer
       overflowY="scroll"
       overflowX="scroll"
-      className={styles.tableContainer}>
-    <ChakuraUITable size='sm'>
+      className={clsx(containerClassName, {
+        [styles.even]: thRow % 2 === 0,
+        [styles.odd]: thRow % 2 === 1
+      })}>
+    <ChakuraUITable size='sm' variant='unstyled'>
       <Thead>
         {data.map((row, rowIndex) => {
           return (rowIndex < thRow) && (
@@ -47,8 +53,12 @@ export const Table: React.FC<Props> = (
                   key={`${rowIndex}-${colIndex}`}
                   className={
                     clsx(
-                      styles[`stickyCol${colIndex + 1}`],
-                      styles[`stickyRow${rowIndex + 1}`]
+                      styles[`stickyRow${rowIndex + 1}`],
+                      {
+                        [styles[`stickyCol${colIndex + 1}`]]: colIndex < thCol,
+                        [styles.stickyThRowLast]: rowIndex + 1 === thRow,
+                        [styles.stickyThColLast]: colIndex + 1 === thCol,
+                      }
                     )}
                 >{row[colIndex]}</Th>
               ))}
@@ -58,15 +68,20 @@ export const Table: React.FC<Props> = (
       </Thead>
       <Tbody>
         {data.map((row, rowIndex) => {
-          return (thRow && rowIndex >= thRow) && (
+          return (rowIndex >= thRow) && (
             <Tr key={rowIndex}>
               {[...Array(maxColLength)].map((_col, colIndex) => {
 
-                if (thCol > colIndex) {
+                if (colIndex < thCol) {
                   return (
                     <Th
                       key={`${rowIndex}-${colIndex}`}
-                      className={clsx(styles[`stickyCol${colIndex + 1}`])}
+                      className={clsx(
+                        styles[`stickyCol${colIndex + 1}`],
+                        {
+                          [styles.stickyThColLast]: colIndex + 1 === thCol,
+                        }
+                      )}
                     >{row[colIndex]}</Th>
                   )
                 }

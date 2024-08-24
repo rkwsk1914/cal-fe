@@ -3,16 +3,99 @@ $celMinHeight: 40px;
 
 .tableContainer {
   max-height: 400px;
-}
 
-table {
-  border-collapse: collapse;
-  width: 100%;
+  table {
+    border-collapse:separate;
+    border-spacing: 0;
+    width: 100%;
 
-  th,
-  td {
-    height: $celMinHeight;
-    min-width: $celMinWidth;
+    th,
+    td {
+      height: $celMinHeight;
+      min-width: $celMinWidth;
+    }
+
+    th {
+      font-weight: bold;
+    }
+  }
+
+  $border-light-color: #d1d5db; // @apply border-gray-300;
+
+  %extend-light-cell-style1 {
+    @apply bg-lightBg text-lightText;
+  }
+
+  %extend-light-cell-style2 {
+    @apply bg-gray-100 text-lightText;
+  }
+
+  & .stickyThRowLast {
+    border-bottom: 1px solid $border-light-color;
+  }
+
+  & .stickyThColLast {
+    border-right: 1px solid $border-light-color;
+  }
+
+  &.even {
+    tr:nth-child(odd) { td, th { @extend %extend-light-cell-style1; } }
+
+    tr:nth-child(even) { td, th { @extend %extend-light-cell-style2; } }
+  }
+
+  &.odd {
+    thead {
+      tr:nth-child(odd) { td, th { @extend %extend-light-cell-style2; } }
+
+      tr:nth-child(even) { td, th { @extend %extend-light-cell-style1; } }
+    }
+
+    tbody {
+      tr:nth-child(odd) { td, th { @extend %extend-light-cell-style1; } }
+
+      tr:nth-child(even) { td, th { @extend %extend-light-cell-style2; } }
+    }
+  }
+
+  &.dark {
+    $border-dark-color: #1b2235; // @apply border-blue-900;
+
+    %extend-dark-cell-style1 {
+      @apply bg-darkBg text-darkText;
+    }
+  
+    %extend-dark-cell-style2 {
+      @apply bg-blue-950 text-darkText;
+    }
+  
+    & .stickyThRowLast {
+      border-bottom: 1px solid $border-dark-color;
+    }
+  
+    & .stickyThColLast {
+      border-right: 1px solid $border-dark-color;
+    }
+  
+    &.even {
+      tr:nth-child(odd) { td, th { @extend %extend-dark-cell-style1; } }
+  
+      tr:nth-child(even) { td, th { @extend %extend-dark-cell-style2; } }
+    }
+  
+    &.odd {
+      thead {
+        tr:nth-child(odd) { td, th { @extend %extend-dark-cell-style2; } }
+  
+        tr:nth-child(even) { td, th { @extend %extend-dark-cell-style1; } }
+      }
+  
+      tbody {
+        tr:nth-child(odd) { td, th { @extend %extend-dark-cell-style1; } }
+  
+        tr:nth-child(even) { td, th { @extend %extend-dark-cell-style2; } }
+      }
+    }
   }
 }
 
@@ -39,7 +122,7 @@ $rowIndex: 1;
     $RowColIndex: 1;
 
     @while $RowColIndex <= 3 {
-      &.stickyCol#{RowColIndex} {
+      &.stickyCol#{$RowColIndex} {
         z-index: 3;
       }
 
