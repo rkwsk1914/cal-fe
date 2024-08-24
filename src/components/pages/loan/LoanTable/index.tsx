@@ -4,9 +4,9 @@ import { ApolloQueryResult } from '@apollo/client'
 
 import { FindAllLoansQuery } from '@/generated/graphql'
 
-import { useFormat } from '@/hooks/useFormat'
-
 import { transpose } from '@/utils/ArrayTransport'
+import * as chrFormatChange from '@/utils/chrFormatChange'
+
 
 import { Link } from '@/components/atoms/Link'
 import { Table } from '@/components/atoms/Table'
@@ -19,7 +19,7 @@ type Props = Partial<ApolloQueryResult<FindAllLoansQuery>>
 export const LoanTable: React.FC<Props> = (props): JSX.Element => {
   const { data } = props
   const listData = data?.findAllLoans
-  const { yenFormat, yyyyMmDd, numberDayFormat, numberWithUnit } = useFormat()
+  const { yenFormat, yyyyMmDd, numberDayFormat, numberWithUnit } = chrFormatChange
 
   if(!listData) return <></>
 

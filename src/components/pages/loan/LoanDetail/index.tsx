@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 
+
 import {
   FindLoanByIdQuery,
   FindAllPaymentsQuery,
@@ -14,6 +15,8 @@ import {
 } from '@/generated/graphql'
 
 import { useSetZodScheme, DefaultValuesRequiredType }from '@/hooks/form/useSetZodScheme'
+
+import * as chrFormatChange from '@/utils/chrFormatChange'
 
 import { Alert } from '@/components/atoms/Alert'
 import { InputController } from '@/components/form/organisms/InputController'
@@ -29,6 +32,7 @@ type Props = {
 }
 
 export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
+  const { commaFormat, yyyyMmDd } = chrFormatChange
   const toast = useToast()
   const router = useRouter()
   const { id } = router.query
@@ -39,12 +43,12 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
 
   const defaultValues: DefaultValuesType = {
     loanName: res?.name ?? '',
-    basePrice: res?.basePrice ? String(res?.basePrice) : '',
-    amount: res?.amount ? String(res?.amount) : '',
+    basePrice: res?.basePrice ? commaFormat(res?.basePrice) : '',
+    amount: res?.amount ? commaFormat(res?.amount) : '',
     installmentsCount: res?.installmentsCount ? String(res?.installmentsCount) : '',
     rate: res?.rate ? String(res?.rate) : '',
     commission: res?.rate ? String(res?.commission) : '',
-    startDate: res?.startDate ?? '',
+    startDate: res?.startDate ? yyyyMmDd(res?.startDate) : '',
     payment: res?.payment._id ?? '',
     payDay: res?.payDay ? String(res?.payDay) : '',
   }
@@ -174,9 +178,13 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
           name="amount"
           {...args}
         />
-        <InputController
+        <SelectController
           name="installmentsCount"
           {...args}
+          data={[2, 3, 5, 6, 10, 12, 15, 18, 20, 24, 36, 48].map((number) => ({
+            value: String(number),
+            label: String(number)
+          }))}
         />
         <InputController
           name="rate"

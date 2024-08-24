@@ -6,6 +6,14 @@ import * as ZodSchema from '@/const/form/Schema'
 
 import { InputProps } from '@/types/form/InputAttribute'
 
+
+const {
+  fixFullWidth,
+  fixHalfWidth,
+  removeOtherHalfNumber,
+  commaFormat,
+} = chrFormatChange
+
 export type InputDataType = Record<
   string,
   Omit<InputProps, 'control'> &
@@ -106,7 +114,7 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return chrFormatChange.fixFullWidth(
+      return fixFullWidth(
         value
       )
     }
@@ -155,7 +163,7 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return chrFormatChange.fixFullWidth(
+      return fixFullWidth(
         value
       )
     }
@@ -168,7 +176,7 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return chrFormatChange.fixFullWidth(
+      return fixFullWidth(
         value
       )
     }
@@ -181,7 +189,7 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return chrFormatChange.fixFullWidth(
+      return fixFullWidth(
         value
       )
     }
@@ -193,7 +201,7 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return chrFormatChange.fixFullWidth(
+      return fixFullWidth(
         value
       )
     }
@@ -205,7 +213,7 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return chrFormatChange.fixFullWidth(
+      return fixFullWidth(
         value
       )
     }
@@ -217,7 +225,7 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return chrFormatChange.fixFullWidth(
+      return fixFullWidth(
         value
       )
     }
@@ -231,8 +239,12 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return chrFormatChange.fixHalfWidth(
-        chrFormatChange.removeOtherHalfNumber(value)
+      return commaFormat(
+        Number(
+          fixHalfWidth(
+            removeOtherHalfNumber(value)
+          )
+        )
       )
     }
   },
@@ -243,8 +255,12 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return chrFormatChange.fixHalfWidth(
-        chrFormatChange.removeOtherHalfNumber(value)
+      return commaFormat(
+        Number(
+          fixHalfWidth(
+            removeOtherHalfNumber(value)
+          )
+        )
       )
     }
   },
@@ -262,8 +278,8 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return chrFormatChange.fixHalfWidth(
-        chrFormatChange.removeOtherHalfNumber(value)
+      return fixHalfWidth(
+        removeOtherHalfNumber(value)
       )
     }
   },
@@ -277,7 +293,7 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.DAY_TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return chrFormatChange.removeOtherHalfNumber(
+      return removeOtherHalfNumber(
         value
       )
     }
@@ -290,7 +306,7 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.DAY_TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return chrFormatChange.removeOtherHalfNumber(
+      return removeOtherHalfNumber(
         value
       )
     }
