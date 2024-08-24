@@ -4,6 +4,8 @@ import { ApolloQueryResult } from '@apollo/client'
 
 import { FindAllLoansQuery } from '@/generated/graphql'
 
+import { useFormat } from '@/hooks/useFormat'
+
 import { transpose } from '@/utils/ArrayTransport'
 
 import { Link } from '@/components/atoms/Link'
@@ -17,6 +19,7 @@ type Props = Partial<ApolloQueryResult<FindAllLoansQuery>>
 export const LoanTable: React.FC<Props> = (props): JSX.Element => {
   const { data } = props
   const listData = data?.findAllLoans
+  const { yenFormat, yyyyMmDd, numberDayFormat, numberWithUnit } = useFormat()
 
   if(!listData) return <></>
 
@@ -35,14 +38,14 @@ export const LoanTable: React.FC<Props> = (props): JSX.Element => {
   const itemData = listData.map((item) => {
     return [
       <Link key={item._id} href={`/loan/${item._id}`}>{item.name}</Link>,
-      item.basePrice,
-      item.amount,
-      item.installmentsCount,
+      yenFormat(item.basePrice),
+      yenFormat(item.amount),
+      numberWithUnit(item.installmentsCount, '回'),
       item.rate,
       item.commission,
-      item.startDate,
+      yyyyMmDd(item.startDate),
       item.payment.name,
-      item.payment.payDay ?? item.payDay
+      numberDayFormat(item.payment.payDay ?? item.payDay)
     ]
   })
 
