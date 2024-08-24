@@ -26,6 +26,7 @@ export const SelectController: React.FC<Props> = (
     control,
     errors,
     data,
+    arrangement,
     disabled,
     helperText,
   }
@@ -44,6 +45,7 @@ export const SelectController: React.FC<Props> = (
       render={({ field }) => (
         <FormControl
           label={label}
+          arrangement={arrangement}
           isError={!!errors[name]}
           helperText={errors[name]?.message ? errors[name]?.message  as string : helperText}
         >

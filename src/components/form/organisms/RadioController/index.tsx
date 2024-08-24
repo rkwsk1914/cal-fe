@@ -28,6 +28,7 @@ export const RadioController: React.FC<Props> = (
     name,
     control,
     errors,
+    arrangement,
     data,
     disabled,
     helperText,
@@ -45,6 +46,7 @@ export const RadioController: React.FC<Props> = (
       render={({ field }) => (
         <FormControl
           label={label}
+          arrangement={arrangement}
           isError={!!errors[name]}
           helperText={errors[name]?.message ? errors[name]?.message  as string : helperText}
         >

@@ -1,11 +1,11 @@
 import * as React from 'react'
+import { useEffect, useState } from 'react'
 
 import { ApolloQueryResult } from '@apollo/client'
 import { useToast } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
-import { useForm } from 'react-hook-form'
-
+import { useForm, useWatch } from 'react-hook-form'
 
 import {
   FindLoanByIdQuery,
@@ -18,7 +18,10 @@ import { useSetZodScheme, DefaultValuesRequiredType }from '@/hooks/form/useSetZo
 
 import * as chrFormatChange from '@/utils/chrFormatChange'
 
+import { DAY_OPTIONS } from '@/const/form/options'
+
 import { Alert } from '@/components/atoms/Alert'
+import { Link } from '@/components/atoms/Link'
 import { InputController } from '@/components/form/organisms/InputController'
 import { SelectController } from '@/components/form/organisms/SelectController'
 import { FromLayout } from '@/components/layouts/FromLayout'
@@ -40,6 +43,24 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
   const { loan, payments } = props
   const res = loan?.data?.findLoanByID
 
+  const isUneditableDay = ({
+    paymentId,
+    payments
+  } : {
+    paymentId?: string,
+    payments?: FindAllPaymentsQuery['findAllPayments']
+  }): number | undefined => {
+    if (!payments) return undefined
+
+    const payment = payments.find((item) => item._id === paymentId)
+    if (payment?.isCredit && payment?.payDay) return payment.payDay
+    return undefined
+  }
+
+  const [isPayDayUnEditable, setIsPayDayUnEditable] = useState<boolean>(isUneditableDay({
+    paymentId: res?.payment._id,
+    payments: payments.data.findAllPayments
+  }) ? true : false)
 
   const defaultValues: DefaultValuesType = {
     loanName: res?.name ?? '',
@@ -78,19 +99,24 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     handleSubmit,
     control,
     trigger,
+    setValue,
     formState: { errors },
   } = useForm({
     mode: 'onSubmit',
     defaultValues,
     resolver: zodResolver(scheme),
   })
+
+  const paymentValue = useWatch({ control, name: 'payment' }) as string
+
   const [ mutateCreate ] = useCreateLoanMutation()
   const [ mutateUpdate ] = useUpdateLoanMutation()
 
   const args = {
     errors,
     trigger,
-    control
+    control,
+    arrangement: 'vertically'
   }
 
   const onCreate = async (data: DefaultValuesType) => {
@@ -160,6 +186,21 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     id ? onUpdate(data) : onCreate(data)
   }
 
+  useEffect(() => {
+    if (paymentValue) {
+      const findPaymentDay = isUneditableDay({
+        paymentId: paymentValue,
+        payments: payments.data?.findAllPayments
+      })
+      if (findPaymentDay) {
+        setValue('payDay', String(findPaymentDay))
+        setIsPayDayUnEditable(true)
+        return
+      }
+    }
+    setIsPayDayUnEditable(false)
+  }, [paymentValue, payments, setValue, setIsPayDayUnEditable])
+
   return (
     <PageLayout title='ローン詳細'>
       <FromLayout
@@ -203,9 +244,15 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
           {...args}
           data={paymentSelect ?? []}
         />
-        <InputController
+        <SelectController
           name="payDay"
           {...args}
+          data={DAY_OPTIONS}
+          disabled={isPayDayUnEditable}
+          helperText={isPayDayUnEditable ?
+            <>支払い方法がクレジット払いなので、支払日に変更は<Link href={`/payment/${paymentValue}`}>対象の支払い方法の詳細</Link>からの変更してください。</> :
+            undefined
+          }
         />
       </FromLayout>
     </PageLayout>

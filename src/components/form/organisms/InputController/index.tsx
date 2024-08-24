@@ -21,53 +21,55 @@
     helperText?: React.ReactNode | string
   };
 
-  export const InputController: React.FC<Props> = (
-    {
-      name,
-      control,
-      errors,
-      trigger,
-      disabled,
-      helperText,
-    }
-  ): JSX.Element => {
-    if (!INPUT_DATA[name]) new Error(`INPUT_DATA[${name}] no Found!`)
-    const {
-      label,
-      inputTextArgs,
-      onBlurFormat,
-    } = (INPUT_DATA as InputDataType)[name]
-
-    return (
-      <Controller
-        name={name}
-        control={control}
-        render={({ field, fieldState }) => (
-          <FormControl
-            label={label}
-            isError={errors[name] ? true : fieldState.error ? true:  false}
-            helperText={
-              errors[name]?.message ?
-              errors[name]?.message  as string :
-              helperText
-            }
-          >
-            <ChakuraInput
-              as={MaskedInput}
-              mask={inputTextArgs?.mask ?? false}
-              {...inputTextArgs}
-              {...field}
-              onBlur={(e) => {
-                if (onBlurFormat) {
-                  const formattedValue = onBlurFormat(e.target.value)
-                  field.onChange(formattedValue)
-                }
-                trigger()
-              }}
-              isDisabled={disabled}
-            />
-          </FormControl>
-        )}
-      />
-    )
+export const InputController: React.FC<Props> = (
+  {
+    name,
+    control,
+    errors,
+    trigger,
+    arrangement,
+    disabled,
+    helperText,
   }
+): JSX.Element => {
+  if (!INPUT_DATA[name]) new Error(`INPUT_DATA[${name}] no Found!`)
+  const {
+    label,
+    inputTextArgs,
+    onBlurFormat,
+  } = (INPUT_DATA as InputDataType)[name]
+
+  return (
+    <Controller
+      name={name}
+      control={control}
+      render={({ field, fieldState }) => (
+        <FormControl
+          label={label}
+          arrangement={arrangement}
+          isError={errors[name] ? true : fieldState.error ? true:  false}
+          helperText={
+            errors[name]?.message ?
+            errors[name]?.message  as string :
+            helperText
+          }
+        >
+          <ChakuraInput
+            as={MaskedInput}
+            mask={inputTextArgs?.mask ?? false}
+            {...inputTextArgs}
+            {...field}
+            onBlur={(e) => {
+              if (onBlurFormat) {
+                const formattedValue = onBlurFormat(e.target.value)
+                field.onChange(formattedValue)
+              }
+              trigger()
+            }}
+            isDisabled={disabled}
+          />
+        </FormControl>
+      )}
+    />
+  )
+}
