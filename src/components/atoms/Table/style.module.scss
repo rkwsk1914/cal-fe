@@ -2,8 +2,6 @@ $celMinWidth: 100px;
 $celMinHeight: 40px;
 
 .tableContainer {
-  max-height: 400px;
-
   table {
     border-collapse:separate;
     border-spacing: 0;
@@ -64,35 +62,35 @@ $celMinHeight: 40px;
     %extend-dark-cell-style1 {
       @apply bg-darkBg text-darkText;
     }
-  
+
     %extend-dark-cell-style2 {
       @apply bg-blue-950 text-darkText;
     }
-  
+
     & .stickyThRowLast {
       border-bottom: 1px solid $border-dark-color;
     }
-  
+
     & .stickyThColLast {
       border-right: 1px solid $border-dark-color;
     }
-  
+
     &.even {
       tr:nth-child(odd) { td, th { @extend %extend-dark-cell-style1; } }
-  
+
       tr:nth-child(even) { td, th { @extend %extend-dark-cell-style2; } }
     }
-  
+
     &.odd {
       thead {
         tr:nth-child(odd) { td, th { @extend %extend-dark-cell-style2; } }
-  
+
         tr:nth-child(even) { td, th { @extend %extend-dark-cell-style1; } }
       }
-  
+
       tbody {
         tr:nth-child(odd) { td, th { @extend %extend-dark-cell-style1; } }
-  
+
         tr:nth-child(even) { td, th { @extend %extend-dark-cell-style2; } }
       }
     }

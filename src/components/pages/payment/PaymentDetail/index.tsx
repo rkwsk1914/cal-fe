@@ -2,9 +2,8 @@ import * as React from 'react'
 import { useState, useEffect } from 'react'
 
 import { ApolloQueryResult } from '@apollo/client'
-import { useToast, Link } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { useForm, useWatch } from 'react-hook-form'
 
@@ -19,6 +18,7 @@ import { useSetZodScheme, DefaultValuesRequiredType }from '@/hooks/form/useSetZo
 
 import { Alert } from '@/components/atoms/Alert'
 import { Badge, BadgeColorOptions } from '@/components/atoms/Badge'
+import { Link } from '@/components/atoms/Link'
 import { CheckBoxController } from '@/components/form/organisms/CheckBoxController'
 import { InputController } from '@/components/form/organisms/InputController'
 import { RadioController } from '@/components/form/organisms/RadioController'
@@ -175,7 +175,7 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
           {...args}
           disabled={isUneditable}
           helperText={isUneditable ?
-            <>引き落とし口座名を編集してください。<Link as={NextLink} href={`/bank/${res?.bank._id}`}>編集画面はこちら</Link></> :
+            <>引き落とし口座名を編集してください。<Link href={`/bank/${res?.bank._id}`}>編集画面はこちら</Link></> :
             undefined
           }
         />

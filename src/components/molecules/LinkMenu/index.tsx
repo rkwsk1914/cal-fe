@@ -1,11 +1,11 @@
 import * as React from 'react'
 
 import {
-  Link,
   ListItem,
   UnorderedList,
 } from '@chakra-ui/react'
-import NextLink from 'next/link'
+
+import { Link } from '@/components/atoms/Link'
 
 import styles from './style.module.scss'
 
@@ -30,7 +30,7 @@ export const LinkMenu: React.FC<Props> = (
         <React.Fragment key={item.label}>
           <ListItem>
             {item.href ?
-              (<Link as={NextLink} href={item.href}>{item.label}</Link>) :
+              (<Link href={item.href}>{item.label}</Link>) :
               item.label
             }
             {item.subList && (
@@ -39,7 +39,7 @@ export const LinkMenu: React.FC<Props> = (
                   <React.Fragment key={subItem.label}>
                     <ListItem>
                       {subItem.href ?
-                        (<Link as={NextLink} href={subItem.href}>{subItem.label}</Link>) :
+                        (<Link href={subItem.href}>{subItem.label}</Link>) :
                         subItem.label
                       }
                     </ListItem>
