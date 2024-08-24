@@ -11,15 +11,15 @@
   import type { FieldKey, ControlType } from '@/types/form/InputAttribute'
 
 
-  type Props = {
-    name: FieldKey
-    control: ControlType
-    errors: FieldErrors<any>
-    trigger: UseFormTrigger<any>
-    arrangement?: ArrangementType
-    disabled?: boolean
-    helperText?: React.ReactNode | string
-  };
+type Props = {
+  name: FieldKey
+  control: ControlType
+  errors: FieldErrors<any>
+  trigger: UseFormTrigger<any>
+  arrangement?: ArrangementType
+  disabled?: boolean
+  helperText?: React.ReactNode | string
+};
 
 export const InputController: React.FC<Props> = (
   {

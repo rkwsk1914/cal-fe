@@ -22,12 +22,13 @@ import { DAY_OPTIONS } from '@/const/form/options'
 
 import { Alert } from '@/components/atoms/Alert'
 import { Link } from '@/components/atoms/Link'
+import type { ArrangementType } from '@/components/form/molecules/FormControl'
 import { InputController } from '@/components/form/organisms/InputController'
 import { SelectController } from '@/components/form/organisms/SelectController'
 import { FromLayout } from '@/components/layouts/FromLayout'
 import { PageLayout } from '@/components/layouts/PageLayout'
 
-import type { DefaultValuesType, SelectOptionType } from '@/types/form/InputAttribute'
+import type { DefaultValuesType, SelectOptionType,  } from '@/types/form/InputAttribute'
 
 type Props = {
   loan?: ApolloQueryResult<FindLoanByIdQuery>
@@ -116,7 +117,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     errors,
     trigger,
     control,
-    arrangement: 'vertically'
+    arrangement: 'vertically' as ArrangementType
   }
 
   const onCreate = async (data: DefaultValuesType) => {
