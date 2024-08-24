@@ -1,5 +1,5 @@
-
 import { Control, ControllerRenderProps, UseControllerProps } from 'react-hook-form'
+import { Mask } from 'react-text-mask'
 
 import { AUTO_COMPLETE_OPTIONS } from '@/const/form/AutoCompleteOptions'
 import { INPUT_DATA } from '@/const/form/InputData'
@@ -26,6 +26,8 @@ interface InputTextArgs {
   placeholder?: string
   minLength?: number
   maxLength?: number
+
+  mask?: Mask | ((_value: string) => Mask)
 }
 
 interface CommonProps {

@@ -32,5 +32,6 @@ export const ERROR_MESSAGE = {
   12: maxLengthErrorMessage(MAX_LENGTH_LIST.year),
   13: maxLengthErrorMessage(MAX_LENGTH_LIST.monthAndDay),
   14: minLengthErrorMessage(MIN_LENGTH_LIST.year),
-  dataError: '無効です。'
+  dataError: '無効です。',
+  15: '年月日が不正です。yyyy/mm/dd',
 } as const satisfies { [key: number | string]: string }

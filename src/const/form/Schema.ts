@@ -20,6 +20,8 @@ const HIRAGANA = new RegExp(/^[ぁ-んー]+$/)
 
 const JAPAN_FULL_WIDTH = new RegExp(/^[^\x01-\x7E\xA1-\xDF０-９]+$/g)
 
+const DATE_CODE = new RegExp(/^\d{4}\/(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])$/)
+
 export const NAME_SCHEMA = zod
   .string()
   .max(50, { message: ERROR_MESSAGE[3] })
@@ -50,6 +52,10 @@ export const TEXT_SCHEMA = zod
 export const DAY_TEXT_SCHEMA = zod
   .string()
   .max(2, { message: ERROR_MESSAGE[13] })
+
+export const DATE_TEXT_SCHEMA = zod
+  .string()
+  .regex(DATE_CODE, { message: ERROR_MESSAGE[15] })
 
 export const TEMPORALLY = zod
   .string()

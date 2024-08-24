@@ -6,7 +6,6 @@ import * as ZodSchema from '@/const/form/Schema'
 
 import { InputProps } from '@/types/form/InputAttribute'
 
-
 const {
   fixFullWidth,
   fixHalfWidth,
@@ -225,9 +224,7 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return fixFullWidth(
-        value
-      )
+      return fixFullWidth(value)
     }
   },
 
@@ -268,8 +265,16 @@ export const INPUT_DATA = {
     label: '利率',
     inputTextArgs: {
       type: 'tel',
+      mask: (rawValue: string) => {
+        if (rawValue.startsWith('1')) return ['1', '.', /\d/, /\d/]
+        return ['0', '.', /\d/, /\d/]
+      }
     },
     zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      if (value[0] === '1') return '1.00'
+      return value
+    }
   },
   commission: {
     label: '手数料',
@@ -278,46 +283,24 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return fixHalfWidth(
-        removeOtherHalfNumber(value)
+      return commaFormat(
+        Number(
+          fixHalfWidth(
+            removeOtherHalfNumber(value)
+          )
+        )
       )
     }
   },
 
   // INPUT系　日にち系
-  closingDay: {
-    label: '締め日',
-    inputTextArgs: {
-      type: 'tel',
-      maxLength: 2,
-    },
-    zod: ZodSchema.DAY_TEXT_SCHEMA,
-    onBlurFormat: (value) => {
-      return removeOtherHalfNumber(
-        value
-      )
-    }
-  },
-  payDay: {
-    label: '引き落とし日',
-    inputTextArgs: {
-      type: 'tel',
-      maxLength: 2,
-    },
-    zod: ZodSchema.DAY_TEXT_SCHEMA,
-    onBlurFormat: (value) => {
-      return removeOtherHalfNumber(
-        value
-      )
-    }
-  },
   startDate: {
     label: '開始日',
     inputTextArgs: {
       type: 'tel',
-      maxLength: 2,
+      mask: [/\d/, /\d/, /\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/],
     },
-    zod: ZodSchema.DAY_TEXT_SCHEMA,
+    zod: ZodSchema.DATE_TEXT_SCHEMA,
   },
 
   // SELECT系
@@ -335,6 +318,14 @@ export const INPUT_DATA = {
   },
   installmentsCount: {
     label: '分割回数',
+    zod: ZodSchema.TEXT_SCHEMA
+  },
+  closingDay: {
+    label: '締め日',
+    zod: ZodSchema.TEXT_SCHEMA
+  },
+  payDay: {
+    label: '引き落とし日',
     zod: ZodSchema.TEXT_SCHEMA
   },
 

@@ -27,7 +27,7 @@ import { PageLayout } from '@/components/layouts/PageLayout'
 import type { DefaultValuesType, SelectOptionType } from '@/types/form/InputAttribute'
 
 type Props = {
-  loan: ApolloQueryResult<FindLoanByIdQuery>
+  loan?: ApolloQueryResult<FindLoanByIdQuery>
   payments: ApolloQueryResult<FindAllPaymentsQuery>
 }
 

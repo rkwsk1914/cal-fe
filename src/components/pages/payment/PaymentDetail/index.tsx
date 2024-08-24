@@ -16,6 +16,8 @@ import {
 
 import { useSetZodScheme, DefaultValuesRequiredType }from '@/hooks/form/useSetZodScheme'
 
+import { DAY_OPTIONS } from '@/const/form/options'
+
 import { Alert } from '@/components/atoms/Alert'
 import { Badge, BadgeColorOptions } from '@/components/atoms/Badge'
 import { Link } from '@/components/atoms/Link'
@@ -195,13 +197,15 @@ export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
         />
         {isCredit?.length > 0 && (
           <>
-            <InputController
+            <SelectController
               name="closingDay"
               {...args}
+              data={DAY_OPTIONS}
             />
-            <InputController
+            <SelectController
               name="payDay"
               {...args}
+              data={DAY_OPTIONS}
             />
           </>
         )}
