@@ -1,0 +1,51 @@
+$celMinWidth: 100px;
+$celMinHeight: 40px;
+
+.tableContainer {
+  max-height: 400px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+
+  th,
+  td {
+    height: $celMinHeight;
+    min-width: $celMinWidth;
+  }
+}
+
+$colIndex: 1;
+
+@while $colIndex <= 3 {
+  .stickyCol#{$colIndex} {
+    left: $celMinWidth * ($colIndex - 1);
+    position: sticky;
+    z-index: 1;
+  }
+
+  $colIndex: $colIndex + 1;
+}
+
+$rowIndex: 1;
+
+@while $rowIndex <= 3 {
+  .stickyRow#{$rowIndex} {
+    position: sticky;
+    top: $celMinHeight * ($rowIndex - 1); /* 2行目の位置を指定 */
+    z-index: 2;
+
+    $RowColIndex: 1;
+
+    @while $RowColIndex <= 3 {
+      &.stickyCol#{RowColIndex} {
+        z-index: 3;
+      }
+
+      $RowColIndex: $RowColIndex + 1;
+    }
+  }
+
+  $rowIndex: $rowIndex + 1;
+}
