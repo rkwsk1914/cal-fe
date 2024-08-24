@@ -124,10 +124,15 @@ $arrow-init: translate(-100%, -50%);
   }
 
   &.outline {
-    @apply bg-lightBg text-lightText border-lightText;
+    @apply  text-lightText border-lightText;
 
+    background: none;
     border-style: solid;
     border-width: 1px;
+
+    &::after {
+      @apply  bg-black;
+    }
   }
 
   &.small {
@@ -184,6 +189,10 @@ $arrow-init: translate(-100%, -50%);
   }
 
   &.outline {
-    @apply bg-darkBg text-darkText border-darkText;
+    @apply text-darkText border-darkText;
+
+    &::after {
+      @apply  bg-darkText;
+    }
   }
 }
