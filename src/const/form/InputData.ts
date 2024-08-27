@@ -371,3 +371,15 @@ export const INPUT_DATA = {
     zod: ZodSchema.CHECKBOX_SCHEME
   },
 } as const satisfies InputDataType
+
+export const INPUT_ARRAY_DATA = {
+  expenditures: {
+    expenditureName: INPUT_DATA.expenditureName,
+    description: INPUT_DATA.description,
+    amount: INPUT_DATA.amount,
+    payment: INPUT_DATA.payment,
+    occurrenceDate: INPUT_DATA.occurrenceDate,
+    temporary: INPUT_DATA.temporary,
+    category: INPUT_DATA.category
+  }
+} as const satisfies Record<string, InputDataType>
