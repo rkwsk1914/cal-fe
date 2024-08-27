@@ -1,6 +1,6 @@
-query FindExpenditureByID($findExpenditureByIdId: String!) {
-  findExpenditureByID(id: $findExpenditureByIdId) {
-    _id
+query FindAllExpenditures {
+  findAllExpenditures {
+        _id
     name
     description
     amount

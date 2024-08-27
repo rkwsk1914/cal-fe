@@ -1021,12 +1021,10 @@ export type FindAllBanksQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type FindAllBanksQuery = { __typename?: 'Query', findAllBanks: Array<{ __typename?: 'Bank', _id: string, branchName?: string | null, name: string }> };
 
-export type FindExpenditureByIdQueryVariables = Exact<{
-  findExpenditureByIdId: Scalars['String']['input'];
-}>;
+export type FindAllExpendituresQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindExpenditureByIdQuery = { __typename?: 'Query', findExpenditureByID: { __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, bank: { __typename?: 'Bank', _id: string, color?: string | null, branchName?: string | null, name: string } }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null } };
+export type FindAllExpendituresQuery = { __typename?: 'Query', findAllExpenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, bank: { __typename?: 'Bank', _id: string, color?: string | null, branchName?: string | null, name: string } }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null }> };
 
 export type FindAllFixedCostPatternsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1049,6 +1047,13 @@ export type FindBankByIdQueryVariables = Exact<{
 
 
 export type FindBankByIdQuery = { __typename?: 'Query', findBankByID: { __typename?: 'Bank', _id: string, name: string, branchName?: string | null, color?: string | null, payments: Array<{ __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, name: string }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null }> }>, incomes: Array<{ __typename?: 'Income', _id: string, amount: number, depositDate: any, description?: string | null, name: string, temporary?: boolean | null }> } };
+
+export type FindExpenditureByIdQueryVariables = Exact<{
+  findExpenditureByIdId: Scalars['String']['input'];
+}>;
+
+
+export type FindExpenditureByIdQuery = { __typename?: 'Query', findExpenditureByID: { __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, bank: { __typename?: 'Bank', _id: string, color?: string | null, branchName?: string | null, name: string } }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null } };
 
 export type FindFixedCostByIdQueryVariables = Exact<{
   findFixedCostByIdId: Scalars['String']['input'];
@@ -1372,9 +1377,9 @@ export type FindAllBanksQueryHookResult = ReturnType<typeof useFindAllBanksQuery
 export type FindAllBanksLazyQueryHookResult = ReturnType<typeof useFindAllBanksLazyQuery>;
 export type FindAllBanksSuspenseQueryHookResult = ReturnType<typeof useFindAllBanksSuspenseQuery>;
 export type FindAllBanksQueryResult = Apollo.QueryResult<FindAllBanksQuery, FindAllBanksQueryVariables>;
-export const FindExpenditureByIdDocument = gql`
-    query FindExpenditureByID($findExpenditureByIdId: String!) {
-  findExpenditureByID(id: $findExpenditureByIdId) {
+export const FindAllExpendituresDocument = gql`
+    query FindAllExpenditures {
+  findAllExpenditures {
     _id
     name
     description
@@ -1421,37 +1426,36 @@ export const FindExpenditureByIdDocument = gql`
     `;
 
 /**
- * __useFindExpenditureByIdQuery__
+ * __useFindAllExpendituresQuery__
  *
- * To run a query within a React component, call `useFindExpenditureByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useFindExpenditureByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useFindAllExpendituresQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAllExpendituresQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useFindExpenditureByIdQuery({
+ * const { data, loading, error } = useFindAllExpendituresQuery({
  *   variables: {
- *      findExpenditureByIdId: // value for 'findExpenditureByIdId'
  *   },
  * });
  */
-export function useFindExpenditureByIdQuery(baseOptions: Apollo.QueryHookOptions<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables> & ({ variables: FindExpenditureByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useFindAllExpendituresQuery(baseOptions?: Apollo.QueryHookOptions<FindAllExpendituresQuery, FindAllExpendituresQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>(FindExpenditureByIdDocument, options);
+        return Apollo.useQuery<FindAllExpendituresQuery, FindAllExpendituresQueryVariables>(FindAllExpendituresDocument, options);
       }
-export function useFindExpenditureByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>) {
+export function useFindAllExpendituresLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAllExpendituresQuery, FindAllExpendituresQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>(FindExpenditureByIdDocument, options);
+          return Apollo.useLazyQuery<FindAllExpendituresQuery, FindAllExpendituresQueryVariables>(FindAllExpendituresDocument, options);
         }
-export function useFindExpenditureByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>) {
+export function useFindAllExpendituresSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindAllExpendituresQuery, FindAllExpendituresQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>(FindExpenditureByIdDocument, options);
+          return Apollo.useSuspenseQuery<FindAllExpendituresQuery, FindAllExpendituresQueryVariables>(FindAllExpendituresDocument, options);
         }
-export type FindExpenditureByIdQueryHookResult = ReturnType<typeof useFindExpenditureByIdQuery>;
-export type FindExpenditureByIdLazyQueryHookResult = ReturnType<typeof useFindExpenditureByIdLazyQuery>;
-export type FindExpenditureByIdSuspenseQueryHookResult = ReturnType<typeof useFindExpenditureByIdSuspenseQuery>;
-export type FindExpenditureByIdQueryResult = Apollo.QueryResult<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>;
+export type FindAllExpendituresQueryHookResult = ReturnType<typeof useFindAllExpendituresQuery>;
+export type FindAllExpendituresLazyQueryHookResult = ReturnType<typeof useFindAllExpendituresLazyQuery>;
+export type FindAllExpendituresSuspenseQueryHookResult = ReturnType<typeof useFindAllExpendituresSuspenseQuery>;
+export type FindAllExpendituresQueryResult = Apollo.QueryResult<FindAllExpendituresQuery, FindAllExpendituresQueryVariables>;
 export const FindAllFixedCostPatternsDocument = gql`
     query FindAllFixedCostPatterns {
   findAllFixedCostPatterns {
@@ -1724,6 +1728,86 @@ export type FindBankByIdQueryHookResult = ReturnType<typeof useFindBankByIdQuery
 export type FindBankByIdLazyQueryHookResult = ReturnType<typeof useFindBankByIdLazyQuery>;
 export type FindBankByIdSuspenseQueryHookResult = ReturnType<typeof useFindBankByIdSuspenseQuery>;
 export type FindBankByIdQueryResult = Apollo.QueryResult<FindBankByIdQuery, FindBankByIdQueryVariables>;
+export const FindExpenditureByIdDocument = gql`
+    query FindExpenditureByID($findExpenditureByIdId: String!) {
+  findExpenditureByID(id: $findExpenditureByIdId) {
+    _id
+    name
+    description
+    amount
+    payment {
+      _id
+      bank {
+        _id
+        color
+        branchName
+        name
+      }
+      closingDay
+      color
+      isCredit
+      name
+      payDay
+    }
+    payDay
+    temporary
+    tax {
+      _id
+      name
+    }
+    loan {
+      _id
+      name
+    }
+    fixedCost {
+      _id
+      name
+    }
+    sop {
+      _id
+      name
+    }
+    subscriber {
+      _id
+      name
+    }
+    duplexingAvoidanceID
+  }
+}
+    `;
+
+/**
+ * __useFindExpenditureByIdQuery__
+ *
+ * To run a query within a React component, call `useFindExpenditureByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindExpenditureByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindExpenditureByIdQuery({
+ *   variables: {
+ *      findExpenditureByIdId: // value for 'findExpenditureByIdId'
+ *   },
+ * });
+ */
+export function useFindExpenditureByIdQuery(baseOptions: Apollo.QueryHookOptions<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables> & ({ variables: FindExpenditureByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>(FindExpenditureByIdDocument, options);
+      }
+export function useFindExpenditureByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>(FindExpenditureByIdDocument, options);
+        }
+export function useFindExpenditureByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>(FindExpenditureByIdDocument, options);
+        }
+export type FindExpenditureByIdQueryHookResult = ReturnType<typeof useFindExpenditureByIdQuery>;
+export type FindExpenditureByIdLazyQueryHookResult = ReturnType<typeof useFindExpenditureByIdLazyQuery>;
+export type FindExpenditureByIdSuspenseQueryHookResult = ReturnType<typeof useFindExpenditureByIdSuspenseQuery>;
+export type FindExpenditureByIdQueryResult = Apollo.QueryResult<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>;
 export const FindFixedCostByIdDocument = gql`
     query FindFixedCostByID($findFixedCostByIdId: String!) {
   findFixedCostByID(id: $findFixedCostByIdId) {
