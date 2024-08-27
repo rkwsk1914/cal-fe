@@ -39,6 +39,10 @@ query FindBankByID($findBankByIdId: String!) {
         }
         duplexingAvoidanceID
       }
+      isCredit
+      name
+      payDay
+      uneditable
     }
     branchName
     color

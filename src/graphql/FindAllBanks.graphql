@@ -1,7 +1,58 @@
 query FindAllBanks {
   findAllBanks {
     _id
-    branchName
     name
+    payments {
+      _id
+      closingDay
+      color
+      expenditures {
+        _id
+        name
+        description
+        amount
+        payment {
+          _id
+          name
+        }
+        payDay
+        temporary
+        tax {
+          _id
+          name
+        }
+        loan {
+          _id
+          name
+        }
+        fixedCost {
+          _id
+          name
+        }
+        sop {
+          _id
+          name
+        }
+        subscriber {
+          _id
+          name
+        }
+        duplexingAvoidanceID
+      }
+      isCredit
+      name
+      payDay
+      uneditable
+    }
+    branchName
+    color
+    incomes {
+      _id
+      amount
+      depositDate
+      description
+      name
+      temporary
+    }
   }
 }
