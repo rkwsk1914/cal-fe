@@ -4,6 +4,7 @@ import { ApolloQueryResult } from '@apollo/client'
 
 import { FindAllExpendituresQuery } from '@/generated/graphql'
 
+import { Badge, ColorSchemeType } from '@/components/atoms/Badge'
 import { Link } from '@/components/atoms/Link'
 import { Table } from '@/components/atoms/Table'
 import { ListPageLayout } from '@/components/layouts/ListPageLayout'
@@ -19,8 +20,12 @@ export const ExpenditureList: React.FC<Props> = (props): JSX.Element => {
 
   const itemData = listData.map((item) => {
     return [
+      item.payDay,
       <Link key={item._id} href={`/expenditure/${item._id}`}>{item.name}</Link>,
-
+      item.amount,
+      <Badge key={item._id} colorScheme={item.payment.color as ColorSchemeType}>{item.payment.name}</Badge>,
+      <Badge key={item._id} colorScheme={item.payment.bank.color as ColorSchemeType}>{`${item.payment.bank.name} ${item.payment.bank.name}`}</Badge>,
+      item.description
     ]
   })
 
@@ -28,23 +33,20 @@ export const ExpenditureList: React.FC<Props> = (props): JSX.Element => {
     '発生日',
     '項目名',
     '金額',
-    '分割回数',
-    '利率',
-    '手数料',
-    '開始日',
     '支払い方法',
-    '支払い日'
+    '引き落とし口座',
+    '備考'
   ]
 
-  const tableData = transpose([
+  const tableData = [
     defaultHeader,
     ...itemData
-  ])
+  ]
 
   return (
     <PageLayout  title='支出リスト'>
       <ListPageLayout createBtnHref='/payment/create'>
-        <Table data={tableData} thRow={1} thCol={1} />
+        <Table data={tableData} thRow={1} />
       </ListPageLayout>
     </PageLayout>
   )

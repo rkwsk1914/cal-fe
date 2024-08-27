@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Badge as ChakuraUIBadge } from '@chakra-ui/react'
 
-type ColorSchemeType = 'gray' | 'red' | 'orange' | 'yellow' | 'green' | 'teal' | 'blue' | 'cyan' | 'purple' | 'pink'
+export type ColorSchemeType = 'gray' | 'red' | 'orange' | 'yellow' | 'green' | 'teal' | 'blue' | 'cyan' | 'purple' | 'pink'
 
 type Props = {
   children: React.ReactNode

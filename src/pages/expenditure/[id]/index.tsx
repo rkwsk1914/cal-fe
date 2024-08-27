@@ -4,15 +4,15 @@ import { FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables, FindExpend
 
 import { doQueryServerSide } from '@/utils/doQueryServerSide'
 
-import { ExpenditureDetail } from '@/components/pages/bank/ExpenditureDetail'
+// import { ExpenditureDetail } from '@/components/pages/expenditure/ExpenditureDetail'
 
 
 import type { NextPage, GetServerSideProps } from 'next'
 
 
-const ExpenditureUpdate: NextPage<ApolloQueryResult<FindExpenditureByIdQuery>> = (props) => {
+const ExpenditureUpdate: NextPage<ApolloQueryResult<FindExpenditureByIdQuery>> = (_props) => {
   return (
-    <ExpenditureDetail {...props} />
+    <></>
   )
 }
 

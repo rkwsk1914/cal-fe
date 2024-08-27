@@ -35,7 +35,7 @@ type Props = {
   banks: Partial<ApolloQueryResult<FindAllBanksQuery>>
 }
 
-export const PaymentDetail: React.FC<Props> = (props): JSX.Element => {
+export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
   const toast = useToast()
   const router = useRouter()
   const { id } = router.query

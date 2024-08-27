@@ -4,7 +4,7 @@ import { FindAllExpendituresQuery, FindAllExpendituresQueryVariables, FindAllExp
 
 import { doQueryServerSide } from '@/utils/doQueryServerSide'
 
-import { ExpenditureList } from '@/components/pages/bank/ExpenditureList'
+import { ExpenditureList } from '@/components/pages/expenditure/ExpenditureList'
 
 
 import type { NextPage, GetServerSideProps } from 'next'
