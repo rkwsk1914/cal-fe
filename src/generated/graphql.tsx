@@ -26,8 +26,6 @@ export type Bank = {
   branchName?: Maybe<Scalars['String']['output']>;
   /** 設定カラー */
   color?: Maybe<Scalars['String']['output']>;
-  /** 出金リスト */
-  expenditures: Array<Expenditure>;
   /** 入金リスト */
   incomes: Array<Income>;
   /** MongoDB Collection Name。アイテム名 */
@@ -434,6 +432,7 @@ export type Mutation = {
   updateLoan: MutationSuccessResGraphQl;
   updateMonthlyData: MutationSuccessResGraphQl;
   updatePayment: MutationSuccessResGraphQl;
+  updateSeveralExpenditure: MutationSuccessResGraphQl;
   updateSop: MutationSuccessResGraphQl;
   updateSubscriber: MutationSuccessResGraphQl;
   updateTax: MutationSuccessResGraphQl;
@@ -598,6 +597,11 @@ export type MutationUpdatePaymentArgs = {
 };
 
 
+export type MutationUpdateSeveralExpenditureArgs = {
+  inputs: Array<UpdateExpenditureInputWithId>;
+};
+
+
 export type MutationUpdateSopArgs = {
   id: Scalars['String']['input'];
   input: UpdateSopInput;
@@ -631,6 +635,8 @@ export type Payment = {
   closingDay?: Maybe<Scalars['Int']['output']>;
   /** 設定カラー */
   color?: Maybe<Scalars['String']['output']>;
+  /** 出金リスト */
+  expenditures: Array<Expenditure>;
   /** クレジットかどうか */
   isCredit?: Maybe<Scalars['Boolean']['output']>;
   /** MongoDB Collection Name。アイテム名 */
@@ -773,8 +779,6 @@ export type UpdateBankInput = {
   branchName?: InputMaybe<Scalars['String']['input']>;
   /** 設定カラー */
   color?: InputMaybe<Scalars['String']['input']>;
-  /** 出金リスト */
-  expenditures?: InputMaybe<Array<Scalars['String']['input']>>;
   /** 入金リスト */
   incomes?: InputMaybe<Array<Scalars['String']['input']>>;
   /** アイテム名 */
@@ -808,6 +812,11 @@ export type UpdateExpenditureInput = {
   tax?: InputMaybe<Scalars['String']['input']>;
   /** 仮・未確定フラグ */
   temporary?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type UpdateExpenditureInputWithId = {
+  id: Scalars['String']['input'];
+  input: UpdateExpenditureInput;
 };
 
 export type UpdateFixedCostInput = {
@@ -1012,6 +1021,13 @@ export type FindAllBanksQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type FindAllBanksQuery = { __typename?: 'Query', findAllBanks: Array<{ __typename?: 'Bank', _id: string, branchName?: string | null, name: string }> };
 
+export type FindExpenditureByIdQueryVariables = Exact<{
+  findExpenditureByIdId: Scalars['String']['input'];
+}>;
+
+
+export type FindExpenditureByIdQuery = { __typename?: 'Query', findExpenditureByID: { __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, bank: { __typename?: 'Bank', _id: string, color?: string | null, branchName?: string | null, name: string } }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null } };
+
 export type FindAllFixedCostPatternsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1032,7 +1048,7 @@ export type FindBankByIdQueryVariables = Exact<{
 }>;
 
 
-export type FindBankByIdQuery = { __typename?: 'Query', findBankByID: { __typename?: 'Bank', _id: string, name: string, color?: string | null, branchName?: string | null, payments: Array<{ __typename?: 'Payment', _id: string, name: string, payDay?: number | null, color?: string | null, bank: { __typename?: 'Bank', _id: string, name: string, color?: string | null } }>, incomes: Array<{ __typename?: 'Income', _id: string, name: string, description?: string | null, amount: number, depositDate: any, temporary?: boolean | null }>, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null, payment: { __typename?: 'Payment', _id: string, color?: string | null, name: string, payDay?: number | null } }> } };
+export type FindBankByIdQuery = { __typename?: 'Query', findBankByID: { __typename?: 'Bank', _id: string, name: string, branchName?: string | null, color?: string | null, payments: Array<{ __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, name: string }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null }> }>, incomes: Array<{ __typename?: 'Income', _id: string, amount: number, depositDate: any, description?: string | null, name: string, temporary?: boolean | null }> } };
 
 export type FindFixedCostByIdQueryVariables = Exact<{
   findFixedCostByIdId: Scalars['String']['input'];
@@ -1356,6 +1372,86 @@ export type FindAllBanksQueryHookResult = ReturnType<typeof useFindAllBanksQuery
 export type FindAllBanksLazyQueryHookResult = ReturnType<typeof useFindAllBanksLazyQuery>;
 export type FindAllBanksSuspenseQueryHookResult = ReturnType<typeof useFindAllBanksSuspenseQuery>;
 export type FindAllBanksQueryResult = Apollo.QueryResult<FindAllBanksQuery, FindAllBanksQueryVariables>;
+export const FindExpenditureByIdDocument = gql`
+    query FindExpenditureByID($findExpenditureByIdId: String!) {
+  findExpenditureByID(id: $findExpenditureByIdId) {
+    _id
+    name
+    description
+    amount
+    payment {
+      _id
+      bank {
+        _id
+        color
+        branchName
+        name
+      }
+      closingDay
+      color
+      isCredit
+      name
+      payDay
+    }
+    payDay
+    temporary
+    tax {
+      _id
+      name
+    }
+    loan {
+      _id
+      name
+    }
+    fixedCost {
+      _id
+      name
+    }
+    sop {
+      _id
+      name
+    }
+    subscriber {
+      _id
+      name
+    }
+    duplexingAvoidanceID
+  }
+}
+    `;
+
+/**
+ * __useFindExpenditureByIdQuery__
+ *
+ * To run a query within a React component, call `useFindExpenditureByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindExpenditureByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindExpenditureByIdQuery({
+ *   variables: {
+ *      findExpenditureByIdId: // value for 'findExpenditureByIdId'
+ *   },
+ * });
+ */
+export function useFindExpenditureByIdQuery(baseOptions: Apollo.QueryHookOptions<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables> & ({ variables: FindExpenditureByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>(FindExpenditureByIdDocument, options);
+      }
+export function useFindExpenditureByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>(FindExpenditureByIdDocument, options);
+        }
+export function useFindExpenditureByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>(FindExpenditureByIdDocument, options);
+        }
+export type FindExpenditureByIdQueryHookResult = ReturnType<typeof useFindExpenditureByIdQuery>;
+export type FindExpenditureByIdLazyQueryHookResult = ReturnType<typeof useFindExpenditureByIdLazyQuery>;
+export type FindExpenditureByIdSuspenseQueryHookResult = ReturnType<typeof useFindExpenditureByIdSuspenseQuery>;
+export type FindExpenditureByIdQueryResult = Apollo.QueryResult<FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables>;
 export const FindAllFixedCostPatternsDocument = gql`
     query FindAllFixedCostPatterns {
   findAllFixedCostPatterns {
@@ -1546,60 +1642,52 @@ export const FindBankByIdDocument = gql`
     name
     payments {
       _id
-      name
-      payDay
-      bank {
-        _id
-        name
-        color
-      }
+      closingDay
       color
-    }
-    color
-    incomes {
-      _id
-      name
-      description
-      amount
-      depositDate
-      temporary
-    }
-    expenditures {
-      _id
-      name
-      description
-      amount
-      payDay
-      temporary
-      tax {
+      expenditures {
         _id
         name
-      }
-      loan {
-        _id
-        name
-      }
-      fixedCost {
-        _id
-        name
-      }
-      sop {
-        _id
-        name
-      }
-      subscriber {
-        _id
-        name
-      }
-      duplexingAvoidanceID
-      payment {
-        _id
-        color
-        name
+        description
+        amount
+        payment {
+          _id
+          name
+        }
         payDay
+        temporary
+        tax {
+          _id
+          name
+        }
+        loan {
+          _id
+          name
+        }
+        fixedCost {
+          _id
+          name
+        }
+        sop {
+          _id
+          name
+        }
+        subscriber {
+          _id
+          name
+        }
+        duplexingAvoidanceID
       }
     }
     branchName
+    color
+    incomes {
+      _id
+      amount
+      depositDate
+      description
+      name
+      temporary
+    }
   }
 }
     `;

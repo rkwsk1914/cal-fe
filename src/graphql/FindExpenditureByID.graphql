@@ -1,0 +1,45 @@
+query FindExpenditureByID($findExpenditureByIdId: String!) {
+  findExpenditureByID(id: $findExpenditureByIdId) {
+    _id
+    name
+    description
+    amount
+    payment {
+      _id
+      bank {
+        _id
+        color
+        branchName
+        name
+      }
+      closingDay
+      color
+      isCredit
+      name
+      payDay
+    }
+    payDay
+    temporary
+    tax {
+      _id
+      name
+    }
+    loan {
+      _id
+      name
+    }
+    fixedCost {
+      _id
+      name
+    }
+    sop {
+      _id
+      name
+    }
+    subscriber {
+      _id
+      name
+    }
+    duplexingAvoidanceID
+  }
+}

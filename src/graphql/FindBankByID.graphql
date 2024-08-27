@@ -4,59 +4,51 @@ query FindBankByID($findBankByIdId: String!) {
     name
     payments {
       _id
-      name
-      payDay
-      bank {
-        _id
-        name
-        color
-      }
+      closingDay
       color
-    }
-    color
-    incomes {
-      _id
-      name
-      description
-      amount
-      depositDate
-      temporary
-    }
-    expenditures {
-      _id
-      name
-      description
-      amount
-      payDay
-      temporary
-      tax {
+      expenditures {
         _id
         name
-      }
-      loan {
-        _id
-        name
-      }
-      fixedCost {
-        _id
-        name
-      }
-      sop {
-        _id
-        name
-      }
-      subscriber {
-        _id
-        name
-      }
-      duplexingAvoidanceID
-      payment {
-        _id
-        color
-        name
+        description
+        amount
+        payment {
+          _id
+          name
+        }
         payDay
+        temporary
+        tax {
+          _id
+          name
+        }
+        loan {
+          _id
+          name
+        }
+        fixedCost {
+          _id
+          name
+        }
+        sop {
+          _id
+          name
+        }
+        subscriber {
+          _id
+          name
+        }
+        duplexingAvoidanceID
       }
     }
     branchName
+    color
+    incomes {
+      _id
+      amount
+      depositDate
+      description
+      name
+      temporary
+    }
   }
 }
