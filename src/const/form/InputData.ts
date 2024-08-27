@@ -10,7 +10,7 @@ const {
   fixFullWidth,
   fixHalfWidth,
   removeOtherHalfNumber,
-  commaFormat,
+  yenFormat,
 } = chrFormatChange
 
 export type InputDataType = Record<
@@ -246,7 +246,7 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return commaFormat(
+      return yenFormat(
         Number(
           fixHalfWidth(
             removeOtherHalfNumber(value)
@@ -262,7 +262,7 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return commaFormat(
+      return yenFormat(
         Number(
           fixHalfWidth(
             removeOtherHalfNumber(value)
@@ -293,7 +293,7 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return commaFormat(
+      return yenFormat(
         Number(
           fixHalfWidth(
             removeOtherHalfNumber(value)
@@ -306,6 +306,14 @@ export const INPUT_DATA = {
   // INPUT系　日にち系
   startDate: {
     label: '開始日',
+    inputTextArgs: {
+      type: 'tel',
+      mask: [/\d/, /\d/, /\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/],
+    },
+    zod: ZodSchema.DATE_TEXT_SCHEMA,
+  },
+  occurrenceDate: {
+    label: '発生日',
     inputTextArgs: {
       type: 'tel',
       mask: [/\d/, /\d/, /\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/],

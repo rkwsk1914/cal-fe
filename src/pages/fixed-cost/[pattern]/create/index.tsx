@@ -18,9 +18,9 @@ import { FixedCostDetail } from '@/components/pages/fixedCost/FixedCostDetail'
 import type { NextPage, GetServerSideProps } from 'next'
 
 interface Props {
-  fixedCost?: Partial<ApolloQueryResult<FindFixedCostByIdQuery>>
-  payments: Partial<ApolloQueryResult<FindAllPaymentsQuery>>
-  patterns: Partial<ApolloQueryResult<FindAllFixedCostPatternsQuery>>
+  fixedCost?: ApolloQueryResult<FindFixedCostByIdQuery>
+  payments: ApolloQueryResult<FindAllPaymentsQuery>
+  patterns: ApolloQueryResult<FindAllFixedCostPatternsQuery>
 }
 
 const CreateFixedCost: NextPage<Props> = (props) => {

@@ -4,10 +4,10 @@ import { ComponentProps } from 'react'
 import { ApolloQueryResult } from '@apollo/client'
 
 import {
-  FindAllCategorysQuery
+  FindAllCategorysQuery,
+  FindAllPaymentsQuery
 } from '@/generated/graphql'
 
-import { Payday } from '@/components/form/molecules/Payday'
 import { CheckBoxController } from '@/components/form/organisms/CheckBoxController'
 import { InputController } from '@/components/form/organisms/InputController'
 import { SelectController } from '@/components/form/organisms/SelectController'
@@ -16,23 +16,26 @@ import type { SelectOptionType } from '@/types/form/InputAttribute'
 
 type Props = {
   args: Pick<ComponentProps<typeof InputController>, 'arrangement' | 'control'  | 'errors' | 'trigger'>
+  payments: ApolloQueryResult<FindAllPaymentsQuery>
   categories: ApolloQueryResult<FindAllCategorysQuery>
-} & Pick<ComponentProps<typeof Payday>, 'payments' | 'paymentId' | 'setValue'>
+}
 
 export const ExpenditureForm: React.FC<Props> = ({
   args,
   categories,
   payments,
-  paymentId,
-  setValue
 }): JSX.Element => {
-
   const categorySelect: SelectOptionType | undefined = [
     ...categories.data?.findAllCategorys?.map((resCategory) => ({
       value: resCategory._id,
       label: resCategory.name,
     }))
   ]
+
+  const paymentSelect: SelectOptionType | undefined = payments.data?.findAllPayments?.map((resPayment) => ({
+    value: resPayment._id,
+    label: resPayment.name,
+  }))
 
   return (
     <>
@@ -51,11 +54,14 @@ export const ExpenditureForm: React.FC<Props> = ({
           name="amount"
           {...args}
         />
-        <Payday
-          paymentId={paymentId}
-          args={args}
-          payments={payments}
-          setValue={setValue}
+        <SelectController
+          name="payment"
+          {...args}
+          data={paymentSelect ?? []}
+        />
+        <InputController
+          name="occurrenceDate"
+          {...args}
         />
         <SelectController
           name="category"

@@ -21,6 +21,7 @@ import * as chrFormatChange from '@/utils/chrFormatChange'
 
 
 import { Alert } from '@/components/atoms/Alert'
+import type { ArrangementType } from '@/components/form/molecules/FormControl'
 import { ExpenditureForm } from '@/components/form/templates/ExpenditureForm'
 import { FromLayout } from '@/components/layouts/FromLayout'
 import { PageLayout } from '@/components/layouts/PageLayout'
@@ -34,7 +35,7 @@ type Props = {
 }
 
 export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
-  const { yenFormat, yyyyMmDd } = chrFormatChange
+  const { commaFormat, yyyyMmDd, removeComma } = chrFormatChange
   const toast = useToast()
   const router = useRouter()
   const { id } = router.query
@@ -45,10 +46,10 @@ export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
   const defaultValues: DefaultValuesType = {
     expenditureName: res?.name ?? '',
     description: res?.description ?? '',
-    amount: res?.amount ? yenFormat(res?.amount) : '',
+    amount: res?.amount ? commaFormat(res?.amount) : '',
     payment: res?.payment._id ?? '',
-    payDay: res?.payDay ? yyyyMmDd(res?.payDay): '',
-    temporary: res?.temporary ? ['true'] : [],
+    occurrenceDate: res?.payDay ? yyyyMmDd(res?.payDay): '',
+    temporary: expenditure ? res?.temporary ? ['true'] : [] : ['true'],
     category: res?.category?._id ?? ''
   }
   const requiredValues: DefaultValuesRequiredType = {
@@ -56,7 +57,7 @@ export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
     description: false,
     amount: true,
     payment: true,
-    payDay: true,
+    occurrenceDate: true,
     temporary: false,
     category: false
   }
@@ -70,7 +71,6 @@ export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
     handleSubmit,
     control,
     trigger,
-    setValue,
     formState: { errors },
   } = useForm({
     mode: 'onSubmit',
@@ -84,7 +84,8 @@ export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
   const args = {
     errors,
     trigger,
-    control
+    control,
+    arrangement: 'vertically' as ArrangementType
   }
 
   const onCreate = async (data: DefaultValuesType) => {
@@ -94,11 +95,11 @@ export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
           input: {
             name: data.expenditureName as string,
             description: data.description as string,
-            amount: Number(data.amount),
+            amount: Number(removeComma(data.amount as string)),
             payment: data.payment as string,
-            payDay: Number(data.payDay),
+            payDay: data.occurrenceDate ? new Date(data.occurrenceDate as string) : null,
             temporary: (data.temporary as string[])?.length > 0,
-            category: data.category as string
+            category: data.category !== '' ? (data.category as string) : null
           }
         },
       })
@@ -124,11 +125,11 @@ export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
           input: {
             name: data.expenditureName as string,
             description: data.description as string,
-            amount: Number(data.amount),
+            amount: Number(removeComma(data.amount as string)),
             payment: data.payment as string,
-            payDay: Number(data.payDay),
+            payDay: data.occurrenceDate ? new Date(data.occurrenceDate as string) : null,
             temporary: (data.temporary as string[])?.length > 0,
-            category: data.category as string
+            category: data.category !== '' ? (data.category as string) : null
           }
         },
       })
@@ -154,14 +155,12 @@ export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
     <PageLayout title='支払い方法詳細'>
       <FromLayout
         handleSubmit={handleSubmit(onSubmit)}
-        listHref='/payment'
+        listHref='/expenditure'
       >
         <ExpenditureForm
           args={args}
           categories={categories}
           payments={payments}
-          paymentId={res?.payment._id}
-          setValue={setValue}
         />
       </FromLayout>
     </PageLayout>

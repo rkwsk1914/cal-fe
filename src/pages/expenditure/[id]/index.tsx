@@ -1,41 +1,86 @@
 import { ApolloQueryResult } from '@apollo/client'
 
-import { FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables, FindExpenditureByIdDocument } from '@/generated/graphql'
+import {
+  FindAllPaymentsQuery,
+  FindAllPaymentsQueryVariables,
+  FindAllPaymentsDocument,
+  FindAllCategorysQuery,
+  FindAllCategorysQueryVariables,
+  FindAllCategorysDocument,
+  FindExpenditureByIdQuery,
+  FindExpenditureByIdQueryVariables,
+  FindExpenditureByIdDocument
+} from '@/generated/graphql'
 
 import { doQueryServerSide } from '@/utils/doQueryServerSide'
 
-// import { ExpenditureDetail } from '@/components/pages/expenditure/ExpenditureDetail'
+import { ExpenditureDetail } from '@/components/pages/expenditure/ExpenditureDetail'
 
 
 import type { NextPage, GetServerSideProps } from 'next'
 
+interface Props {
+  expenditure?: ApolloQueryResult<FindExpenditureByIdQuery>
+  payments: ApolloQueryResult<FindAllPaymentsQuery>
+  categories: ApolloQueryResult<FindAllCategorysQuery>
+}
 
-const ExpenditureUpdate: NextPage<ApolloQueryResult<FindExpenditureByIdQuery>> = (_props) => {
+const ExpenditureCreate: NextPage<Props> = (props) => {
   return (
-    <></>
+    <ExpenditureDetail {...props} />
   )
 }
 
-export const getServerSideProps: GetServerSideProps<ApolloQueryResult<FindExpenditureByIdQuery>> = async (context) => {
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   const { id } = context.query
 
   if (!id || typeof id !== 'string') {
     return { notFound: true }
   }
 
-  const result = await doQueryServerSide<
+  const expenditureResult = await doQueryServerSide<
     FindExpenditureByIdQuery, FindExpenditureByIdQueryVariables
   >({
-    name: 'findExpenditureByID',
+    name: 'findPaymentByID',
     query: FindExpenditureByIdDocument,
     variables: { findExpenditureByIdId: id },
   })
 
-  if (!result) {
+  if (!expenditureResult) {
     return { notFound: true }
   }
 
-  return { props: result }
+  const paymentsResult = await doQueryServerSide<
+    FindAllPaymentsQuery, FindAllPaymentsQueryVariables
+    >({
+      name: 'FindAllPayments',
+      query: FindAllPaymentsDocument,
+      variables: {},
+    })
+
+  if (!paymentsResult) {
+    return { notFound: true }
+  }
+
+  const categoriesResult = await doQueryServerSide<
+    FindAllCategorysQuery, FindAllCategorysQueryVariables
+    >({
+      name: 'FindAllCategorys',
+      query: FindAllCategorysDocument,
+      variables: {},
+    })
+
+  if (!categoriesResult) {
+    return { notFound: true }
+  }
+
+  return {
+    props: {
+      expenditure: expenditureResult,
+      payments: paymentsResult,
+      categories: categoriesResult
+    }
+  }
 }
 
-export default ExpenditureUpdate
+export default ExpenditureCreate
