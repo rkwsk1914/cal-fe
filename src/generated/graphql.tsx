@@ -1107,7 +1107,7 @@ export type FindAllLoansQuery = { __typename?: 'Query', findAllLoans: Array<{ __
 export type FindAllPaymentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllPaymentsQuery = { __typename?: 'Query', findAllPayments: Array<{ __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, uneditable?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, name: string, color?: string | null } }> };
+export type FindAllPaymentsQuery = { __typename?: 'Query', findAllPayments: Array<{ __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, uneditable?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, name: string, color?: string | null }, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null, category?: { __typename?: 'Category', _id: string, name: string, color?: string | null } | null }> }> };
 
 export type FindBankByIdQueryVariables = Exact<{
   findBankByIdId: Scalars['String']['input'];
@@ -1813,6 +1813,40 @@ export const FindAllPaymentsDocument = gql`
     name
     payDay
     uneditable
+    expenditures {
+      _id
+      name
+      description
+      amount
+      payDay
+      temporary
+      tax {
+        _id
+        name
+      }
+      loan {
+        _id
+        name
+      }
+      fixedCost {
+        _id
+        name
+      }
+      sop {
+        _id
+        name
+      }
+      subscriber {
+        _id
+        name
+      }
+      category {
+        _id
+        name
+        color
+      }
+      duplexingAvoidanceID
+    }
   }
 }
     `;

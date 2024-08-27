@@ -33,7 +33,7 @@ type Props = {
 }
 
 export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
-  const { commaFormat, yyyyMmDd } = chrFormatChange
+  const { commaFormat, yyyyMmDd, removeComma } = chrFormatChange
   const toast = useToast()
   const router = useRouter()
   const { id } = router.query
@@ -97,11 +97,11 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
         variables: {
           input: {
             name: data.loanName as string,
-            basePrice: Number(data.basePrice),
-            amount: Number(data.amount),
+            basePrice: Number(removeComma(data.basePrice as string)),
+            amount: Number(removeComma(data.amount as string)),
             installmentsCount: Number(data.installmentsCount),
             rate: Number(data.rate),
-            commission: Number(data.commission),
+            commission: Number(removeComma(data.commission as string)),
             startDate: data.startDate as string,
             payment: data.payment as string,
             payDay: Number(data.payDay),
@@ -129,11 +129,11 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
           updateLoanId: id as string,
           input: {
             name: data.loanName as string,
-            basePrice: Number(data.basePrice),
-            amount: Number(data.amount),
+            basePrice: Number(removeComma(data.basePrice as string)),
+            amount: Number(removeComma(data.amount as string)),
             installmentsCount: Number(data.installmentsCount),
             rate: Number(data.rate),
-            commission: Number(data.commission),
+            commission: Number(removeComma(data.commission as string)),
             startDate: data.startDate as string,
             payment: data.payment as string,
             payDay: Number(data.payDay),
