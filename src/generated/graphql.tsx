@@ -1084,6 +1084,11 @@ export type FindAllBanksQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type FindAllBanksQuery = { __typename?: 'Query', findAllBanks: Array<{ __typename?: 'Bank', _id: string, name: string, branchName?: string | null, color?: string | null, payments: Array<{ __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, uneditable?: boolean | null, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, name: string }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null }> }>, incomes: Array<{ __typename?: 'Income', _id: string, amount: number, depositDate: any, description?: string | null, name: string, temporary?: boolean | null }> }> };
 
+export type FindAllCategorysQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindAllCategorysQuery = { __typename?: 'Query', findAllCategorys: Array<{ __typename?: 'Category', _id: string, name: string, color?: string | null, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, name: string, isCredit?: boolean | null, payDay?: number | null, closingDay?: number | null, color?: string | null, uneditable?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null }> }> };
+
 export type FindAllExpendituresQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1491,6 +1496,91 @@ export type FindAllBanksQueryHookResult = ReturnType<typeof useFindAllBanksQuery
 export type FindAllBanksLazyQueryHookResult = ReturnType<typeof useFindAllBanksLazyQuery>;
 export type FindAllBanksSuspenseQueryHookResult = ReturnType<typeof useFindAllBanksSuspenseQuery>;
 export type FindAllBanksQueryResult = Apollo.QueryResult<FindAllBanksQuery, FindAllBanksQueryVariables>;
+export const FindAllCategorysDocument = gql`
+    query FindAllCategorys {
+  findAllCategorys {
+    _id
+    name
+    color
+    expenditures {
+      _id
+      name
+      description
+      amount
+      payment {
+        _id
+        name
+        isCredit
+        payDay
+        closingDay
+        bank {
+          _id
+          branchName
+          color
+          name
+        }
+        color
+        uneditable
+      }
+      payDay
+      temporary
+      tax {
+        _id
+        name
+      }
+      loan {
+        _id
+        name
+      }
+      fixedCost {
+        _id
+        name
+      }
+      sop {
+        _id
+        name
+      }
+      subscriber {
+        _id
+        name
+      }
+      duplexingAvoidanceID
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindAllCategorysQuery__
+ *
+ * To run a query within a React component, call `useFindAllCategorysQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindAllCategorysQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindAllCategorysQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useFindAllCategorysQuery(baseOptions?: Apollo.QueryHookOptions<FindAllCategorysQuery, FindAllCategorysQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindAllCategorysQuery, FindAllCategorysQueryVariables>(FindAllCategorysDocument, options);
+      }
+export function useFindAllCategorysLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindAllCategorysQuery, FindAllCategorysQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindAllCategorysQuery, FindAllCategorysQueryVariables>(FindAllCategorysDocument, options);
+        }
+export function useFindAllCategorysSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindAllCategorysQuery, FindAllCategorysQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindAllCategorysQuery, FindAllCategorysQueryVariables>(FindAllCategorysDocument, options);
+        }
+export type FindAllCategorysQueryHookResult = ReturnType<typeof useFindAllCategorysQuery>;
+export type FindAllCategorysLazyQueryHookResult = ReturnType<typeof useFindAllCategorysLazyQuery>;
+export type FindAllCategorysSuspenseQueryHookResult = ReturnType<typeof useFindAllCategorysSuspenseQuery>;
+export type FindAllCategorysQueryResult = Apollo.QueryResult<FindAllCategorysQuery, FindAllCategorysQueryVariables>;
 export const FindAllExpendituresDocument = gql`
     query FindAllExpenditures {
   findAllExpenditures {

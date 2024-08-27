@@ -1,0 +1,51 @@
+query FindAllCategorys {
+  findAllCategorys {
+    _id
+    name
+    color
+    expenditures {
+      _id
+      name
+      description
+      amount
+      payment {
+        _id
+        name
+        isCredit
+        payDay
+        closingDay
+        bank {
+          _id
+          branchName
+          color
+          name
+        }
+        color
+        uneditable
+      }
+      payDay
+      temporary
+      tax {
+        _id
+        name
+      }
+      loan {
+        _id
+        name
+      }
+      fixedCost {
+        _id
+        name
+      }
+      sop {
+        _id
+        name
+      }
+      subscriber {
+        _id
+        name
+      }
+      duplexingAvoidanceID
+    }
+  }
+}

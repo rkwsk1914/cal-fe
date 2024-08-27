@@ -17,14 +17,14 @@ export const FixedCostList: React.FC<Props> = (props): JSX.Element => {
   if(!listData) return <></>
 
   const list: ListItemType[] = listData.map((item) => {
-    const { detail } = item
+    const { fixedCosts } = item
     return {
       label: item.name,
       href: `fixed-cost/${item._id}`,
-      subList: detail?.map((detailItem) => {
+      subList: fixedCosts?.map((fixedCost) => {
         return {
-          label: detailItem.name,
-          href: `fixed-cost/${item._id}/${detailItem._id}`
+          label: fixedCost.name,
+          href: `fixed-cost/${item._id}/${fixedCost._id}`
         }
       })
     }

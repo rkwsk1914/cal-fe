@@ -1,72 +1,65 @@
 import * as React from 'react'
-import { useState, useEffect } from 'react'
 
 import { ApolloQueryResult } from '@apollo/client'
 import { useToast } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
-import { useForm, useWatch } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+
 
 import {
-  FindPaymentByIdQuery,
-  FindAllBanksQuery,
-  useCreatePaymentMutation,
-  useUpdatePaymentMutation
+  FindExpenditureByIdQuery,
+  FindAllPaymentsQuery,
+  useCreateExpenditureMutation,
+  useUpdateExpenditureMutation,
+  FindAllCategorysQuery
 } from '@/generated/graphql'
 
 import { useSetZodScheme, DefaultValuesRequiredType }from '@/hooks/form/useSetZodScheme'
 
-import { DAY_OPTIONS } from '@/const/form/options'
+import * as chrFormatChange from '@/utils/chrFormatChange'
+
 
 import { Alert } from '@/components/atoms/Alert'
-import { Badge, BadgeColorOptions } from '@/components/atoms/Badge'
-import { Link } from '@/components/atoms/Link'
-import { CheckBoxController } from '@/components/form/organisms/CheckBoxController'
-import { InputController } from '@/components/form/organisms/InputController'
-import { RadioController } from '@/components/form/organisms/RadioController'
-import { SelectController } from '@/components/form/organisms/SelectController'
+import { ExpenditureForm } from '@/components/form/templates/ExpenditureForm'
 import { FromLayout } from '@/components/layouts/FromLayout'
 import { PageLayout } from '@/components/layouts/PageLayout'
 
-import type { DefaultValuesType, SelectOptionType } from '@/types/form/InputAttribute'
+import type { DefaultValuesType } from '@/types/form/InputAttribute'
 
 type Props = {
-  payment?: Partial<ApolloQueryResult<FindPaymentByIdQuery>>
-  banks: Partial<ApolloQueryResult<FindAllBanksQuery>>
+  expenditure?: ApolloQueryResult<FindExpenditureByIdQuery>
+  payments: ApolloQueryResult<FindAllPaymentsQuery>
+  categories: ApolloQueryResult<FindAllCategorysQuery>
 }
 
 export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
+  const { yenFormat, yyyyMmDd } = chrFormatChange
   const toast = useToast()
   const router = useRouter()
   const { id } = router.query
 
-  const { payment, banks } = props
-  const res = payment?.data?.findPaymentByID
-  const [isCredit, setIsCredit] = useState<string[]>(res?.isCredit ? ['true'] : [])
-
-  const isUneditable = res?.uneditable ? true : false
+  const { expenditure, payments, categories } = props
+  const res = expenditure?.data?.findExpenditureByID
 
   const defaultValues: DefaultValuesType = {
-    paymentName: res?.name ?? '',
-    bank: res?.bank._id ?? '',
-    color: res?.color ?? '',
-    isCredit: res?.isCredit ? ['true'] : [],
-    closingDay: res?.closingDay ? String(res?.closingDay) : '',
-    payDay: res?.payDay ? String(res?.payDay) : '',
+    expenditureName: res?.name ?? '',
+    description: res?.description ?? '',
+    amount: res?.amount ? yenFormat(res?.amount) : '',
+    payment: res?.payment._id ?? '',
+    payDay: res?.payDay ? yyyyMmDd(res?.payDay): '',
+    temporary: res?.temporary ? ['true'] : [],
+    category: res?.category?._id ?? ''
   }
   const requiredValues: DefaultValuesRequiredType = {
-    paymentName: isUneditable ? false : true,
-    bank: true,
-    color: false,
-    isCredit: false,
-    payDay: isCredit.length > 0,
-    closingDay: isCredit.length > 0,
+    expenditureName: true,
+    description: false,
+    amount: true,
+    payment: true,
+    payDay: true,
+    temporary: false,
+    category: false
   }
-
-  const bankSelect: SelectOptionType | undefined = banks.data?.findAllBanks?.map((resBank) => ({
-    value: resBank._id,
-    label: `${resBank.name} ${resBank.branchName}`
-  }))
 
   const { scheme } = useSetZodScheme(
     defaultValues,
@@ -84,10 +77,9 @@ export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
     defaultValues,
     resolver: zodResolver(scheme),
   })
-  const isCreditValue = useWatch({ control, name: 'isCredit' }) as string[]
 
-  const [ mutateCreate ] = useCreatePaymentMutation()
-  const [ mutateUpdate ] = useUpdatePaymentMutation()
+  const [ mutateCreate ] = useCreateExpenditureMutation()
+  const [ mutateUpdate ] = useUpdateExpenditureMutation()
 
   const args = {
     errors,
@@ -100,12 +92,13 @@ export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
       await mutateCreate({
         variables: {
           input: {
-            name: data.paymentName as string,
-            bank: data.bank as string,
-            closingDay: Number(data.closingDay) as number,
-            color: data.color  as string,
-            payDay: Number(data.payDay)  as number,
-            isCredit: (data.isCredit as string[])?.length > 0,
+            name: data.expenditureName as string,
+            description: data.description as string,
+            amount: Number(data.amount),
+            payment: data.payment as string,
+            payDay: Number(data.payDay),
+            temporary: (data.temporary as string[])?.length > 0,
+            category: data.category as string
           }
         },
       })
@@ -127,14 +120,15 @@ export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
     try {
       await mutateUpdate({
         variables: {
-          updatePaymentId: id as string,
+          updateExpenditureId: id as string,
           input: {
-            name: data.paymentName as string,
-            bank: data.bank as string,
-            closingDay: Number(data.closingDay) as number,
-            color: data.color  as string,
-            payDay: Number(data.payDay)  as number,
-            isCredit: (data.isCredit as string[])?.length > 0,
+            name: data.expenditureName as string,
+            description: data.description as string,
+            amount: Number(data.amount),
+            payment: data.payment as string,
+            payDay: Number(data.payDay),
+            temporary: (data.temporary as string[])?.length > 0,
+            category: data.category as string
           }
         },
       })
@@ -156,66 +150,18 @@ export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
     id ? onUpdate(data) : onCreate(data)
   }
 
-  useEffect(() => {
-    if (isCreditValue.length === 0) {
-      setValue('payDay', '')
-      setValue('closingDay', '')
-      trigger('payDay')
-      trigger('closingDay')
-    }
-    setIsCredit(isCreditValue)
-  }, [isCreditValue, setIsCredit, setValue, trigger])
-
   return (
     <PageLayout title='支払い方法詳細'>
       <FromLayout
         handleSubmit={handleSubmit(onSubmit)}
         listHref='/payment'
       >
-        <InputController
-          name="paymentName"
-          {...args}
-          disabled={isUneditable}
-          helperText={isUneditable ?
-            <>引き落とし口座名を編集してください。<Link href={`/bank/${res?.bank._id}`}>編集画面はこちら</Link></> :
-            undefined
-          }
-        />
-        <SelectController
-          name="bank"
-          {...args}
-          data={bankSelect ?? []}
-          disabled={isUneditable}
-        />
-        <CheckBoxController
-          name="isCredit"
-          {...args}
-          data={[
-            { value: 'true', label: 'クレジット払い' },
-          ]}
-          disabled={isUneditable}
-        />
-        {isCredit?.length > 0 && (
-          <>
-            <SelectController
-              name="closingDay"
-              {...args}
-              data={DAY_OPTIONS}
-            />
-            <SelectController
-              name="payDay"
-              {...args}
-              data={DAY_OPTIONS}
-            />
-          </>
-        )}
-        <RadioController
-          name="color"
-          {...args}
-          data={BadgeColorOptions.map((BadgeColorOption) => ({
-            value: BadgeColorOption,
-            label: <Badge colorScheme={BadgeColorOption}>{BadgeColorOption}</Badge>
-          }))}
+        <ExpenditureForm
+          args={args}
+          categories={categories}
+          payments={payments}
+          paymentId={res?.payment._id}
+          setValue={setValue}
         />
       </FromLayout>
     </PageLayout>

@@ -227,6 +227,16 @@ export const INPUT_DATA = {
       return fixFullWidth(value)
     }
   },
+  expenditureName: {
+    label: '項目名',
+    inputTextArgs: {
+      type: 'text',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+    onBlurFormat: (value) => {
+      return fixFullWidth(value)
+    }
+  },
 
   // INPUT系　金額系
   amount: {
@@ -328,6 +338,10 @@ export const INPUT_DATA = {
     label: '引き落とし日',
     zod: ZodSchema.TEXT_SCHEMA
   },
+  category: {
+    label: 'カテゴリー',
+    zod: ZodSchema.TEXT_SCHEMA
+  },
 
   // ラジオ系
   color: {
@@ -338,6 +352,10 @@ export const INPUT_DATA = {
   //　チェックボックス系
   isCredit: {
     label: 'クレジット払い',
+    zod: ZodSchema.CHECKBOX_SCHEME
+  },
+  temporary: {
+    label: '仮',
     zod: ZodSchema.CHECKBOX_SCHEME
   },
 } as const satisfies InputDataType

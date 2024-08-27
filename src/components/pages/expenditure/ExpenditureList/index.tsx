@@ -4,15 +4,19 @@ import { ApolloQueryResult } from '@apollo/client'
 
 import { FindAllExpendituresQuery } from '@/generated/graphql'
 
+import * as chrFormatChange from '@/utils/chrFormatChange'
+
 import { Badge, ColorSchemeType } from '@/components/atoms/Badge'
 import { Link } from '@/components/atoms/Link'
 import { Table } from '@/components/atoms/Table'
 import { ListPageLayout } from '@/components/layouts/ListPageLayout'
 import { PageLayout } from '@/components/layouts/PageLayout'
 
+
 type Props = Partial<ApolloQueryResult<FindAllExpendituresQuery>>
 
 export const ExpenditureList: React.FC<Props> = (props): JSX.Element => {
+  const { yenFormat, yyyyMmDd } = chrFormatChange
   const { data } = props
   const listData = data?.findAllExpenditures
 
@@ -20,9 +24,9 @@ export const ExpenditureList: React.FC<Props> = (props): JSX.Element => {
 
   const itemData = listData.map((item) => {
     return [
-      item.payDay,
+      yyyyMmDd(item.payDay),
       <Link key={item._id} href={`/expenditure/${item._id}`}>{item.name}</Link>,
-      item.amount,
+      yenFormat(item.amount),
       <Badge key={item._id} colorScheme={item.payment.color as ColorSchemeType}>{item.payment.name}</Badge>,
       <Badge key={item._id} colorScheme={item.payment.bank.color as ColorSchemeType}>{`${item.payment.bank.name} ${item.payment.bank.name}`}</Badge>,
       item.description
