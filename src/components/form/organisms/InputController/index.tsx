@@ -55,8 +55,8 @@ export const InputController: React.FC<Props> = (
           }
         >
           <ChakuraInput
-            as={MaskedInput}
-            mask={inputTextArgs?.mask ?? false}
+            as={inputTextArgs?.mask ? MaskedInput : undefined}
+            mask={inputTextArgs?.mask ?? undefined}
             {...inputTextArgs}
             {...field}
             onBlur={(e) => {
@@ -64,7 +64,7 @@ export const InputController: React.FC<Props> = (
                 const formattedValue = onBlurFormat(e.target.value)
                 field.onChange(formattedValue)
               }
-              trigger()
+              trigger(name)
             }}
             isDisabled={disabled}
           />

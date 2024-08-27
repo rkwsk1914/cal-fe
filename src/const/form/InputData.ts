@@ -10,7 +10,7 @@ const {
   fixFullWidth,
   fixHalfWidth,
   removeOtherHalfNumber,
-  yenFormat,
+  commaFormat,
 } = chrFormatChange
 
 export type InputDataType = Record<
@@ -246,7 +246,9 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return yenFormat(
+      if (value === '') return ''
+
+      return commaFormat(
         Number(
           fixHalfWidth(
             removeOtherHalfNumber(value)
@@ -262,7 +264,8 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return yenFormat(
+      if (value === '') return ''
+      return commaFormat(
         Number(
           fixHalfWidth(
             removeOtherHalfNumber(value)
@@ -293,7 +296,8 @@ export const INPUT_DATA = {
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
-      return yenFormat(
+      if (value === '') return ''
+      return commaFormat(
         Number(
           fixHalfWidth(
             removeOtherHalfNumber(value)
