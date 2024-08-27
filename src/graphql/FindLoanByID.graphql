@@ -21,7 +21,7 @@ query FindLoanByID($findLoanByIdId: String!) {
     amount
     commission
     rate
-    detail {
+    expenditures {
       _id
       amount
       description

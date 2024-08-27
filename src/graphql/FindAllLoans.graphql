@@ -21,7 +21,7 @@ query FindAllLoans {
     amount
     commission
     rate
-    detail {
+    expenditures {
       _id
       amount
       description

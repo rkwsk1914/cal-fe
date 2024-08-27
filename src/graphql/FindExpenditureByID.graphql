@@ -41,5 +41,10 @@ query FindExpenditureByID($findExpenditureByIdId: String!) {
       name
     }
     duplexingAvoidanceID
+    category {
+      color
+      name
+      _id
+    }
   }
 }

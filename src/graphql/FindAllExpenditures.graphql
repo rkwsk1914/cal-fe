@@ -1,6 +1,6 @@
 query FindAllExpenditures {
   findAllExpenditures {
-        _id
+    _id
     name
     description
     amount
@@ -41,5 +41,10 @@ query FindAllExpenditures {
       name
     }
     duplexingAvoidanceID
+    category {
+      color
+      name
+      _id
+    }
   }
 }

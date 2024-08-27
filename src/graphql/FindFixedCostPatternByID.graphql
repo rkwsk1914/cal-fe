@@ -3,7 +3,7 @@ query FindFixedCostPatternByID($findFixedCostPatternByIdId: String!) {
     _id
     name
     color
-    detail {
+    fixedCosts {
       _id
       payment {
         _id
