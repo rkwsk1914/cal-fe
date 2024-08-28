@@ -19,7 +19,7 @@ query FindLoanByID($findLoanByIdId: String!) {
     payDay
     basePrice
     amount
-    commission
+    interest
     rate
     expenditures {
       _id

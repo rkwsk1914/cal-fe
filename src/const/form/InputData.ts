@@ -1,4 +1,6 @@
+import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 import * as zod from 'zod'
+
 
 import * as chrFormatChange from '@/utils/chrFormatChange'
 
@@ -244,56 +246,61 @@ export const INPUT_DATA = {
     label: '金額',
     inputTextArgs: {
       type: 'text',
-      inputMode: 'numeric'
+      inputMode: 'numeric',
+      mask: createNumberMask({
+        prefix: '',
+        suffix: '',
+        includeThousandsSeparator: true,
+        thousandsSeparatorSymbol: ',',
+        allowDecimal: false,
+        decimalSymbol: '.',
+        decimalLimit: 0, // 小数点は許容しない
+        integerLimit: null, // 桁数の制限なし
+        allowNegative: false, // マイナス記号は許容しない
+      })
     },
     zod: ZodSchema.TEXT_SCHEMA,
-    onBlurFormat: (value) => {
-      if (value === '') return ''
-
-      return commaFormat(
-        Number(
-          fixHalfWidth(
-            removeOtherHalfNumber(value)
-          )
-        )
-      )
-    }
   },
   basePrice: {
-    label: '使用額',
-    inputTextArgs: {
-      type: 'text',
-      inputMode: 'numeric'
-    },
-    zod: ZodSchema.TEXT_SCHEMA,
-    onBlurFormat: (value) => {
-      if (value === '') return ''
-      return commaFormat(
-        Number(
-          fixHalfWidth(
-            removeOtherHalfNumber(value)
-          )
-        )
-      )
-    }
-  },
-  rate: {
-    label: '利率',
+    label: '借入金額',
     inputTextArgs: {
       type: 'text',
       inputMode: 'numeric',
-      mask: (rawValue: string) => {
-        if (rawValue.startsWith('1')) return ['1', '.', /\d/, /\d/]
-        return ['0', '.', /\d/, /\d/]
-      }
+      mask: createNumberMask({
+        prefix: '',
+        suffix: '',
+        includeThousandsSeparator: true,
+        thousandsSeparatorSymbol: ',',
+        allowDecimal: false,
+        decimalSymbol: '.',
+        decimalLimit: 0, // 小数点は許容しない
+        integerLimit: null, // 桁数の制限なし
+        allowNegative: false, // マイナス記号は許容しない
+      })
     },
     zod: ZodSchema.TEXT_SCHEMA,
-    onBlurFormat: (value) => {
-      if (value[0] === '1') return '1.00'
-      return value
-    }
   },
-  commission: {
+  rate: {
+    label: '年利（%）',
+    inputTextArgs: {
+      type: 'text',
+      placeholder: '10.00%',
+      inputMode: 'numeric',
+      mask: createNumberMask({
+        prefix: '',
+        suffix: '%',
+        includeThousandsSeparator: true,
+        thousandsSeparatorSymbol: ',',
+        allowDecimal: true,
+        decimalSymbol: '.',
+        decimalLimit: 2, // 小数点第二位まで
+        integerLimit: 2, // 桁数の制限なし
+        allowNegative: false, // マイナス記号は許容しない
+      })
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+  },
+  interest: {
     label: '手数料',
     inputTextArgs: {
       type: 'text',

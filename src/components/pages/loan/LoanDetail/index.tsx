@@ -28,6 +28,8 @@ import { ExpenditureForm } from '@/components/form/templates/ExpenditureForm'
 import { FromLayout } from '@/components/layouts/FromLayout'
 import { PageLayout } from '@/components/layouts/PageLayout'
 
+import { useCalculateLoan } from './useCalculateLoan'
+
 import type { DefaultValuesType } from '@/types/form/InputAttribute'
 
 type Props = {
@@ -51,7 +53,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     amount: res?.amount ? commaFormat(res?.amount) : '',
     installmentsCount: res?.installmentsCount ? String(res?.installmentsCount) : '',
     rate: res?.rate ? String(res?.rate) : '',
-    commission: res?.rate ? String(res?.commission) : '',
+    interest: res?.rate ? String(res?.interest) : '',
     startDate: res?.startDate ? yyyyMmDd(res?.startDate) : '',
     payment: res?.payment._id ?? '',
     payDay: res?.payDay ? String(res?.payDay) : '',
@@ -72,7 +74,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     amount: true,
     installmentsCount: true,
     rate: true,
-    commission: true,
+    interest: true,
     startDate: true,
     payment: true,
     payDay: true,
@@ -93,11 +95,15 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     resolver: zodResolver(scheme),
   })
 
-  // 型を明示的に指定
-  const { fields, append } = useFieldArray({
+  const calResult = useCalculateLoan(control)
+
+  const { fields, append, remove } = useFieldArray({
     control,
     name: 'expenditures',
   })
+
+  const startDateCountValue = useWatch({ control, name: 'startDate' }) as string
+  const paymentValue = useWatch({ control, name: 'payment' }) as string
 
   const [mutateCreate] = useCreateLoanMutation()
   const [mutateUpdate] = useUpdateLoanMutation()
@@ -109,7 +115,30 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     arrangement: 'vertically' as ArrangementType,
   }
 
-  const loanNameValue = useWatch({ control, name: 'loanName' }) as string
+  const addMonths = (dateStr: string, monthsToAdd: number): string => {
+    // 文字列を日付オブジェクトに変換
+    const dateParts = dateStr.split('/')
+    const year = parseInt(dateParts[0], 10)
+    const month = parseInt(dateParts[1], 10) - 1 // 月は0ベース（0が1月、11が12月）
+    const day = parseInt(dateParts[2], 10)
+
+    const date = new Date(year, month, day)
+
+    // 指定された月数を追加
+    date.setMonth(date.getMonth() + monthsToAdd)
+
+    // 年と月がずれる可能性に対処する
+    if (date.getDate() !== day) {
+      date.setDate(0) // 日がずれている場合、前月の最終日を設定
+    }
+
+    // 日付をYYYY/MM/DD形式の文字列に変換
+    const newYear = date.getFullYear()
+    const newMonth = ('0' + (date.getMonth() + 1)).slice(-2) // 月は0ベースなので+1し、2桁にする
+    const newDay = ('0' + date.getDate()).slice(-2) // 日を2桁にする
+
+    return `${newYear}/${newMonth}/${newDay}`
+  }
 
   const onCreate = async (data: DefaultValuesType) => {
     try {
@@ -121,7 +150,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
             amount: Number(removeComma(data.amount as string)),
             installmentsCount: Number(data.installmentsCount),
             rate: Number(data.rate),
-            commission: Number(removeComma(data.commission as string)),
+            interest: Number(removeComma(data.interest as string)),
             startDate: data.startDate as string,
             payment: data.payment as string,
             payDay: Number(data.payDay),
@@ -157,7 +186,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
             amount: Number(removeComma(data.amount as string)),
             installmentsCount: Number(data.installmentsCount),
             rate: Number(data.rate),
-            commission: Number(removeComma(data.commission as string)),
+            interest: Number(removeComma(data.interest as string)),
             startDate: data.startDate as string,
             payment: data.payment as string,
             payDay: Number(data.payDay),
@@ -183,8 +212,54 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
   }
 
   const onSubmit = async (data: DefaultValuesType) => {
-    // console.log({ data })
     id ? onUpdate(data) : onCreate(data)
+  }
+
+  const onCalculate = async() => {
+    const {
+      inputDetails,
+      result,
+      loanNameValue,
+    } = calResult
+
+    const {
+      loanAmount,
+      numberOfPayments
+    } = inputDetails
+
+    const {
+      totalPayment,
+      monthlyPayment,
+      firstPayment
+    } = result
+
+    setValue('amount', commaFormat(totalPayment))
+    setValue('interest', commaFormat(totalPayment - loanAmount))
+
+    remove()
+
+    append({
+      expenditureName: loanNameValue,
+      description: '',
+      amount: commaFormat(firstPayment),
+      payment: paymentValue,
+      occurrenceDate: startDateCountValue,
+      temporary: ['true'],
+      category: '',
+    })
+
+    for (let index = 1; index < numberOfPayments; index++) {
+
+      append({
+        expenditureName: loanNameValue,
+        description: '',
+        amount: commaFormat(monthlyPayment),
+        payment: paymentValue,
+        occurrenceDate: addMonths(startDateCountValue, index),
+        temporary: ['true'],
+        category: '',
+      })
+    }
   }
 
   return (
@@ -192,7 +267,6 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
       <FromLayout handleSubmit={handleSubmit(onSubmit)} listHref="/loan">
         <InputController name={'loanName'} {...args} />
         <InputController name="basePrice" {...args} />
-        <InputController name="amount" {...args} />
         <SelectController
           name="installmentsCount"
           {...args}
@@ -202,7 +276,14 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
           }))}
         />
         <InputController name="rate" {...args} />
-        <InputController name="commission" {...args} />
+        <Button
+          type={'outline'}
+          onClick={onCalculate}
+        >
+          計算する
+        </Button>
+        <InputController name="amount" {...args} />
+        <InputController name="interest" {...args} />
         <InputController name="startDate" {...args} />
         <Payday
           paymentId={res?.payment._id}
@@ -210,6 +291,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
           payments={payments}
           setValue={setValue}
         />
+
         {fields.map((field, index) => (
           <React.Fragment key={field.id}>
             <ExpenditureForm
@@ -221,21 +303,6 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
             />
           </React.Fragment>
         ))}
-        <Button
-          onClick={() =>
-            append({
-              expenditureName: loanNameValue,
-              description: '',
-              amount: '',
-              payment: '',
-              occurrenceDate: '',
-              temporary: [],
-              category: '',
-            })
-          }
-        >
-          追加
-        </Button>
       </FromLayout>
     </PageLayout>
   )

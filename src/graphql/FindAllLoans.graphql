@@ -19,7 +19,7 @@ query FindAllLoans {
     payDay
     basePrice
     amount
-    commission
+    interest
     rate
     expenditures {
       _id

@@ -42,7 +42,7 @@ export const LoanTable: React.FC<Props> = (props): JSX.Element => {
       yenFormat(item.amount),
       numberWithUnit(item.installmentsCount, '回'),
       item.rate,
-      yenFormat(item.commission),
+      yenFormat(item.interest),
       yyyyMmDd(item.startDate),
       item.payment.name,
       numberDayFormat(item.payment.payDay ?? item.payDay)

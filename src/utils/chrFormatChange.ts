@@ -196,6 +196,24 @@ const yyyyMmDd = (day: Date | string | number): string => {
   return format(day, 'yyyy/MM/dd')
 }
 
+const parsePercentageToDecimal = (percentageString: string): number | null => {
+  // パーセント記号を削除し、トリムして余分な空白を削除
+  const cleanedString = percentageString.replace('%', '').trim()
+
+  // 数値に変換
+  const numberValue = parseFloat(cleanedString)
+
+  // 有効な数値か確認
+  if (isNaN(numberValue)) {
+    return null // 数値に変換できない場合、nullを返す
+  }
+
+  // 小数に変換
+  const decimalValue = numberValue / 100
+
+  return decimalValue
+}
+
 export {
   fixHiraGanaText,
   fixKataKanaText,
@@ -215,5 +233,6 @@ export {
   numberDayFormat,
   numberWithUnit,
   yyyyMmDd,
+  parsePercentageToDecimal
 }
 
