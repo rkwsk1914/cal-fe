@@ -89,6 +89,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
   } = useForm({
     mode: 'onSubmit',
     defaultValues,
+    shouldFocusError: false,
     resolver: zodResolver(scheme),
   })
 

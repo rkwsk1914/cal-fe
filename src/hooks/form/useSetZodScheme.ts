@@ -1,7 +1,7 @@
 import * as zod from 'zod'
 
 import { ERROR_MESSAGE } from '@/const/form/ErrorMessage'
-import { INPUT_DATA } from '@/const/form/InputData'
+import { INPUT_DATA, INPUT_ARRAY_DATA } from '@/const/form/InputData'
 
 import type { DefaultValuesType, FieldKey } from '@/types/form/InputAttribute'
 
@@ -30,6 +30,20 @@ export const useSetZodScheme = (
     return baseSchema
   }
 
+  const setArraySchema = (
+    arraySchema: Record<string, { zod: zod.ZodString | zod.ZodArray<zod.ZodString, 'many'> }>,
+    required?: boolean
+  ) => {
+    return zod.array(
+      zod.object(
+        Object.keys(arraySchema).reduce((schema, key) => {
+          schema[key] = setRequired(arraySchema[key].zod, required)
+          return schema
+        }, {} as Record<string, zod.ZodTypeAny>)
+      )
+    )
+  }
+
   const scheme = zod.object(
     Object.keys(defaultValues).reduce((schema, key) => {
       if (INPUT_DATA[key as keyof typeof INPUT_DATA]) {
@@ -37,14 +51,14 @@ export const useSetZodScheme = (
           INPUT_DATA[key as keyof typeof INPUT_DATA].zod,
           requiredValues && requiredValues[key as keyof typeof INPUT_DATA]
         )
+      } else if (INPUT_ARRAY_DATA[key as keyof typeof INPUT_ARRAY_DATA]) {
+        schema[key] = setArraySchema(
+          INPUT_ARRAY_DATA[key as keyof typeof INPUT_ARRAY_DATA],
+          requiredValues && requiredValues[key as keyof typeof INPUT_ARRAY_DATA]
+        )
       }
       return schema
-    }, {} as Record<
-      string,
-      zod.ZodString |
-      zod.ZodIntersection<zod.ZodString, zod.ZodString> |
-      zod.ZodArray<zod.ZodString, 'atleastone' | 'many'>
-    >)
+    }, {} as Record<string, zod.ZodTypeAny>)
   )
 
   return {

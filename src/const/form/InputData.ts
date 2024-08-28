@@ -59,7 +59,8 @@ export const INPUT_DATA = {
   tel: {
     label: '電話番号',
     inputTextArgs: {
-      type: 'tel',
+      type: 'text',
+      inputMode: 'numeric',
       placeholder: '08012345678',
     },
     zod: ZodSchema.TEL_SCHEMA
@@ -242,7 +243,8 @@ export const INPUT_DATA = {
   amount: {
     label: '金額',
     inputTextArgs: {
-      type: 'tel',
+      type: 'text',
+      inputMode: 'numeric'
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
@@ -260,7 +262,8 @@ export const INPUT_DATA = {
   basePrice: {
     label: '使用額',
     inputTextArgs: {
-      type: 'tel',
+      type: 'text',
+      inputMode: 'numeric'
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
@@ -277,7 +280,8 @@ export const INPUT_DATA = {
   rate: {
     label: '利率',
     inputTextArgs: {
-      type: 'tel',
+      type: 'text',
+      inputMode: 'numeric',
       mask: (rawValue: string) => {
         if (rawValue.startsWith('1')) return ['1', '.', /\d/, /\d/]
         return ['0', '.', /\d/, /\d/]
@@ -292,7 +296,8 @@ export const INPUT_DATA = {
   commission: {
     label: '手数料',
     inputTextArgs: {
-      type: 'tel',
+      type: 'text',
+      inputMode: 'numeric'
     },
     zod: ZodSchema.TEXT_SCHEMA,
     onBlurFormat: (value) => {
@@ -311,7 +316,8 @@ export const INPUT_DATA = {
   startDate: {
     label: '開始日',
     inputTextArgs: {
-      type: 'tel',
+      type: 'text',
+      inputMode: 'numeric',
       mask: [/\d/, /\d/, /\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/],
     },
     zod: ZodSchema.DATE_TEXT_SCHEMA,
@@ -319,7 +325,8 @@ export const INPUT_DATA = {
   occurrenceDate: {
     label: '発生日',
     inputTextArgs: {
-      type: 'tel',
+      type: 'text',
+      inputMode: 'numeric',
       mask: [/\d/, /\d/, /\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/],
     },
     zod: ZodSchema.DATE_TEXT_SCHEMA,

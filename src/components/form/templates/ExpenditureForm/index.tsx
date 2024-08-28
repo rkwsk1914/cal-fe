@@ -45,39 +45,39 @@ export const ExpenditureForm: React.FC<Props> = ({
 
   return (
     <React.Fragment key={index}>
-        <CheckBoxController
-          name={`${prefix}temporary` as FieldKey}
-          {...args}
-          data={[
-            { value: 'true', label: '仮' },
-          ]}
-        />
-        <InputController
-          name={`${prefix}expenditureName` as FieldKey}
-          {...args}
-        />
-        <InputController
-          name={`${prefix}amount` as FieldKey}
-          {...args}
-        />
-        <SelectController
-          name={`${prefix}payment` as FieldKey}
-          {...args}
-          data={paymentSelect ?? []}
-        />
-        <InputController
-          name={`${prefix}occurrenceDate` as FieldKey}
-          {...args}
-        />
-        <SelectController
-          name={`${prefix}category` as FieldKey}
-          {...args}
-          data={categorySelect ?? []}
-        />
-        <InputController
-          name={`${prefix}description` as FieldKey}
-          {...args}
-        />
+      <CheckBoxController
+        name={`${prefix}temporary` as FieldKey}
+        {...args}
+        data={[
+          { value: 'true', label: '仮' },
+        ]}
+      />
+      <InputController
+        name={`${prefix}expenditureName` as FieldKey}
+        {...args}
+      />
+      <InputController
+        name={`${prefix}amount` as FieldKey}
+        {...args}
+      />
+      <SelectController
+        name={`${prefix}payment` as FieldKey}
+        {...args}
+        data={paymentSelect ?? []}
+      />
+      <InputController
+        name={`${prefix}occurrenceDate` as FieldKey}
+        {...args}
+      />
+      <SelectController
+        name={`${prefix}category` as FieldKey}
+        {...args}
+        data={categorySelect ?? []}
+      />
+      <InputController
+        name={`${prefix}description` as FieldKey}
+        {...args}
+      />
     </React.Fragment>
   )
 }

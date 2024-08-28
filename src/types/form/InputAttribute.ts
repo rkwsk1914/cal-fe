@@ -39,6 +39,7 @@ interface InputTextArgs {
   placeholder?: string
   minLength?: number
   maxLength?: number
+  inputMode?: 'text' | 'tel' | 'email' | 'search' | 'url' | 'numeric' | 'none' | 'decimal' | undefined
 
   mask?: Mask | ((_value: string) => Mask)
 }
