@@ -4,7 +4,7 @@ import { Select as ChakuraSelect } from '@chakra-ui/react'
 import { FieldErrors } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
 
-import { INPUT_DATA } from '@/const/form/InputData'
+import { useGetInputData } from '@/hooks/form/useGetInputData'
 
 import { FormControl, ArrangementType } from '@/components/form/molecules/FormControl'
 
@@ -31,10 +31,9 @@ export const SelectController: React.FC<Props> = (
     helperText,
   }
 ): JSX.Element => {
-  if (!INPUT_DATA[name]) new Error(`INPUT_DATA[${name}] no Found!`)
   const {
     label,
-  } =  INPUT_DATA[name]
+  } =  useGetInputData(name)
 
   const placeholder = '選択してください'
 
@@ -51,6 +50,7 @@ export const SelectController: React.FC<Props> = (
         >
           <ChakuraSelect
             {...field}
+            value={field.value as string}
             isDisabled={disabled}
             placeholder={placeholder}
             isReadOnly={disabled}

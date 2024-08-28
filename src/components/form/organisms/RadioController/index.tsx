@@ -3,7 +3,7 @@ import * as React from 'react'
 import { FieldErrors } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
 
-import { INPUT_DATA } from '@/const/form/InputData'
+import { useGetInputData } from '@/hooks/form/useGetInputData'
 
 import { FormControl, ArrangementType } from '@/components/form/molecules/FormControl'
 import { Radio } from '@/components/form/molecules/Radio'
@@ -34,10 +34,9 @@ export const RadioController: React.FC<Props> = (
     helperText,
   }
 ): JSX.Element => {
-  if (!INPUT_DATA[name]) new Error(`INPUT_DATA[${name}] no Found!`)
   const {
     label,
-  } =  INPUT_DATA[name]
+  } = useGetInputData(name)
 
   return (
     <Controller

@@ -4,9 +4,11 @@
   import { FieldErrors, UseFormTrigger, Controller } from 'react-hook-form'
   import MaskedInput from 'react-text-mask'
 
-  import { INPUT_DATA, InputDataType } from '@/const/form/InputData'
+  import { useGetInputData } from '@/hooks/form/useGetInputData'
 
-  import { FormControl, ArrangementType } from '@/components/form/molecules/FormControl'
+
+
+import { FormControl, ArrangementType } from '@/components/form/molecules/FormControl'
 
   import type { FieldKey, ControlType } from '@/types/form/InputAttribute'
 
@@ -32,12 +34,11 @@ export const InputController: React.FC<Props> = (
     helperText,
   }
 ): JSX.Element => {
-  if (!INPUT_DATA[name]) new Error(`INPUT_DATA[${name}] no Found!`)
   const {
     label,
     inputTextArgs,
     onBlurFormat,
-  } = (INPUT_DATA as InputDataType)[name]
+  } =  useGetInputData(name)
 
   return (
     <Controller
@@ -59,6 +60,7 @@ export const InputController: React.FC<Props> = (
             mask={inputTextArgs?.mask ?? undefined}
             {...inputTextArgs}
             {...field}
+            value={field.value as string}
             onBlur={(e) => {
               if (onBlurFormat) {
                 const formattedValue = onBlurFormat(e.target.value)

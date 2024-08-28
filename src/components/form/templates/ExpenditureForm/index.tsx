@@ -12,15 +12,19 @@ import { CheckBoxController } from '@/components/form/organisms/CheckBoxControll
 import { InputController } from '@/components/form/organisms/InputController'
 import { SelectController } from '@/components/form/organisms/SelectController'
 
-import type { SelectOptionType } from '@/types/form/InputAttribute'
+import type { SelectOptionType, FieldKey } from '@/types/form/InputAttribute'
 
 type Props = {
+  index?: number
+  fieldName?: string
   args: Pick<ComponentProps<typeof InputController>, 'arrangement' | 'control'  | 'errors' | 'trigger'>
   payments: ApolloQueryResult<FindAllPaymentsQuery>
   categories: ApolloQueryResult<FindAllCategorysQuery>
 }
 
 export const ExpenditureForm: React.FC<Props> = ({
+  index,
+  fieldName,
   args,
   categories,
   payments,
@@ -37,41 +41,43 @@ export const ExpenditureForm: React.FC<Props> = ({
     label: resPayment.name,
   }))
 
+  const prefix: FieldKey = fieldName ? `${fieldName}.${index}.` as FieldKey : '' as FieldKey
+
   return (
-    <>
+    <React.Fragment key={index}>
         <CheckBoxController
-          name="temporary"
+          name={`${prefix}temporary` as FieldKey}
           {...args}
           data={[
             { value: 'true', label: '仮' },
           ]}
         />
         <InputController
-          name="expenditureName"
+          name={`${prefix}expenditureName` as FieldKey}
           {...args}
         />
         <InputController
-          name="amount"
+          name={`${prefix}amount` as FieldKey}
           {...args}
         />
         <SelectController
-          name="payment"
+          name={`${prefix}payment` as FieldKey}
           {...args}
           data={paymentSelect ?? []}
         />
         <InputController
-          name="occurrenceDate"
+          name={`${prefix}occurrenceDate` as FieldKey}
           {...args}
         />
         <SelectController
-          name="category"
+          name={`${prefix}category` as FieldKey}
           {...args}
           data={categorySelect ?? []}
         />
         <InputController
-          name="description"
+          name={`${prefix}description` as FieldKey}
           {...args}
         />
-    </>
+    </React.Fragment>
   )
 }

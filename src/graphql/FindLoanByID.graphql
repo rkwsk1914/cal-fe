@@ -40,6 +40,11 @@ query FindLoanByID($findLoanByIdId: String!) {
         payDay
       }
       temporary
+      category {
+        color
+        name
+        _id
+      }
     }
     startDate
   }

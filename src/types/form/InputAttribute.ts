@@ -2,22 +2,35 @@ import { Control, ControllerRenderProps, UseControllerProps } from 'react-hook-f
 import { Mask } from 'react-text-mask'
 
 import { AUTO_COMPLETE_OPTIONS } from '@/const/form/AutoCompleteOptions'
-import { INPUT_DATA } from '@/const/form/InputData'
+import { INPUT_DATA, INPUT_ARRAY_DATA } from '@/const/form/InputData'
 
 import type { TextInputTypeOptionType } from './TextInputTypeOptionType'
 
 type AutoCompleteType = typeof AUTO_COMPLETE_OPTIONS[number]
 
-export type FieldKey = keyof typeof INPUT_DATA
+export type FieldKey =
+  | keyof typeof INPUT_DATA
+  | keyof typeof INPUT_ARRAY_DATA
+  | {
+      [K in keyof typeof INPUT_ARRAY_DATA]: `${K}.${number}.${Extract<keyof typeof INPUT_ARRAY_DATA[K], string | number | bigint | boolean | null | undefined>}`;
+    }[keyof typeof INPUT_ARRAY_DATA]
 
 //  | number | boolean | nullは許容しない
 export type InputValue = string | string[] | undefined
-export type DefaultValuesType = Partial<Record<FieldKey, InputValue>>
+export type DefaultValuesType = Partial<
+  Record<keyof typeof INPUT_DATA, InputValue> &
+  {
+    [key in keyof typeof INPUT_ARRAY_DATA]: Array<
+      Record<keyof typeof INPUT_ARRAY_DATA[key], InputValue>
+    >
+  }
+>
 
 // checkBoxやRadioのReact Hook Formのcontrolから受け取るfield型情報
 export type ControllerFiled = ControllerRenderProps<DefaultValuesType>
 
-export type ControlType = Control<DefaultValuesType, any>
+export type ControlType = Control<DefaultValuesType>
+
 export type ControlRules = UseControllerProps<DefaultValuesType>['rules']
 interface InputTextArgs {
   type?: TextInputTypeOptionType

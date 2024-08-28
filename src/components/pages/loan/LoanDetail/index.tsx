@@ -4,33 +4,37 @@ import { ApolloQueryResult } from '@apollo/client'
 import { useToast } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
-import { useForm } from 'react-hook-form'
+import { useForm, useFieldArray, useWatch } from 'react-hook-form'
 
 import {
   FindLoanByIdQuery,
   FindAllPaymentsQuery,
   useCreateLoanMutation,
-  useUpdateLoanMutation
+  useUpdateLoanMutation,
+  FindAllCategorysQuery
 } from '@/generated/graphql'
 
-import { useSetZodScheme, DefaultValuesRequiredType }from '@/hooks/form/useSetZodScheme'
+import { useSetZodScheme, DefaultValuesRequiredType } from '@/hooks/form/useSetZodScheme'
 
 import * as chrFormatChange from '@/utils/chrFormatChange'
 
 import { Alert } from '@/components/atoms/Alert'
+import { Button } from '@/components/atoms/Button'
 import type { ArrangementType } from '@/components/form/molecules/FormControl'
 import { Payday } from '@/components/form/molecules/Payday'
 import { InputController } from '@/components/form/organisms/InputController'
 import { SelectController } from '@/components/form/organisms/SelectController'
+import { ExpenditureForm } from '@/components/form/templates/ExpenditureForm'
 import { FromLayout } from '@/components/layouts/FromLayout'
 import { PageLayout } from '@/components/layouts/PageLayout'
 
-import type { DefaultValuesType,  } from '@/types/form/InputAttribute'
+import type { DefaultValuesType } from '@/types/form/InputAttribute'
 
 type Props = {
-  loan?: ApolloQueryResult<FindLoanByIdQuery>
-  payments: ApolloQueryResult<FindAllPaymentsQuery>
-}
+  loan?: ApolloQueryResult<FindLoanByIdQuery>;
+  payments: ApolloQueryResult<FindAllPaymentsQuery>;
+  categories: ApolloQueryResult<FindAllCategorysQuery>;
+};
 
 export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
   const { commaFormat, yyyyMmDd, removeComma } = chrFormatChange
@@ -38,7 +42,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
   const router = useRouter()
   const { id } = router.query
 
-  const { loan, payments } = props
+  const { loan, payments, categories } = props
   const res = loan?.data?.findLoanByID
 
   const defaultValues: DefaultValuesType = {
@@ -51,7 +55,17 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     startDate: res?.startDate ? yyyyMmDd(res?.startDate) : '',
     payment: res?.payment._id ?? '',
     payDay: res?.payDay ? String(res?.payDay) : '',
+    expenditures: res?.expenditures?.map((expenditure) => ({
+      expenditureName: expenditure?.name ?? '',
+      description: expenditure?.description ?? '',
+      amount: expenditure?.amount ? commaFormat(expenditure?.amount) : '',
+      payment: expenditure?.payment._id ?? '',
+      occurrenceDate: expenditure?.payDay ? yyyyMmDd(expenditure?.payDay) : '',
+      temporary: expenditure?.temporary ? ['true'] : [],
+      category: expenditure?.category?._id ?? '',
+    })) ?? [],
   }
+
   const requiredValues: DefaultValuesRequiredType = {
     loanName: true,
     basePrice: true,
@@ -64,10 +78,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     payDay: true,
   }
 
-  const { scheme } = useSetZodScheme(
-    defaultValues,
-    requiredValues
-  )
+  const { scheme } = useSetZodScheme(defaultValues, requiredValues)
 
   const {
     handleSubmit,
@@ -81,15 +92,23 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     resolver: zodResolver(scheme),
   })
 
-  const [ mutateCreate ] = useCreateLoanMutation()
-  const [ mutateUpdate ] = useUpdateLoanMutation()
+  // 型を明示的に指定
+  const { fields, append } = useFieldArray({
+    control,
+    name: 'expenditures',
+  })
+
+  const [mutateCreate] = useCreateLoanMutation()
+  const [mutateUpdate] = useUpdateLoanMutation()
 
   const args = {
     errors,
     trigger,
     control,
-    arrangement: 'vertically' as ArrangementType
+    arrangement: 'vertically' as ArrangementType,
   }
+
+  const loanNameValue = useWatch({ control, name: 'loanName' }) as string
 
   const onCreate = async (data: DefaultValuesType) => {
     try {
@@ -105,18 +124,22 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
             startDate: data.startDate as string,
             payment: data.payment as string,
             payDay: Number(data.payDay),
-          }
+          },
         },
       })
       toast({
         render: () => (
-          <Alert status="success" title='create success!'>mutate success!</Alert>
+          <Alert status="success" title="create success!">
+            mutate success!
+          </Alert>
         ),
       })
     } catch (e) {
       toast({
         render: () => (
-          <Alert status="error" title='create Missed!'>mutate missed!</Alert>
+          <Alert status="error" title="create Missed!">
+            mutate missed!
+          </Alert>
         ),
       })
     }
@@ -137,71 +160,81 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
             startDate: data.startDate as string,
             payment: data.payment as string,
             payDay: Number(data.payDay),
-          }
+          },
         },
       })
       toast({
         render: () => (
-          <Alert status="success" title='update success!'>mutate success!</Alert>
+          <Alert status="success" title="update success!">
+            mutate success!
+          </Alert>
         ),
       })
     } catch (e) {
       toast({
         render: () => (
-          <Alert status="error" title='update Missed!'>mutate missed!</Alert>
+          <Alert status="error" title="update Missed!">
+            mutate missed!
+          </Alert>
         ),
       })
     }
   }
 
   const onSubmit = async (data: DefaultValuesType) => {
+    // console.log({ data })
     id ? onUpdate(data) : onCreate(data)
   }
 
   return (
-    <PageLayout title='ローン詳細'>
-      <FromLayout
-        handleSubmit={handleSubmit(onSubmit)}
-        listHref='/loan'
-      >
-        <InputController
-          name="loanName"
-          {...args}
-        />
-        <InputController
-          name="basePrice"
-          {...args}
-        />
-        <InputController
-          name="amount"
-          {...args}
-        />
+    <PageLayout title="ローン詳細">
+      <FromLayout handleSubmit={handleSubmit(onSubmit)} listHref="/loan">
+        <InputController name={'loanName'} {...args} />
+        <InputController name="basePrice" {...args} />
+        <InputController name="amount" {...args} />
         <SelectController
           name="installmentsCount"
           {...args}
           data={[2, 3, 5, 6, 10, 12, 15, 18, 20, 24, 36, 48].map((number) => ({
             value: String(number),
-            label: String(number)
+            label: String(number),
           }))}
         />
-        <InputController
-          name="rate"
-          {...args}
-        />
-        <InputController
-          name="commission"
-          {...args}
-        />
-        <InputController
-          name="startDate"
-          {...args}
-        />
+        <InputController name="rate" {...args} />
+        <InputController name="commission" {...args} />
+        <InputController name="startDate" {...args} />
         <Payday
           paymentId={res?.payment._id}
           args={args}
           payments={payments}
           setValue={setValue}
         />
+        {fields.map((field, index) => (
+          <React.Fragment key={field.id}>
+            <ExpenditureForm
+              index={index}
+              fieldName={'expenditures'}
+              args={args}
+              categories={categories}
+              payments={payments}
+            />
+          </React.Fragment>
+        ))}
+        <Button
+          onClick={() =>
+            append({
+              expenditureName: loanNameValue,
+              description: '',
+              amount: '',
+              payment: '',
+              occurrenceDate: '',
+              temporary: [],
+              category: '',
+            })
+          }
+        >
+          追加
+        </Button>
       </FromLayout>
     </PageLayout>
   )

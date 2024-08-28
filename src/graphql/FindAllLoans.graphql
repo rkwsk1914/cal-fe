@@ -40,6 +40,11 @@ query FindAllLoans {
         payDay
       }
       temporary
+      category {
+        color
+        name
+        _id
+      }
     }
     startDate
   }
