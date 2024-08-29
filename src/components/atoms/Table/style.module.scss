@@ -57,14 +57,18 @@ $celMinHeight: 40px;
   }
 
   &.dark {
-    $border-dark-color: #1b2235; // @apply border-blue-900;
+    $border-dark-color: rgb(46, 60, 106);
 
     %extend-dark-cell-style1 {
-      @apply bg-darkBg text-darkText;
+      @apply text-darkText;
+
+      background-color: rgb(26, 32, 44);
     }
 
     %extend-dark-cell-style2 {
-      @apply bg-blue-950 text-darkText;
+      @apply text-darkText;
+
+      background-color: rgb(46, 60, 106);
     }
 
     & .stickyThRowLast {

@@ -17,11 +17,10 @@ import { useSetZodScheme, DefaultValuesRequiredType }from '@/hooks/form/useSetZo
 
 import * as chrFormatChange from '@/utils/chrFormatChange'
 
-
-
 import { Alert } from '@/components/atoms/Alert'
 import { Badge, BadgeColorOptions } from '@/components/atoms/Badge'
 import { Button } from '@/components/atoms/Button'
+import { Link } from '@/components/atoms/Link'
 import { Table } from '@/components/atoms/Table'
 import { InputController } from '@/components/form/organisms/InputController'
 import { RadioController } from '@/components/form/organisms/RadioController'
@@ -126,7 +125,9 @@ export const FixedCostPatternDetail: React.FC<Props> = (props): JSX.Element => {
   }
 
   const tableDataContent = res?.fixedcosts ? res?.fixedcosts.map((fixedCosts) => {
-    return [fixedCosts.name, yenFormat(fixedCosts.amount)]
+    return [
+      <Link key={fixedCosts._id} href={`/fixed-cost/${pattern}/${fixedCosts._id}`}>{fixedCosts.name}</Link>,
+      yenFormat(fixedCosts.amount)]
   }) : []
 
   const tableData = [
