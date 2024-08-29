@@ -34,7 +34,7 @@ import { FromLayout } from '@/components/layouts/FromLayout'
 import { PageLayout } from '@/components/layouts/PageLayout'
 import { Accordion } from '@/components/molecules/Accordion'
 
-
+import styles from './style.module.scss'
 import { useCalculateLoan } from './useCalculateLoan'
 
 import type { DefaultValuesType } from '@/types/form/InputAttribute'
@@ -47,7 +47,7 @@ type Props = {
 
 export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
   const { sort } = useSortArray()
-  const { commaFormat, yyyyMmDd, removeComma } = chrFormatChange
+  const { commaFormat, yyyyMmDd, removeComma, yenFormat } = chrFormatChange
   const [ addObj, setAddObj] = useState<{
     loanNameValue: string;
     numberOfPayments: number;
@@ -133,6 +133,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
   const startDateCountValue = useWatch({ control, name: 'startDate' }) as string
   const paymentValue = useWatch({ control, name: 'payment' }) as string
   const payDayValue = useWatch({ control, name: 'payDay' }) as string
+  const amountValue = useWatch({ control, name: 'amount' }) as string
 
   const [mutateCreate] = useCreateLoanMutation()
   const [mutateUpdate] = useUpdateLoanMutation()
@@ -405,7 +406,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
           return {
             title: `${field.occurrenceDate} ${field.expenditureName}`,
             content: (
-              <React.Fragment key={field.id}>
+              <div className={styles.fieldArray} key={field.id}>
                 <ExpenditureForm
                   index={index}
                   fieldName={fieldArrayKey}
@@ -423,7 +424,10 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
                     category: true,
                   }}
                 />
-              </React.Fragment>
+                <p className={styles.balanceAmountText}>
+                  残り: {yenFormat(Number(removeComma(amountValue)) - ((index + 1) * Number(removeComma(field.amount as string))))}
+                </p>
+              </div>
             )
           }
           })}>

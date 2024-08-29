@@ -6,6 +6,9 @@ import { Checkbox } from '@chakra-ui/react'
 
 import { FindAllExpendituresQuery, useUpdateExpenditureMutation } from '@/generated/graphql'
 
+import { useSortArray } from '@/hooks/useSortArray'
+
+
 import * as chrFormatChange from '@/utils/chrFormatChange'
 
 import { Alert } from '@/components/atoms/Alert'
@@ -22,6 +25,7 @@ export const ExpenditureList: React.FC<Props> = (props): JSX.Element => {
   const { yenFormat, yyyyMmDd } = chrFormatChange
   const toast = useToast()
   const [ mutateUpdate ] = useUpdateExpenditureMutation()
+  const { sort } = useSortArray()
 
   const { data } = props
   const listData = data?.findAllExpenditures
@@ -52,7 +56,7 @@ export const ExpenditureList: React.FC<Props> = (props): JSX.Element => {
     }
   }
 
-  const itemData = listData.map((item) => {
+  const itemData = sort(listData, 'occurrenceDay').map((item) => {
     return [
       yyyyMmDd(item.occurrenceDay),
       <Link key={item._id} href={`/expenditure/${item._id}`}>{item.name}</Link>,

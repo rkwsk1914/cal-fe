@@ -28,7 +28,7 @@ export const FormControl: React.FC<Props> = ({
   label,
   isError,
   helperText,
-  arrangement = 'horizontally',
+  arrangement = 'vertically',
   children,
   suffix,
   hidden = false

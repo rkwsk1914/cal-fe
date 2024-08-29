@@ -7,7 +7,6 @@ import { FindAllLoansQuery } from '@/generated/graphql'
 import { transpose } from '@/utils/ArrayTransport'
 import * as chrFormatChange from '@/utils/chrFormatChange'
 
-
 import { Link } from '@/components/atoms/Link'
 import { Table } from '@/components/atoms/Table'
 import { ListPageLayout } from '@/components/layouts/ListPageLayout'
@@ -23,6 +22,21 @@ export const LoanTable: React.FC<Props> = (props): JSX.Element => {
 
   if(!listData) return <></>
 
+  const dates: string [] = []
+  listData.map((item) => {
+    item.expenditures?.map((expenditure) => {
+      expenditure.occurrenceDay && dates.push(expenditure.occurrenceDay)
+    })
+  })
+
+  // Set を使って重複削除
+  const uniqueDatesSet = new Set(dates)
+
+  // Set を配列に変換してソート
+  const uniqueDates = Array.from(uniqueDatesSet).sort((a, b) => new Date(a).getTime() - new Date(b).getTime())
+
+  const fixUniqueDates = uniqueDates.map((date) => yyyyMmDd(date))
+
   const defaultHeader = [
     '項目名',
     '使用額',
@@ -32,10 +46,18 @@ export const LoanTable: React.FC<Props> = (props): JSX.Element => {
     '手数料',
     '開始日',
     '支払い方法',
-    '支払い日'
+    '支払い日',
+    ...fixUniqueDates,
   ]
 
   const itemData = listData.map((item) => {
+    const expenditures = item.expenditures
+    const expenditureList = dates.map((date) => {
+      const findExpenditure = expenditures?.find((expenditure) => expenditure.occurrenceDay === date)
+      if (findExpenditure) return <Link key={findExpenditure._id} href={`/expenditure/${findExpenditure._id}`}>{yenFormat(findExpenditure.amount)}</Link>
+      return ''
+    })
+
     return [
       <Link key={item._id} href={`/loan/${item._id}`}>{item.name}</Link>,
       yenFormat(item.basePrice),
@@ -45,7 +67,8 @@ export const LoanTable: React.FC<Props> = (props): JSX.Element => {
       yenFormat(item.interest),
       yyyyMmDd(item.startDate),
       item.payment.name,
-      numberDayFormat(item.payment.payDay ?? item.payDay)
+      numberDayFormat(item.payment.payDay ?? item.payDay),
+      ...expenditureList,
     ]
   })
 

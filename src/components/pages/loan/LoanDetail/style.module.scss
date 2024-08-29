@@ -1,0 +1,11 @@
+.fieldArray {
+  @apply px-24;
+
+  & > *:not(:first-child) {
+    @apply mt-8;
+  }
+}
+
+.balanceAmountText {
+  @apply text-right text-orange-600;
+}

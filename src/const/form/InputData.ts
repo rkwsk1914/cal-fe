@@ -344,7 +344,7 @@ export const INPUT_DATA = {
 
   // INPUT系 その他
   id: {
-    label: 'ID',
+    label: undefined,
     inputTextArgs: {
       type: 'hidden',
     },
