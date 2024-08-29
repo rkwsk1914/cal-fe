@@ -48,7 +48,7 @@ export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
     description: res?.description ?? '',
     amount: res?.amount ? commaFormat(res?.amount) : '',
     payment: res?.payment._id ?? '',
-    occurrenceDate: res?.payDay ? yyyyMmDd(res?.payDay): '',
+    occurrenceDate: res?.occurrenceDay ? yyyyMmDd(res?.occurrenceDay): '',
     temporary: expenditure ? res?.temporary ? ['true'] : [] : ['true'],
     category: res?.category?._id ?? ''
   }
@@ -97,7 +97,7 @@ export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
             description: data.description as string,
             amount: Number(removeComma(data.amount as string)),
             payment: data.payment as string,
-            payDay: data.occurrenceDate ? new Date(data.occurrenceDate as string) : null,
+            occurrenceDay: data.occurrenceDate ? new Date(data.occurrenceDate as string) : null,
             temporary: (data.temporary as string[])?.length > 0,
             category: data.category !== '' ? (data.category as string) : null
           }
@@ -127,7 +127,7 @@ export const ExpenditureDetail: React.FC<Props> = (props): JSX.Element => {
             description: data.description as string,
             amount: Number(removeComma(data.amount as string)),
             payment: data.payment as string,
-            payDay: data.occurrenceDate ? new Date(data.occurrenceDate as string) : null,
+            occurrenceDay: data.occurrenceDate ? new Date(data.occurrenceDate as string) : null,
             temporary: (data.temporary as string[])?.length > 0,
             category: data.category !== '' ? (data.category as string) : null
           }

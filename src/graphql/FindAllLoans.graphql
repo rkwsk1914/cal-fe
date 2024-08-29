@@ -27,7 +27,7 @@ query FindAllLoans {
       description
       duplexingAvoidanceID
       name
-      payDay
+      occurrenceDay
       payment {
         _id
         bank {

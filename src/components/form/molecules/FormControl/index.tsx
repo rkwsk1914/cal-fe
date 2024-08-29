@@ -20,6 +20,7 @@ type Props = {
   helperText?: React.ReactNode | string
   arrangement?: ArrangementType
   children?: React.ReactNode
+  suffix?: React.ReactNode | string
 };
 
 export const FormControl: React.FC<Props> = ({
@@ -28,6 +29,7 @@ export const FormControl: React.FC<Props> = ({
   helperText,
   arrangement = 'horizontally',
   children,
+  suffix,
 }): JSX.Element => {
   const wrap = clsx(styles.wrap, {
     [styles.vertically]: arrangement === 'vertically',
@@ -49,6 +51,9 @@ export const FormControl: React.FC<Props> = ({
             <>{helperText && <FormErrorMessage>{helperText}</FormErrorMessage>}</>
           )}
         </div>
+        {suffix && (
+          <span className={styles.suffix}>{suffix}</span>
+        )}
       </div>
     </ChakuraFormControl>
   )

@@ -15,7 +15,7 @@ query FindBankByID($findBankByIdId: String!) {
           _id
           name
         }
-        payDay
+        occurrenceDay
         temporary
         tax {
           _id

@@ -259,6 +259,7 @@ export const INPUT_DATA = {
         allowNegative: false, // マイナス記号は許容しない
       })
     },
+    suffix: '円',
     zod: ZodSchema.TEXT_SCHEMA,
   },
   basePrice: {
@@ -278,6 +279,7 @@ export const INPUT_DATA = {
         allowNegative: false, // マイナス記号は許容しない
       })
     },
+    suffix: '円',
     zod: ZodSchema.TEXT_SCHEMA,
   },
   rate: {
@@ -298,6 +300,7 @@ export const INPUT_DATA = {
         allowNegative: false, // マイナス記号は許容しない
       })
     },
+    suffix: '%',
     zod: ZodSchema.TEXT_SCHEMA,
   },
   interest: {

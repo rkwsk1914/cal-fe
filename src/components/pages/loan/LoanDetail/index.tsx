@@ -62,7 +62,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
       description: expenditure?.description ?? '',
       amount: expenditure?.amount ? commaFormat(expenditure?.amount) : '',
       payment: expenditure?.payment._id ?? '',
-      occurrenceDate: expenditure?.payDay ? yyyyMmDd(expenditure?.payDay) : '',
+      occurrenceDate: expenditure?.occurrenceDay ? yyyyMmDd(expenditure?.occurrenceDay) : '',
       temporary: expenditure?.temporary ? ['true'] : [],
       category: expenditure?.category?._id ?? '',
     })) ?? [],

@@ -18,7 +18,7 @@ query FindAllPayments {
       name
       description
       amount
-      payDay
+      occurrenceDay
       temporary
       tax {
         _id

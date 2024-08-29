@@ -27,7 +27,7 @@ query FindLoanByID($findLoanByIdId: String!) {
       description
       duplexingAvoidanceID
       name
-      payDay
+      occurrenceDay
       payment {
         _id
         bank {

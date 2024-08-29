@@ -99,7 +99,7 @@ export type CreateExpenditureInput = {
   /** アイテム名 */
   name: Scalars['String']['input'];
   /** 発生日 */
-  payDay: Scalars['DateTime']['input'];
+  occurrenceDay: Scalars['DateTime']['input'];
   /** 支払い方法 */
   payment: Scalars['String']['input'];
   /** SOPリレーション */
@@ -139,7 +139,7 @@ export type CreateIncomeInput = {
   amount: Scalars['Int']['input'];
   /** 入金口座 */
   bank: Scalars['String']['input'];
-  /** 発生日 */
+  /** 入金日 */
   depositDate: Scalars['DateTime']['input'];
   /** 説明 */
   description?: InputMaybe<Scalars['String']['input']>;
@@ -259,8 +259,8 @@ export type Expenditure = {
   loan?: Maybe<Loan>;
   /** MongoDB Collection Name。アイテム名 */
   name: Scalars['String']['output'];
-  /** 発生日 */
-  payDay: Scalars['DateTime']['output'];
+  /** 支払日 */
+  occurrenceDay: Scalars['DateTime']['output'];
   /** 支払い方法 */
   payment: Payment;
   /** SOPリレーション */
@@ -330,7 +330,7 @@ export type Income = {
   amount: Scalars['Int']['output'];
   /** 入金口座 */
   bank: Bank;
-  /** 発生日 */
+  /** 入金日 */
   depositDate: Scalars['DateTime']['output'];
   /** 説明 */
   description?: Maybe<Scalars['String']['output']>;
@@ -436,6 +436,7 @@ export type Mutation = {
   createFixedCostPattern: MutationSuccessResGraphQl;
   createIncome: MutationSuccessResGraphQl;
   createLoan: MutationSuccessResGraphQl;
+  createManyExpenditures: MutationSuccessResGraphQl;
   createMonthlyData: MutationSuccessResGraphQl;
   createPayment: MutationSuccessResGraphQl;
   createSop: MutationSuccessResGraphQl;
@@ -453,6 +454,7 @@ export type Mutation = {
   deleteSop: MutationSuccessResGraphQl;
   deleteSubscriber: MutationSuccessResGraphQl;
   deleteTax: MutationSuccessResGraphQl;
+  resetExpenditures: MutationSuccessResGraphQl;
   updateBank: MutationSuccessResGraphQl;
   updateCategory: MutationSuccessResGraphQl;
   updateExpenditure: MutationSuccessResGraphQl;
@@ -500,6 +502,11 @@ export type MutationCreateIncomeArgs = {
 
 export type MutationCreateLoanArgs = {
   input: CreateLoanInput;
+};
+
+
+export type MutationCreateManyExpendituresArgs = {
+  inputs: Array<CreateExpenditureInput>;
 };
 
 
@@ -585,6 +592,12 @@ export type MutationDeleteSubscriberArgs = {
 
 export type MutationDeleteTaxArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type MutationResetExpendituresArgs = {
+  inputs: Array<CreateExpenditureInput>;
+  resetIds: Array<Scalars['String']['input']>;
 };
 
 
@@ -865,7 +878,7 @@ export type UpdateExpenditureInput = {
   /** アイテム名 */
   name?: InputMaybe<Scalars['String']['input']>;
   /** 発生日 */
-  payDay?: InputMaybe<Scalars['DateTime']['input']>;
+  occurrenceDay?: InputMaybe<Scalars['DateTime']['input']>;
   /** 支払い方法 */
   payment?: InputMaybe<Scalars['String']['input']>;
   /** SOPリレーション */
@@ -907,7 +920,7 @@ export type UpdateIncomeInput = {
   amount?: InputMaybe<Scalars['Int']['input']>;
   /** 入金口座 */
   bank?: InputMaybe<Scalars['String']['input']>;
-  /** 発生日 */
+  /** 入金日 */
   depositDate?: InputMaybe<Scalars['DateTime']['input']>;
   /** 説明 */
   description?: InputMaybe<Scalars['String']['input']>;
@@ -1082,17 +1095,17 @@ export type CreatePaymentMutation = { __typename?: 'Mutation', createPayment: { 
 export type FindAllBanksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllBanksQuery = { __typename?: 'Query', findAllBanks: Array<{ __typename?: 'Bank', _id: string, name: string, branchName?: string | null, color?: string | null, payments: Array<{ __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, uneditable?: boolean | null, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, name: string }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null }> }>, incomes: Array<{ __typename?: 'Income', _id: string, amount: number, depositDate: any, description?: string | null, name: string, temporary?: boolean | null }> }> };
+export type FindAllBanksQuery = { __typename?: 'Query', findAllBanks: Array<{ __typename?: 'Bank', _id: string, name: string, branchName?: string | null, color?: string | null, payments: Array<{ __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, uneditable?: boolean | null, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, occurrenceDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, name: string }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null }> }>, incomes: Array<{ __typename?: 'Income', _id: string, amount: number, depositDate: any, description?: string | null, name: string, temporary?: boolean | null }> }> };
 
 export type FindAllCategorysQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllCategorysQuery = { __typename?: 'Query', findAllCategorys: Array<{ __typename?: 'Category', _id: string, name: string, color?: string | null, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, name: string, isCredit?: boolean | null, payDay?: number | null, closingDay?: number | null, color?: string | null, uneditable?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null }> }> };
+export type FindAllCategorysQuery = { __typename?: 'Query', findAllCategorys: Array<{ __typename?: 'Category', _id: string, name: string, color?: string | null, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, occurrenceDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, name: string, isCredit?: boolean | null, payDay?: number | null, closingDay?: number | null, color?: string | null, uneditable?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null }> }> };
 
 export type FindAllExpendituresQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllExpendituresQuery = { __typename?: 'Query', findAllExpenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, bank: { __typename?: 'Bank', _id: string, color?: string | null, branchName?: string | null, name: string } }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null, category?: { __typename?: 'Category', color?: string | null, name: string, _id: string } | null }> };
+export type FindAllExpendituresQuery = { __typename?: 'Query', findAllExpenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, occurrenceDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, bank: { __typename?: 'Bank', _id: string, color?: string | null, branchName?: string | null, name: string } }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null, category?: { __typename?: 'Category', color?: string | null, name: string, _id: string } | null }> };
 
 export type FindAllFixedCostPatternsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1102,26 +1115,26 @@ export type FindAllFixedCostPatternsQuery = { __typename?: 'Query', findAllFixed
 export type FindAllLoansQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllLoansQuery = { __typename?: 'Query', findAllLoans: Array<{ __typename?: 'Loan', _id: string, name: string, installmentsCount: number, payDay: number, basePrice: number, amount: number, interest: number, rate: number, startDate: any, payment: { __typename?: 'Payment', _id: string, color?: string | null, name: string, payDay?: number | null, isCredit?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, expenditures?: Array<{ __typename?: 'Expenditure', _id: string, amount: number, description?: string | null, duplexingAvoidanceID?: string | null, name: string, payDay: any, temporary?: boolean | null, payment: { __typename?: 'Payment', _id: string, name: string, payDay?: number | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, category?: { __typename?: 'Category', color?: string | null, name: string, _id: string } | null }> | null }> };
+export type FindAllLoansQuery = { __typename?: 'Query', findAllLoans: Array<{ __typename?: 'Loan', _id: string, name: string, installmentsCount: number, payDay: number, basePrice: number, amount: number, interest: number, rate: number, startDate: any, payment: { __typename?: 'Payment', _id: string, color?: string | null, name: string, payDay?: number | null, isCredit?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, expenditures?: Array<{ __typename?: 'Expenditure', _id: string, amount: number, description?: string | null, duplexingAvoidanceID?: string | null, name: string, occurrenceDay: any, temporary?: boolean | null, payment: { __typename?: 'Payment', _id: string, name: string, payDay?: number | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, category?: { __typename?: 'Category', color?: string | null, name: string, _id: string } | null }> | null }> };
 
 export type FindAllPaymentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllPaymentsQuery = { __typename?: 'Query', findAllPayments: Array<{ __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, uneditable?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, name: string, color?: string | null }, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null, category?: { __typename?: 'Category', _id: string, name: string, color?: string | null } | null }> }> };
+export type FindAllPaymentsQuery = { __typename?: 'Query', findAllPayments: Array<{ __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, uneditable?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, name: string, color?: string | null }, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, occurrenceDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null, category?: { __typename?: 'Category', _id: string, name: string, color?: string | null } | null }> }> };
 
 export type FindBankByIdQueryVariables = Exact<{
   findBankByIdId: Scalars['String']['input'];
 }>;
 
 
-export type FindBankByIdQuery = { __typename?: 'Query', findBankByID: { __typename?: 'Bank', _id: string, name: string, branchName?: string | null, color?: string | null, payments: Array<{ __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, uneditable?: boolean | null, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, name: string }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null }> }>, incomes: Array<{ __typename?: 'Income', _id: string, amount: number, depositDate: any, description?: string | null, name: string, temporary?: boolean | null }> } };
+export type FindBankByIdQuery = { __typename?: 'Query', findBankByID: { __typename?: 'Bank', _id: string, name: string, branchName?: string | null, color?: string | null, payments: Array<{ __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, uneditable?: boolean | null, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, occurrenceDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, name: string }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null }> }>, incomes: Array<{ __typename?: 'Income', _id: string, amount: number, depositDate: any, description?: string | null, name: string, temporary?: boolean | null }> } };
 
 export type FindExpenditureByIdQueryVariables = Exact<{
   findExpenditureByIdId: Scalars['String']['input'];
 }>;
 
 
-export type FindExpenditureByIdQuery = { __typename?: 'Query', findExpenditureByID: { __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, payDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, bank: { __typename?: 'Bank', _id: string, color?: string | null, branchName?: string | null, name: string } }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null, category?: { __typename?: 'Category', color?: string | null, name: string, _id: string } | null } };
+export type FindExpenditureByIdQuery = { __typename?: 'Query', findExpenditureByID: { __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, occurrenceDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, bank: { __typename?: 'Bank', _id: string, color?: string | null, branchName?: string | null, name: string } }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null, category?: { __typename?: 'Category', color?: string | null, name: string, _id: string } | null } };
 
 export type FindFixedCostByIdQueryVariables = Exact<{
   findFixedCostByIdId: Scalars['String']['input'];
@@ -1142,7 +1155,7 @@ export type FindLoanByIdQueryVariables = Exact<{
 }>;
 
 
-export type FindLoanByIdQuery = { __typename?: 'Query', findLoanByID: { __typename?: 'Loan', _id: string, name: string, installmentsCount: number, payDay: number, basePrice: number, amount: number, interest: number, rate: number, startDate: any, payment: { __typename?: 'Payment', _id: string, color?: string | null, name: string, payDay?: number | null, isCredit?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, expenditures?: Array<{ __typename?: 'Expenditure', _id: string, amount: number, description?: string | null, duplexingAvoidanceID?: string | null, name: string, payDay: any, temporary?: boolean | null, payment: { __typename?: 'Payment', _id: string, name: string, payDay?: number | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, category?: { __typename?: 'Category', color?: string | null, name: string, _id: string } | null }> | null } };
+export type FindLoanByIdQuery = { __typename?: 'Query', findLoanByID: { __typename?: 'Loan', _id: string, name: string, installmentsCount: number, payDay: number, basePrice: number, amount: number, interest: number, rate: number, startDate: any, payment: { __typename?: 'Payment', _id: string, color?: string | null, name: string, payDay?: number | null, isCredit?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, expenditures?: Array<{ __typename?: 'Expenditure', _id: string, amount: number, description?: string | null, duplexingAvoidanceID?: string | null, name: string, occurrenceDay: any, temporary?: boolean | null, payment: { __typename?: 'Payment', _id: string, name: string, payDay?: number | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, category?: { __typename?: 'Category', color?: string | null, name: string, _id: string } | null }> | null } };
 
 export type FindPaymentByIdQueryVariables = Exact<{
   findPaymentByIdId: Scalars['String']['input'];
@@ -1422,7 +1435,7 @@ export const FindAllBanksDocument = gql`
           _id
           name
         }
-        payDay
+        occurrenceDay
         temporary
         tax {
           _id
@@ -1522,7 +1535,7 @@ export const FindAllCategorysDocument = gql`
         color
         uneditable
       }
-      payDay
+      occurrenceDay
       temporary
       tax {
         _id
@@ -1602,7 +1615,7 @@ export const FindAllExpendituresDocument = gql`
       name
       payDay
     }
-    payDay
+    occurrenceDay
     temporary
     tax {
       _id
@@ -1747,7 +1760,7 @@ export const FindAllLoansDocument = gql`
       description
       duplexingAvoidanceID
       name
-      payDay
+      occurrenceDay
       payment {
         _id
         bank {
@@ -1823,7 +1836,7 @@ export const FindAllPaymentsDocument = gql`
       name
       description
       amount
-      payDay
+      occurrenceDay
       temporary
       tax {
         _id
@@ -1905,7 +1918,7 @@ export const FindBankByIdDocument = gql`
           _id
           name
         }
-        payDay
+        occurrenceDay
         temporary
         tax {
           _id
@@ -2001,7 +2014,7 @@ export const FindExpenditureByIdDocument = gql`
       name
       payDay
     }
-    payDay
+    occurrenceDay
     temporary
     tax {
       _id
@@ -2208,7 +2221,7 @@ export const FindLoanByIdDocument = gql`
       description
       duplexingAvoidanceID
       name
-      payDay
+      occurrenceDay
       payment {
         _id
         bank {

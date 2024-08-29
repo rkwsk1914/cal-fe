@@ -49,6 +49,7 @@ interface CommonProps {
   label?: string
   readonly? :boolean
   control?: ControlType
+  suffix?: string
 }
 
 interface NotOtherTextInputProps extends CommonProps {

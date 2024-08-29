@@ -54,7 +54,7 @@ export const ExpenditureList: React.FC<Props> = (props): JSX.Element => {
 
   const itemData = listData.map((item) => {
     return [
-      yyyyMmDd(item.payDay),
+      yyyyMmDd(item.occurrenceDay),
       <Link key={item._id} href={`/expenditure/${item._id}`}>{item.name}</Link>,
       yenFormat(item.amount),
       <Badge key={item._id} colorScheme={item.payment.color as ColorSchemeType}>{item.payment.name}</Badge>,

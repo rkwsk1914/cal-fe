@@ -23,7 +23,7 @@ query FindAllCategorys {
         color
         uneditable
       }
-      payDay
+      occurrenceDay
       temporary
       tax {
         _id
