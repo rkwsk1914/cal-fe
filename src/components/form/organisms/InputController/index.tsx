@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { useRef, useEffect } from 'react'
 
 import { Input as ChakraInput } from '@chakra-ui/react'
 import { FieldErrors, UseFormTrigger, useController } from 'react-hook-form'
@@ -37,16 +36,6 @@ export const InputController: React.FC<Props> = ({
     name,
   })
 
-  // refをuseRefで管理
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  // useEffectでrefを正しく設定
-  useEffect(() => {
-    if (inputRef.current) {
-      field.ref(inputRef.current)
-    }
-  }, [field])
-
   return (
     <FormControl
       label={label}
@@ -82,7 +71,7 @@ export const InputController: React.FC<Props> = ({
         <ChakraInput
           {...inputTextArgs}
           {...field}
-          ref={inputRef}
+          ref={field.ref}
           value={field.value as string}
           onBlur={(e) => {
             if (onBlurFormat) {
