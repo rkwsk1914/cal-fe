@@ -1,6 +1,6 @@
-mutation CreateCategory($input: CreateCategoryInput!) {
-  createCategory(input: $input) {
-    message
+mutation UpdateCategory($updateCategoryId: String!, $input: UpdateCategoryInput!) {
+  updateCategory(id: $updateCategoryId, input: $input) {
     success
+    message
   }
 }
