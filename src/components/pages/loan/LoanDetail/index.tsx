@@ -12,10 +12,14 @@ import {
   FindAllPaymentsQuery,
   useCreateLoanMutation,
   useUpdateLoanMutation,
-  FindAllCategorysQuery
+  FindAllCategorysQuery,
+  useCreateManyExpendituresMutation,
+  useDeleteManyExpendituresMutation,
+  useFindLoanByIdLazyQuery
 } from '@/generated/graphql'
 
 import { useSetZodScheme, DefaultValuesRequiredType } from '@/hooks/form/useSetZodScheme'
+import {  useSortArray } from '@/hooks/useSortArray'
 
 import * as chrFormatChange from '@/utils/chrFormatChange'
 
@@ -30,6 +34,7 @@ import { FromLayout } from '@/components/layouts/FromLayout'
 import { PageLayout } from '@/components/layouts/PageLayout'
 import { Accordion } from '@/components/molecules/Accordion'
 
+
 import { useCalculateLoan } from './useCalculateLoan'
 
 import type { DefaultValuesType } from '@/types/form/InputAttribute'
@@ -41,6 +46,7 @@ type Props = {
 };
 
 export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
+  const { sort } = useSortArray()
   const { commaFormat, yyyyMmDd, removeComma } = chrFormatChange
   const [ addObj, setAddObj] = useState<{
     loanNameValue: string;
@@ -54,6 +60,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
 
   const { loan, payments, categories } = props
   const res = loan?.data?.findLoanByID
+  const [resetIDs, setResetIDs] = useState(res?.expenditures?.map((expenditure) => (expenditure._id)))
 
   const fieldArrayKey = 'expenditures'
 
@@ -68,6 +75,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     payment: res?.payment._id ?? '',
     payDay: res?.payDay ? String(res?.payDay) : '',
     [fieldArrayKey]: res?.expenditures?.map((expenditure) => ({
+      id: expenditure._id ?? '',
       expenditureName: expenditure?.name ?? '',
       description: expenditure?.description ?? '',
       amount: expenditure?.amount ? commaFormat(expenditure?.amount) : '',
@@ -89,6 +97,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     payment: true,
     payDay: true,
     [fieldArrayKey]: [{
+      id: false,
       expenditureName: false,
       description: false,
       amount: true,
@@ -100,7 +109,6 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
   }
 
   const { scheme } = useSetZodScheme(defaultValues, requiredValues)
-
 
   const {
     handleSubmit,
@@ -128,6 +136,9 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
 
   const [mutateCreate] = useCreateLoanMutation()
   const [mutateUpdate] = useUpdateLoanMutation()
+  const [mutateCreateMany] = useCreateManyExpendituresMutation()
+  const [mutateDeleteMany] = useDeleteManyExpendituresMutation()
+  const [findLoanByIdLazyQuery] = useFindLoanByIdLazyQuery()
 
   const args = {
     errors,
@@ -178,6 +189,38 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
           },
         },
       })
+
+      data.expenditures && await mutateCreateMany({
+        variables: {
+          inputs: data.expenditures.map((expenditure) => ({
+            category: null,
+            fixedCost: null,
+            sop: null,
+            subscriber: null,
+            tax: null,
+            temporary: (expenditure.temporary as string[])?.length > 0 ? true : false,
+            name: expenditure.expenditureName as string,
+            description: expenditure.description as string,
+            amount: Number(removeComma(expenditure.amount as string)),
+            payment: expenditure.payment as string,
+            occurrenceDay: expenditure.occurrenceDate as string,
+            loan: id as string,
+          })
+        ) }
+      })
+
+      setTimeout(async () => {
+        const res = await findLoanByIdLazyQuery({
+          variables: {
+            findLoanByIdId: id as string,
+          }
+        })
+
+        if (res.data?.findLoanByID) {
+          setResetIDs(res.data.findLoanByID.expenditures?.map((expenditure) => (expenditure._id)))
+        }
+      }, 500)
+
       toast({
         render: () => (
           <Alert status="success" title="create success!">
@@ -214,6 +257,44 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
           },
         },
       })
+
+      resetIDs && data.expenditures && await mutateDeleteMany({
+        variables: {
+          ids: resetIDs as string[]
+        }
+      })
+
+      data.expenditures && await mutateCreateMany({
+        variables: {
+          inputs: data.expenditures.map((expenditure) => ({
+            category: null,
+            fixedCost: null,
+            sop: null,
+            subscriber: null,
+            tax: null,
+            temporary: (expenditure.temporary as string[])?.length > 0 ? true : false,
+            name: expenditure.expenditureName as string,
+            description: expenditure.description as string,
+            amount: Number(removeComma(expenditure.amount as string)),
+            payment: expenditure.payment as string,
+            occurrenceDay: expenditure.occurrenceDate as string,
+            loan: id as string,
+          })
+        ) }
+      })
+
+      setTimeout(async () => {
+        const res = await findLoanByIdLazyQuery({
+          variables: {
+            findLoanByIdId: id as string,
+          }
+        })
+
+        if (res.data?.findLoanByID) {
+          setResetIDs(res.data.findLoanByID.expenditures?.map((expenditure) => (expenditure._id)))
+        }
+      }, 500)
+
       toast({
         render: () => (
           <Alert status="success" title="update success!">
@@ -258,6 +339,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     remove()
 
     append({
+      id: '',
       expenditureName: `${loanNameValue} 1回目`,
       description: '',
       amount: commaFormat(firstPayment),
@@ -269,6 +351,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
 
     for (let index = 1; index < numberOfPayments; index++) {
       append({
+        id: '',
         expenditureName: `${loanNameValue} ${index + 1}回目`,
         description: '',
         amount: commaFormat(monthlyPayment),
@@ -318,7 +401,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
           反映する
         </Button>
 
-        <Accordion data={fields.map((field, index) => {
+        <Accordion data={(sort(fields, 'occurrenceDate') as typeof fields).map((field, index) => {
           return {
             title: `${field.occurrenceDate} ${field.expenditureName}`,
             content: (
@@ -330,6 +413,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
                   categories={categories}
                   payments={payments}
                   hidden={{
+                    id: true,
                     expenditureName: true,
                     description: false,
                     amount: false,

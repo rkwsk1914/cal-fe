@@ -449,12 +449,12 @@ export type Mutation = {
   deleteFixedCostPattern: MutationSuccessResGraphQl;
   deleteIncome: MutationSuccessResGraphQl;
   deleteLoan: MutationSuccessResGraphQl;
+  deleteManyExpenditures: MutationSuccessResGraphQl;
   deleteMonthlyData: MutationSuccessResGraphQl;
   deletePayment: MutationSuccessResGraphQl;
   deleteSop: MutationSuccessResGraphQl;
   deleteSubscriber: MutationSuccessResGraphQl;
   deleteTax: MutationSuccessResGraphQl;
-  resetExpenditures: MutationSuccessResGraphQl;
   updateBank: MutationSuccessResGraphQl;
   updateCategory: MutationSuccessResGraphQl;
   updateExpenditure: MutationSuccessResGraphQl;
@@ -570,6 +570,11 @@ export type MutationDeleteLoanArgs = {
 };
 
 
+export type MutationDeleteManyExpendituresArgs = {
+  ids: Array<Scalars['String']['input']>;
+};
+
+
 export type MutationDeleteMonthlyDataArgs = {
   id: Scalars['String']['input'];
 };
@@ -592,12 +597,6 @@ export type MutationDeleteSubscriberArgs = {
 
 export type MutationDeleteTaxArgs = {
   id: Scalars['String']['input'];
-};
-
-
-export type MutationResetExpendituresArgs = {
-  inputs: Array<CreateExpenditureInput>;
-  resetIds: Array<Scalars['String']['input']>;
 };
 
 
@@ -1085,12 +1084,26 @@ export type CreateLoanMutationVariables = Exact<{
 
 export type CreateLoanMutation = { __typename?: 'Mutation', createLoan: { __typename?: 'MutationSuccessResGraphQl', success: boolean, message: string } };
 
+export type CreateManyExpendituresMutationVariables = Exact<{
+  inputs: Array<CreateExpenditureInput> | CreateExpenditureInput;
+}>;
+
+
+export type CreateManyExpendituresMutation = { __typename?: 'Mutation', createManyExpenditures: { __typename?: 'MutationSuccessResGraphQl', success: boolean, message: string } };
+
 export type CreatePaymentMutationVariables = Exact<{
   input: CreatePaymentInput;
 }>;
 
 
 export type CreatePaymentMutation = { __typename?: 'Mutation', createPayment: { __typename?: 'MutationSuccessResGraphQl', success: boolean, message: string } };
+
+export type DeleteManyExpendituresMutationVariables = Exact<{
+  ids: Array<Scalars['String']['input']> | Scalars['String']['input'];
+}>;
+
+
+export type DeleteManyExpendituresMutation = { __typename?: 'Mutation', deleteManyExpenditures: { __typename?: 'MutationSuccessResGraphQl', success: boolean, message: string } };
 
 export type FindAllBanksQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1115,7 +1128,7 @@ export type FindAllFixedCostPatternsQuery = { __typename?: 'Query', findAllFixed
 export type FindAllLoansQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllLoansQuery = { __typename?: 'Query', findAllLoans: Array<{ __typename?: 'Loan', _id: string, name: string, installmentsCount: number, payDay: number, basePrice: number, amount: number, interest: number, rate: number, startDate: any, payment: { __typename?: 'Payment', _id: string, color?: string | null, name: string, payDay?: number | null, isCredit?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, expenditures?: Array<{ __typename?: 'Expenditure', _id: string, amount: number, description?: string | null, duplexingAvoidanceID?: string | null, name: string, occurrenceDay: any, temporary?: boolean | null, payment: { __typename?: 'Payment', _id: string, name: string, payDay?: number | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, category?: { __typename?: 'Category', color?: string | null, name: string, _id: string } | null }> | null }> };
+export type FindAllLoansQuery = { __typename?: 'Query', findAllLoans: Array<{ __typename?: 'Loan', _id: string, name: string, installmentsCount: number, payDay: number, basePrice: number, amount: number, interest: number, rate: number, startDate: any, payment: { __typename?: 'Payment', _id: string, color?: string | null, name: string, payDay?: number | null, isCredit?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, expenditures?: Array<{ __typename?: 'Expenditure', _id: string, amount: number, description?: string | null, duplexingAvoidanceID?: string | null, name: string, occurrenceDay: any, temporary?: boolean | null, payment: { __typename?: 'Payment', _id: string, name: string, payDay?: number | null }, category?: { __typename?: 'Category', color?: string | null, name: string, _id: string } | null }> | null }> };
 
 export type FindAllPaymentsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1383,6 +1396,40 @@ export function useCreateLoanMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateLoanMutationHookResult = ReturnType<typeof useCreateLoanMutation>;
 export type CreateLoanMutationResult = Apollo.MutationResult<CreateLoanMutation>;
 export type CreateLoanMutationOptions = Apollo.BaseMutationOptions<CreateLoanMutation, CreateLoanMutationVariables>;
+export const CreateManyExpendituresDocument = gql`
+    mutation CreateManyExpenditures($inputs: [CreateExpenditureInput!]!) {
+  createManyExpenditures(inputs: $inputs) {
+    success
+    message
+  }
+}
+    `;
+export type CreateManyExpendituresMutationFn = Apollo.MutationFunction<CreateManyExpendituresMutation, CreateManyExpendituresMutationVariables>;
+
+/**
+ * __useCreateManyExpendituresMutation__
+ *
+ * To run a mutation, you first call `useCreateManyExpendituresMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateManyExpendituresMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createManyExpendituresMutation, { data, loading, error }] = useCreateManyExpendituresMutation({
+ *   variables: {
+ *      inputs: // value for 'inputs'
+ *   },
+ * });
+ */
+export function useCreateManyExpendituresMutation(baseOptions?: Apollo.MutationHookOptions<CreateManyExpendituresMutation, CreateManyExpendituresMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateManyExpendituresMutation, CreateManyExpendituresMutationVariables>(CreateManyExpendituresDocument, options);
+      }
+export type CreateManyExpendituresMutationHookResult = ReturnType<typeof useCreateManyExpendituresMutation>;
+export type CreateManyExpendituresMutationResult = Apollo.MutationResult<CreateManyExpendituresMutation>;
+export type CreateManyExpendituresMutationOptions = Apollo.BaseMutationOptions<CreateManyExpendituresMutation, CreateManyExpendituresMutationVariables>;
 export const CreatePaymentDocument = gql`
     mutation CreatePayment($input: CreatePaymentInput!) {
   createPayment(input: $input) {
@@ -1417,6 +1464,40 @@ export function useCreatePaymentMutation(baseOptions?: Apollo.MutationHookOption
 export type CreatePaymentMutationHookResult = ReturnType<typeof useCreatePaymentMutation>;
 export type CreatePaymentMutationResult = Apollo.MutationResult<CreatePaymentMutation>;
 export type CreatePaymentMutationOptions = Apollo.BaseMutationOptions<CreatePaymentMutation, CreatePaymentMutationVariables>;
+export const DeleteManyExpendituresDocument = gql`
+    mutation DeleteManyExpenditures($ids: [String!]!) {
+  deleteManyExpenditures(ids: $ids) {
+    success
+    message
+  }
+}
+    `;
+export type DeleteManyExpendituresMutationFn = Apollo.MutationFunction<DeleteManyExpendituresMutation, DeleteManyExpendituresMutationVariables>;
+
+/**
+ * __useDeleteManyExpendituresMutation__
+ *
+ * To run a mutation, you first call `useDeleteManyExpendituresMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteManyExpendituresMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteManyExpendituresMutation, { data, loading, error }] = useDeleteManyExpendituresMutation({
+ *   variables: {
+ *      ids: // value for 'ids'
+ *   },
+ * });
+ */
+export function useDeleteManyExpendituresMutation(baseOptions?: Apollo.MutationHookOptions<DeleteManyExpendituresMutation, DeleteManyExpendituresMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteManyExpendituresMutation, DeleteManyExpendituresMutationVariables>(DeleteManyExpendituresDocument, options);
+      }
+export type DeleteManyExpendituresMutationHookResult = ReturnType<typeof useDeleteManyExpendituresMutation>;
+export type DeleteManyExpendituresMutationResult = Apollo.MutationResult<DeleteManyExpendituresMutation>;
+export type DeleteManyExpendituresMutationOptions = Apollo.BaseMutationOptions<DeleteManyExpendituresMutation, DeleteManyExpendituresMutationVariables>;
 export const FindAllBanksDocument = gql`
     query FindAllBanks {
   findAllBanks {
@@ -1763,12 +1844,6 @@ export const FindAllLoansDocument = gql`
       occurrenceDay
       payment {
         _id
-        bank {
-          _id
-          branchName
-          color
-          name
-        }
         name
         payDay
       }

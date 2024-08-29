@@ -342,6 +342,15 @@ export const INPUT_DATA = {
     zod: ZodSchema.DATE_TEXT_SCHEMA,
   },
 
+  // INPUT系 その他
+  id: {
+    label: 'ID',
+    inputTextArgs: {
+      type: 'hidden',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+  },
+
   // SELECT系
   bank: {
     label: '引き落とし口座',
@@ -394,6 +403,7 @@ export const INPUT_DATA = {
 
 export const INPUT_ARRAY_DATA = {
   expenditures: {
+    id: INPUT_DATA.id,
     expenditureName: INPUT_DATA.expenditureName,
     description: INPUT_DATA.description,
     amount: INPUT_DATA.amount,

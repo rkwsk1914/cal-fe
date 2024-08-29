@@ -26,7 +26,8 @@ export const doQueryServerSide = async <
       variables,
       fetchPolicy: 'no-cache',
     })
-  } catch {
+  } catch(e) {
+    console.error(e)
     return undefined
   }
 }

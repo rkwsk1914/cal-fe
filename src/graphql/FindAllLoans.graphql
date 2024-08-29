@@ -30,12 +30,6 @@ query FindAllLoans {
       occurrenceDay
       payment {
         _id
-        bank {
-          _id
-          branchName
-          color
-          name
-        }
         name
         payDay
       }

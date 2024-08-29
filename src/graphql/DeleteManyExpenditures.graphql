@@ -1,0 +1,6 @@
+mutation DeleteManyExpenditures($ids: [String!]!) {
+  deleteManyExpenditures(ids: $ids) {
+    success
+    message
+  }
+}

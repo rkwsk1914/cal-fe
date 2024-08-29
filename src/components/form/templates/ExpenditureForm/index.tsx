@@ -21,6 +21,7 @@ type Props = {
   payments: ApolloQueryResult<FindAllPaymentsQuery>
   categories: ApolloQueryResult<FindAllCategorysQuery>
   hidden?: {
+    id: boolean,
     expenditureName: boolean,
     description: boolean,
     amount: boolean,
@@ -54,6 +55,7 @@ export const ExpenditureForm: React.FC<Props> = ({
   const prefix: FieldKey = fieldName ? `${fieldName}.${index}.` as FieldKey : '' as FieldKey
 
   const {
+    id: isIdHidden,
     expenditureName: isExpenditureNameHidden,
     description: isDescriptionHidden,
     amount: isAmountHidden,
@@ -65,6 +67,11 @@ export const ExpenditureForm: React.FC<Props> = ({
 
   return (
     <React.Fragment key={index}>
+      <InputController
+        name={`${prefix}id` as FieldKey}
+        {...args}
+        hidden={isIdHidden}
+      />
       <CheckBoxController
         name={`${prefix}temporary` as FieldKey}
         {...args}

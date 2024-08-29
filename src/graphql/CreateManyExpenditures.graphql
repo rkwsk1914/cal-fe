@@ -1,0 +1,6 @@
+mutation CreateManyExpenditures($inputs: [CreateExpenditureInput!]!) {
+  createManyExpenditures(inputs: $inputs) {
+    success
+    message
+  }
+}
