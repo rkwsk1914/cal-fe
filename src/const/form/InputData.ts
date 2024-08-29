@@ -240,6 +240,13 @@ export const INPUT_DATA = {
       return fixFullWidth(value)
     }
   },
+  categoryName: {
+    label: 'カテゴリー名',
+    inputTextArgs: {
+      type: 'text',
+    },
+    zod: ZodSchema.TEXT_SCHEMA,
+  },
 
   // INPUT系　金額系
   amount: {
