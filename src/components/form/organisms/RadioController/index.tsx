@@ -7,19 +7,17 @@ import { useGetInputData } from '@/hooks/form/useGetInputData'
 import { FormControl, ArrangementType } from '@/components/form/molecules/FormControl'
 import { Radio } from '@/components/form/molecules/Radio'
 
-import type { RadioElementType, FieldKey, ControlType, ControlRules } from '@/types/form/InputAttribute'
+import type { RadioElementType, FieldKey, ControlType } from '@/types/form/InputAttribute'
 
 type Props = {
   name: FieldKey
   control: ControlType
   errors: FieldErrors<any>
   data: RadioElementType
-  shouldUnregister?: boolean
   arrangement?: ArrangementType
   disabled?: boolean
   helperText?: React.ReactNode | string
-  rules?: ControlRules
-  required?: boolean
+  hidden?: boolean
 };
 
 export const RadioController: React.FC<Props> = (
@@ -31,6 +29,7 @@ export const RadioController: React.FC<Props> = (
     data,
     disabled,
     helperText,
+    hidden,
   }
 ): JSX.Element => {
   const {
@@ -56,6 +55,7 @@ export const RadioController: React.FC<Props> = (
           : helperText
       }
       suffix={suffix}
+      hidden={hidden}
     >
       <Radio data={data} field={field} disabled={disabled} />
     </FormControl>

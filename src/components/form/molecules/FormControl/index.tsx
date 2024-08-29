@@ -21,6 +21,7 @@ type Props = {
   arrangement?: ArrangementType
   children?: React.ReactNode
   suffix?: React.ReactNode | string
+  hidden?: boolean
 };
 
 export const FormControl: React.FC<Props> = ({
@@ -30,10 +31,12 @@ export const FormControl: React.FC<Props> = ({
   arrangement = 'horizontally',
   children,
   suffix,
+  hidden = false
 }): JSX.Element => {
   const wrap = clsx(styles.wrap, {
     [styles.vertically]: arrangement === 'vertically',
     [styles.horizontally]: arrangement === 'horizontally',
+    [styles.hidden]: hidden === true
   })
   const className = useGetDarkModeStyleClass(wrap, styles.dark)
 

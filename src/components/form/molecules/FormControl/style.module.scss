@@ -1,6 +1,10 @@
 .wrap {
   // &.horizontally {}
 
+  &.hidden {
+    display: none!important;
+  }
+
   &.vertically {
     align-items: center;
     display: flex;

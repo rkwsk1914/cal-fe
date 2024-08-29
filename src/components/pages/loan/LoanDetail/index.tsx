@@ -28,6 +28,7 @@ import { SelectController } from '@/components/form/organisms/SelectController'
 import { ExpenditureForm } from '@/components/form/templates/ExpenditureForm'
 import { FromLayout } from '@/components/layouts/FromLayout'
 import { PageLayout } from '@/components/layouts/PageLayout'
+import { Accordion } from '@/components/molecules/Accordion'
 
 import { useCalculateLoan } from './useCalculateLoan'
 
@@ -88,13 +89,13 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     payment: true,
     payDay: true,
     [fieldArrayKey]: [{
-      expenditureName: true,
+      expenditureName: false,
       description: false,
       amount: true,
-      payment: true,
+      payment: false,
       occurrenceDate: true,
-      temporary: true,
-      category: true,
+      temporary: false,
+      category: false,
     }]
   }
 
@@ -123,6 +124,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
 
   const startDateCountValue = useWatch({ control, name: 'startDate' }) as string
   const paymentValue = useWatch({ control, name: 'payment' }) as string
+  const payDayValue = useWatch({ control, name: 'payDay' }) as string
 
   const [mutateCreate] = useCreateLoanMutation()
   const [mutateUpdate] = useUpdateLoanMutation()
@@ -139,15 +141,15 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     const dateParts = dateStr.split('/')
     const year = parseInt(dateParts[0], 10)
     const month = parseInt(dateParts[1], 10) - 1 // 月は0ベース（0が1月、11が12月）
-    const day = parseInt(dateParts[2], 10)
+    // const day = parseInt(dateParts[2], 10)
 
-    const date = new Date(year, month, day)
+    const date = new Date(year, month, Number(payDayValue))
 
     // 指定された月数を追加
     date.setMonth(date.getMonth() + monthsToAdd)
 
     // 年と月がずれる可能性に対処する
-    if (date.getDate() !== day) {
+    if (date.getDate() !== Number(payDayValue)) {
       date.setDate(0) // 日がずれている場合、前月の最終日を設定
     }
 
@@ -256,7 +258,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     remove()
 
     append({
-      expenditureName: loanNameValue,
+      expenditureName: `${loanNameValue} 1回目`,
       description: '',
       amount: commaFormat(firstPayment),
       payment: paymentValue,
@@ -267,7 +269,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
 
     for (let index = 1; index < numberOfPayments; index++) {
       append({
-        expenditureName: loanNameValue,
+        expenditureName: `${loanNameValue} ${index + 1}回目`,
         description: '',
         amount: commaFormat(monthlyPayment),
         payment: paymentValue,
@@ -316,17 +318,32 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
           反映する
         </Button>
 
-        {fields.map((field, index) => (
-          <React.Fragment key={field.id}>
-            <ExpenditureForm
-              index={index}
-              fieldName={fieldArrayKey}
-              args={args}
-              categories={categories}
-              payments={payments}
-            />
-          </React.Fragment>
-        ))}
+        <Accordion data={fields.map((field, index) => {
+          return {
+            title: `${field.occurrenceDate} ${field.expenditureName}`,
+            content: (
+              <React.Fragment key={field.id}>
+                <ExpenditureForm
+                  index={index}
+                  fieldName={fieldArrayKey}
+                  args={args}
+                  categories={categories}
+                  payments={payments}
+                  hidden={{
+                    expenditureName: true,
+                    description: false,
+                    amount: false,
+                    payment: true,
+                    occurrenceDate: false,
+                    temporary: true,
+                    category: true,
+                  }}
+                />
+              </React.Fragment>
+            )
+          }
+          })}>
+        </Accordion>
       </FromLayout>
     </PageLayout>
   )

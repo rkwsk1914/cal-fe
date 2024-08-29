@@ -18,6 +18,7 @@ type Props = {
   arrangement?: ArrangementType;
   disabled?: boolean;
   helperText?: React.ReactNode | string;
+  hidden?: boolean;
 };
 
 export const InputController: React.FC<Props> = ({
@@ -28,6 +29,7 @@ export const InputController: React.FC<Props> = ({
   arrangement,
   disabled,
   helperText,
+  hidden
 }): JSX.Element => {
   const { label, inputTextArgs, suffix, onBlurFormat } = useGetInputData(name)
 
@@ -40,6 +42,7 @@ export const InputController: React.FC<Props> = ({
     <FormControl
       label={label}
       suffix={suffix}
+      hidden={hidden}
       arrangement={arrangement}
       isError={errors[name] ? true : fieldState.error ? true : false}
       helperText={

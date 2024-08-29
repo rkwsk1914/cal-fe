@@ -17,6 +17,7 @@ type Props = {
   arrangement?: ArrangementType
   disabled?: boolean
   helperText?: React.ReactNode | string
+  hidden?: boolean
 };
 
 export const CheckBoxController: React.FC<Props> = (
@@ -28,6 +29,7 @@ export const CheckBoxController: React.FC<Props> = (
     arrangement,
     disabled,
     helperText,
+    hidden,
   }
 ): JSX.Element => {
   const {
@@ -53,6 +55,7 @@ export const CheckBoxController: React.FC<Props> = (
           : helperText
       }
       suffix={suffix}
+      hidden={hidden}
     >
       <CheckBox
         data={data}

@@ -20,6 +20,15 @@ type Props = {
   args: Pick<ComponentProps<typeof InputController>, 'arrangement' | 'control'  | 'errors' | 'trigger'>
   payments: ApolloQueryResult<FindAllPaymentsQuery>
   categories: ApolloQueryResult<FindAllCategorysQuery>
+  hidden?: {
+    expenditureName: boolean,
+    description: boolean,
+    amount: boolean,
+    payment: boolean,
+    occurrenceDate: boolean,
+    temporary: boolean,
+    category: boolean,
+  }
 }
 
 export const ExpenditureForm: React.FC<Props> = ({
@@ -28,6 +37,7 @@ export const ExpenditureForm: React.FC<Props> = ({
   args,
   categories,
   payments,
+  hidden,
 }): JSX.Element => {
   const categorySelect: SelectOptionType | undefined = [
     ...categories.data?.findAllCategorys?.map((resCategory) => ({
@@ -43,6 +53,16 @@ export const ExpenditureForm: React.FC<Props> = ({
 
   const prefix: FieldKey = fieldName ? `${fieldName}.${index}.` as FieldKey : '' as FieldKey
 
+  const {
+    expenditureName: isExpenditureNameHidden,
+    description: isDescriptionHidden,
+    amount: isAmountHidden,
+    payment: isPaymentHidden,
+    occurrenceDate: isOccurrenceDateHidden,
+    temporary: isTemporaryHidden,
+    category: isCategoryHidden,
+  } = hidden ?? {}
+
   return (
     <React.Fragment key={index}>
       <CheckBoxController
@@ -51,32 +71,39 @@ export const ExpenditureForm: React.FC<Props> = ({
         data={[
           { value: 'true', label: '仮' },
         ]}
+        hidden={isTemporaryHidden}
       />
       <InputController
         name={`${prefix}expenditureName` as FieldKey}
         {...args}
+        hidden={isExpenditureNameHidden}
       />
       <InputController
         name={`${prefix}amount` as FieldKey}
         {...args}
+        hidden={isAmountHidden}
       />
       <SelectController
         name={`${prefix}payment` as FieldKey}
         {...args}
         data={paymentSelect ?? []}
+        hidden={isPaymentHidden}
       />
       <InputController
         name={`${prefix}occurrenceDate` as FieldKey}
         {...args}
+        hidden={isOccurrenceDateHidden}
       />
       <SelectController
         name={`${prefix}category` as FieldKey}
         {...args}
         data={categorySelect ?? []}
+        hidden={isCategoryHidden}
       />
       <InputController
         name={`${prefix}description` as FieldKey}
         {...args}
+        hidden={isDescriptionHidden}
       />
     </React.Fragment>
   )

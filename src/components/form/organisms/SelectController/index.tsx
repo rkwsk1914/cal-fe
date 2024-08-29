@@ -17,6 +17,7 @@ type Props = {
   arrangement?: ArrangementType
   disabled?: boolean
   helperText?: React.ReactNode | string
+  hidden?: boolean
 };
 
 export const SelectController: React.FC<Props> = (
@@ -28,6 +29,7 @@ export const SelectController: React.FC<Props> = (
     arrangement,
     disabled,
     helperText,
+    hidden
   }
 ): JSX.Element => {
   const {
@@ -55,6 +57,7 @@ export const SelectController: React.FC<Props> = (
           : helperText
       }
       suffix={suffix}
+      hidden={hidden}
     >
       <ChakuraSelect
         {...field}

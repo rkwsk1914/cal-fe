@@ -402,9 +402,4 @@ export const INPUT_ARRAY_DATA = {
     temporary: INPUT_DATA.temporary,
     category: INPUT_DATA.category
   },
-  loanExpenditures: {
-    description: INPUT_DATA.description,
-    amount: INPUT_DATA.amount,
-    occurrenceDate: INPUT_DATA.occurrenceDate,
-  }
 } as const satisfies Record<string, InputDataType>
