@@ -54,6 +54,8 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
   const { loan, payments, categories } = props
   const res = loan?.data?.findLoanByID
 
+  const fieldArrayKey = 'expenditures'
+
   const defaultValues: DefaultValuesType = {
     loanName: res?.name ?? '',
     basePrice: res?.basePrice ? commaFormat(res?.basePrice) : '',
@@ -64,7 +66,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     startDate: res?.startDate ? yyyyMmDd(res?.startDate) : '',
     payment: res?.payment._id ?? '',
     payDay: res?.payDay ? String(res?.payDay) : '',
-    expenditures: res?.expenditures?.map((expenditure) => ({
+    [fieldArrayKey]: res?.expenditures?.map((expenditure) => ({
       expenditureName: expenditure?.name ?? '',
       description: expenditure?.description ?? '',
       amount: expenditure?.amount ? commaFormat(expenditure?.amount) : '',
@@ -85,7 +87,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     startDate: true,
     payment: true,
     payDay: true,
-    expenditures: [{
+    [fieldArrayKey]: [{
       expenditureName: true,
       description: false,
       amount: true,
@@ -116,7 +118,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'expenditures',
+    name: fieldArrayKey,
   })
 
   const startDateCountValue = useWatch({ control, name: 'startDate' }) as string
@@ -343,7 +345,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
           <React.Fragment key={field.id}>
             <ExpenditureForm
               index={index}
-              fieldName={'expenditures'}
+              fieldName={fieldArrayKey}
               args={args}
               categories={categories}
               payments={payments}
