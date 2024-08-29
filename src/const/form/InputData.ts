@@ -290,7 +290,7 @@ export const INPUT_DATA = {
       inputMode: 'numeric',
       mask: createNumberMask({
         prefix: '',
-        suffix: '%',
+        suffix: '',
         includeThousandsSeparator: true,
         thousandsSeparatorSymbol: ',',
         allowDecimal: true,
@@ -357,15 +357,18 @@ export const INPUT_DATA = {
   },
   installmentsCount: {
     label: '分割回数',
-    zod: ZodSchema.TEXT_SCHEMA
+    zod: ZodSchema.TEXT_SCHEMA,
+    suffix: '回',
   },
   closingDay: {
     label: '締め日',
-    zod: ZodSchema.TEXT_SCHEMA
+    zod: ZodSchema.TEXT_SCHEMA,
+    suffix: '日',
   },
   payDay: {
     label: '引き落とし日',
-    zod: ZodSchema.TEXT_SCHEMA
+    zod: ZodSchema.TEXT_SCHEMA,
+    suffix: '日',
   },
   category: {
     label: 'カテゴリー',

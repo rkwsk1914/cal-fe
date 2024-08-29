@@ -3,9 +3,16 @@ import * as zod from 'zod'
 import { ERROR_MESSAGE } from '@/const/form/ErrorMessage'
 import { INPUT_DATA, INPUT_ARRAY_DATA } from '@/const/form/InputData'
 
-import type { DefaultValuesType, FieldKey } from '@/types/form/InputAttribute'
+import type { DefaultValuesType } from '@/types/form/InputAttribute'
 
-export type DefaultValuesRequiredType = Partial<Record<FieldKey, boolean>>
+export type DefaultValuesRequiredType = Partial<
+  Record<keyof typeof INPUT_DATA, boolean> &
+  {
+    [key in keyof typeof INPUT_ARRAY_DATA]: Array<
+      Partial<Record<keyof typeof INPUT_ARRAY_DATA[key], boolean>>
+    >
+  }
+>
 
 export const useSetZodScheme = (
   defaultValues: DefaultValuesType,
@@ -32,12 +39,12 @@ export const useSetZodScheme = (
 
   const setArraySchema = (
     arraySchema: Record<string, { zod: zod.ZodString | zod.ZodArray<zod.ZodString, 'many'> }>,
-    required?: boolean
+    requiredValues?: Array<Partial<Record<string, boolean>>>
   ) => {
     return zod.array(
       zod.object(
         Object.keys(arraySchema).reduce((schema, key) => {
-          schema[key] = setRequired(arraySchema[key].zod, required)
+          schema[key] = setRequired(arraySchema[key].zod, requiredValues && requiredValues[0][key])
           return schema
         }, {} as Record<string, zod.ZodTypeAny>)
       )

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useState } from 'react'
 
 import { ApolloQueryResult } from '@apollo/client'
 import { useToast } from '@chakra-ui/react'
@@ -40,6 +41,12 @@ type Props = {
 
 export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
   const { commaFormat, yyyyMmDd, removeComma } = chrFormatChange
+  const [ addObj, setAddObj] = useState<{
+    loanNameValue: string;
+    numberOfPayments: number;
+    monthlyPayment: number;
+    firstPayment: number;
+  } | null>(null)
   const toast = useToast()
   const router = useRouter()
   const { id } = router.query
@@ -78,9 +85,19 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     startDate: true,
     payment: true,
     payDay: true,
+    expenditures: [{
+      expenditureName: true,
+      description: false,
+      amount: true,
+      payment: true,
+      occurrenceDate: true,
+      temporary: true,
+      category: true,
+    }]
   }
 
   const { scheme } = useSetZodScheme(defaultValues, requiredValues)
+
 
   const {
     handleSubmit,
@@ -233,8 +250,30 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
       firstPayment
     } = result
 
+    const returnObj ={
+      loanNameValue,
+      numberOfPayments,
+      monthlyPayment,
+      firstPayment
+    }
+
     setValue('amount', commaFormat(totalPayment))
     setValue('interest', commaFormat(totalPayment - loanAmount))
+    setAddObj(returnObj)
+
+    return returnObj
+  }
+
+  const onAdd = async () => {
+    const returnObj = await onCalculate()
+    if (!addObj && !returnObj) return
+
+    const {
+      loanNameValue,
+      numberOfPayments,
+      monthlyPayment,
+      firstPayment
+    } = addObj ?? returnObj
 
     remove()
 
@@ -291,6 +330,14 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
           payments={payments}
           setValue={setValue}
         />
+
+        <Button
+          type={'outline'}
+          onClick={onAdd}
+          disabled={!addObj}
+        >
+          反映する
+        </Button>
 
         {fields.map((field, index) => (
           <React.Fragment key={field.id}>
