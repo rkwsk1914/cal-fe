@@ -301,7 +301,7 @@ export const INPUT_DATA = {
     zod: ZodSchema.TEXT_SCHEMA,
   },
   interest: {
-    label: '手数料',
+    label: '利息',
     inputTextArgs: {
       type: 'text',
       inputMode: 'numeric'
