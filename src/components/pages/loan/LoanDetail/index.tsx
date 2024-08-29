@@ -235,29 +235,10 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
   }
 
   const onCalculate = async() => {
-    const {
-      inputDetails,
-      result,
-      loanNameValue,
-    } = calResult
-
-    const {
-      loanAmount,
-      numberOfPayments
-    } = inputDetails
-
-    const {
-      totalPayment,
-      monthlyPayment,
-      firstPayment
-    } = result
-
-    const returnObj ={
-      loanNameValue,
-      numberOfPayments,
-      monthlyPayment,
-      firstPayment
-    }
+    const { inputDetails, result, loanNameValue } = calResult
+    const { loanAmount, numberOfPayments } = inputDetails
+    const { totalPayment, monthlyPayment, firstPayment } = result
+    const returnObj ={ loanNameValue, numberOfPayments, monthlyPayment, firstPayment }
 
     setValue('amount', commaFormat(totalPayment))
     setValue('interest', commaFormat(totalPayment - loanAmount))
@@ -270,12 +251,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     const returnObj = await onCalculate()
     if (!addObj && !returnObj) return
 
-    const {
-      loanNameValue,
-      numberOfPayments,
-      monthlyPayment,
-      firstPayment
-    } = addObj ?? returnObj
+    const { loanNameValue, numberOfPayments, monthlyPayment, firstPayment } = addObj ?? returnObj
 
     remove()
 
@@ -290,7 +266,6 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
     })
 
     for (let index = 1; index < numberOfPayments; index++) {
-
       append({
         expenditureName: loanNameValue,
         description: '',
