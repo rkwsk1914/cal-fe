@@ -1,5 +1,5 @@
-query FindAllCategorys {
-  findAllCategorys {
+query FindCategoryByID($findCategoryByIdId: String!) {
+  findCategoryByID(id: $findCategoryByIdId) {
     _id
     name
     color

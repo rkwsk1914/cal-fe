@@ -1056,6 +1056,13 @@ export type CreateBankMutationVariables = Exact<{
 
 export type CreateBankMutation = { __typename?: 'Mutation', createBank: { __typename?: 'MutationSuccessResGraphQl', success: boolean, message: string } };
 
+export type CreateCategoryMutationVariables = Exact<{
+  input: CreateCategoryInput;
+}>;
+
+
+export type CreateCategoryMutation = { __typename?: 'Mutation', createCategory: { __typename?: 'MutationSuccessResGraphQl', message: string, success: boolean } };
+
 export type CreateExpenditureMutationVariables = Exact<{
   input: CreateExpenditureInput;
 }>;
@@ -1113,7 +1120,7 @@ export type FindAllBanksQuery = { __typename?: 'Query', findAllBanks: Array<{ __
 export type FindAllCategorysQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllCategorysQuery = { __typename?: 'Query', findAllCategorys: Array<{ __typename?: 'Category', _id: string, name: string, color?: string | null, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, occurrenceDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, name: string, isCredit?: boolean | null, payDay?: number | null, closingDay?: number | null, color?: string | null, uneditable?: boolean | null, bank: { __typename?: 'Bank', _id: string, branchName?: string | null, color?: string | null, name: string } }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null }> }> };
+export type FindAllCategorysQuery = { __typename?: 'Query', findAllCategorys: Array<{ __typename?: 'Category', _id: string, name: string, color?: string | null, expenditures: Array<{ __typename?: 'Expenditure', _id: string, amount: number, description?: string | null, duplexingAvoidanceID?: string | null, name: string, occurrenceDay: any, temporary?: boolean | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, payment: { __typename?: 'Payment', _id: string, name: string, color?: string | null }, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null, tax?: { __typename?: 'Tax', _id: string, name: string } | null }> }> };
 
 export type FindAllExpendituresQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1141,6 +1148,13 @@ export type FindBankByIdQueryVariables = Exact<{
 
 
 export type FindBankByIdQuery = { __typename?: 'Query', findBankByID: { __typename?: 'Bank', _id: string, name: string, branchName?: string | null, color?: string | null, payments: Array<{ __typename?: 'Payment', _id: string, closingDay?: number | null, color?: string | null, isCredit?: boolean | null, name: string, payDay?: number | null, uneditable?: boolean | null, expenditures: Array<{ __typename?: 'Expenditure', _id: string, name: string, description?: string | null, amount: number, occurrenceDay: any, temporary?: boolean | null, duplexingAvoidanceID?: string | null, payment: { __typename?: 'Payment', _id: string, name: string }, tax?: { __typename?: 'Tax', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null }> }>, incomes: Array<{ __typename?: 'Income', _id: string, amount: number, depositDate: any, description?: string | null, name: string, temporary?: boolean | null }> } };
+
+export type FindCategoryByIdQueryVariables = Exact<{
+  findCategoryByIdId: Scalars['String']['input'];
+}>;
+
+
+export type FindCategoryByIdQuery = { __typename?: 'Query', findCategoryByID: { __typename?: 'Category', _id: string, name: string, color?: string | null, expenditures: Array<{ __typename?: 'Expenditure', _id: string, amount: number, description?: string | null, duplexingAvoidanceID?: string | null, name: string, occurrenceDay: any, temporary?: boolean | null, fixedCost?: { __typename?: 'FixedCost', _id: string, name: string } | null, loan?: { __typename?: 'Loan', _id: string, name: string } | null, payment: { __typename?: 'Payment', _id: string, name: string, color?: string | null }, sop?: { __typename?: 'Sop', _id: string, name: string } | null, subscriber?: { __typename?: 'Subscriber', _id: string, name: string } | null, tax?: { __typename?: 'Tax', _id: string, name: string } | null }> } };
 
 export type FindExpenditureByIdQueryVariables = Exact<{
   findExpenditureByIdId: Scalars['String']['input'];
@@ -1260,6 +1274,40 @@ export function useCreateBankMutation(baseOptions?: Apollo.MutationHookOptions<C
 export type CreateBankMutationHookResult = ReturnType<typeof useCreateBankMutation>;
 export type CreateBankMutationResult = Apollo.MutationResult<CreateBankMutation>;
 export type CreateBankMutationOptions = Apollo.BaseMutationOptions<CreateBankMutation, CreateBankMutationVariables>;
+export const CreateCategoryDocument = gql`
+    mutation CreateCategory($input: CreateCategoryInput!) {
+  createCategory(input: $input) {
+    message
+    success
+  }
+}
+    `;
+export type CreateCategoryMutationFn = Apollo.MutationFunction<CreateCategoryMutation, CreateCategoryMutationVariables>;
+
+/**
+ * __useCreateCategoryMutation__
+ *
+ * To run a mutation, you first call `useCreateCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateCategoryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createCategoryMutation, { data, loading, error }] = useCreateCategoryMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateCategoryMutation(baseOptions?: Apollo.MutationHookOptions<CreateCategoryMutation, CreateCategoryMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateCategoryMutation, CreateCategoryMutationVariables>(CreateCategoryDocument, options);
+      }
+export type CreateCategoryMutationHookResult = ReturnType<typeof useCreateCategoryMutation>;
+export type CreateCategoryMutationResult = Apollo.MutationResult<CreateCategoryMutation>;
+export type CreateCategoryMutationOptions = Apollo.BaseMutationOptions<CreateCategoryMutation, CreateCategoryMutationVariables>;
 export const CreateExpenditureDocument = gql`
     mutation CreateExpenditure($input: CreateExpenditureInput!) {
   createExpenditure(input: $input) {
@@ -1598,27 +1646,10 @@ export const FindAllCategorysDocument = gql`
     color
     expenditures {
       _id
-      name
-      description
       amount
-      payment {
-        _id
-        name
-        isCredit
-        payDay
-        closingDay
-        bank {
-          _id
-          branchName
-          color
-          name
-        }
-        color
-        uneditable
-      }
-      occurrenceDay
-      temporary
-      tax {
+      description
+      duplexingAvoidanceID
+      fixedCost {
         _id
         name
       }
@@ -1626,9 +1657,12 @@ export const FindAllCategorysDocument = gql`
         _id
         name
       }
-      fixedCost {
+      name
+      occurrenceDay
+      payment {
         _id
         name
+        color
       }
       sop {
         _id
@@ -1638,7 +1672,11 @@ export const FindAllCategorysDocument = gql`
         _id
         name
       }
-      duplexingAvoidanceID
+      tax {
+        _id
+        name
+      }
+      temporary
     }
   }
 }
@@ -2068,6 +2106,82 @@ export type FindBankByIdQueryHookResult = ReturnType<typeof useFindBankByIdQuery
 export type FindBankByIdLazyQueryHookResult = ReturnType<typeof useFindBankByIdLazyQuery>;
 export type FindBankByIdSuspenseQueryHookResult = ReturnType<typeof useFindBankByIdSuspenseQuery>;
 export type FindBankByIdQueryResult = Apollo.QueryResult<FindBankByIdQuery, FindBankByIdQueryVariables>;
+export const FindCategoryByIdDocument = gql`
+    query FindCategoryByID($findCategoryByIdId: String!) {
+  findCategoryByID(id: $findCategoryByIdId) {
+    _id
+    name
+    color
+    expenditures {
+      _id
+      amount
+      description
+      duplexingAvoidanceID
+      fixedCost {
+        _id
+        name
+      }
+      loan {
+        _id
+        name
+      }
+      name
+      occurrenceDay
+      payment {
+        _id
+        name
+        color
+      }
+      sop {
+        _id
+        name
+      }
+      subscriber {
+        _id
+        name
+      }
+      tax {
+        _id
+        name
+      }
+      temporary
+    }
+  }
+}
+    `;
+
+/**
+ * __useFindCategoryByIdQuery__
+ *
+ * To run a query within a React component, call `useFindCategoryByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindCategoryByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindCategoryByIdQuery({
+ *   variables: {
+ *      findCategoryByIdId: // value for 'findCategoryByIdId'
+ *   },
+ * });
+ */
+export function useFindCategoryByIdQuery(baseOptions: Apollo.QueryHookOptions<FindCategoryByIdQuery, FindCategoryByIdQueryVariables> & ({ variables: FindCategoryByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindCategoryByIdQuery, FindCategoryByIdQueryVariables>(FindCategoryByIdDocument, options);
+      }
+export function useFindCategoryByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindCategoryByIdQuery, FindCategoryByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindCategoryByIdQuery, FindCategoryByIdQueryVariables>(FindCategoryByIdDocument, options);
+        }
+export function useFindCategoryByIdSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<FindCategoryByIdQuery, FindCategoryByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<FindCategoryByIdQuery, FindCategoryByIdQueryVariables>(FindCategoryByIdDocument, options);
+        }
+export type FindCategoryByIdQueryHookResult = ReturnType<typeof useFindCategoryByIdQuery>;
+export type FindCategoryByIdLazyQueryHookResult = ReturnType<typeof useFindCategoryByIdLazyQuery>;
+export type FindCategoryByIdSuspenseQueryHookResult = ReturnType<typeof useFindCategoryByIdSuspenseQuery>;
+export type FindCategoryByIdQueryResult = Apollo.QueryResult<FindCategoryByIdQuery, FindCategoryByIdQueryVariables>;
 export const FindExpenditureByIdDocument = gql`
     query FindExpenditureByID($findExpenditureByIdId: String!) {
   findExpenditureByID(id: $findExpenditureByIdId) {
