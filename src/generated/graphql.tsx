@@ -117,10 +117,10 @@ export type CreateFixedCostInput = {
   amount: Scalars['Int']['input'];
   /** 説明 */
   description?: InputMaybe<Scalars['String']['input']>;
+  /** 固定費パターン */
+  fixedCostPattern: Scalars['String']['input'];
   /** アイテム名 */
   name: Scalars['String']['input'];
-  /** 固定費パターン */
-  pattern: Scalars['String']['input'];
   /** 支払い方法 */
   payDay: Scalars['Int']['input'];
   /** 発生日 */
@@ -300,10 +300,10 @@ export type FixedCost = {
   amount: Scalars['Int']['output'];
   /** 説明 */
   description?: Maybe<Scalars['String']['output']>;
+  /** 固定費パターン */
+  fixedCostPattern: FixedCostPattern;
   /** MongoDB Collection Name。アイテム名 */
   name: Scalars['String']['output'];
-  /** 固定費パターン */
-  pattern: FixedCostPattern;
   /** 発生日 */
   payDay: Scalars['Int']['output'];
   /** 支払い方法 */
@@ -317,7 +317,7 @@ export type FixedCostPattern = {
   /** 設定カラー */
   color?: Maybe<Scalars['String']['output']>;
   /** 固定費詳細 */
-  fixedCosts?: Maybe<Array<FixedCost>>;
+  fixedcosts?: Maybe<Array<FixedCost>>;
   /** MongoDB Collection Name。アイテム名 */
   name: Scalars['String']['output'];
 };
@@ -895,10 +895,10 @@ export type UpdateFixedCostInput = {
   amount?: InputMaybe<Scalars['Int']['input']>;
   /** 説明 */
   description?: InputMaybe<Scalars['String']['input']>;
+  /** 固定費パターン */
+  fixedCostPattern?: InputMaybe<Scalars['String']['input']>;
   /** アイテム名 */
   name?: InputMaybe<Scalars['String']['input']>;
-  /** 固定費パターン */
-  pattern?: InputMaybe<Scalars['String']['input']>;
   /** 支払い方法 */
   payDay?: InputMaybe<Scalars['Int']['input']>;
   /** 発生日 */
@@ -909,7 +909,7 @@ export type UpdateFixedCostPatternInput = {
   /** 設定カラー */
   color?: InputMaybe<Scalars['String']['input']>;
   /** 固定費詳細 */
-  fixedCosts?: InputMaybe<Array<Scalars['String']['input']>>;
+  fixedcosts?: InputMaybe<Array<Scalars['String']['input']>>;
   /** アイテム名 */
   name?: InputMaybe<Scalars['String']['input']>;
 };
@@ -1123,7 +1123,7 @@ export type FindAllExpendituresQuery = { __typename?: 'Query', findAllExpenditur
 export type FindAllFixedCostPatternsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllFixedCostPatternsQuery = { __typename?: 'Query', findAllFixedCostPatterns: Array<{ __typename?: 'FixedCostPattern', _id: string, name: string, color?: string | null, fixedCosts?: Array<{ __typename?: 'FixedCost', _id: string, amount: number, description?: string | null, name: string, payDay: number, payment: { __typename?: 'Payment', _id: string, name: string } }> | null }> };
+export type FindAllFixedCostPatternsQuery = { __typename?: 'Query', findAllFixedCostPatterns: Array<{ __typename?: 'FixedCostPattern', _id: string, name: string, color?: string | null, fixedcosts?: Array<{ __typename?: 'FixedCost', _id: string, amount: number, description?: string | null, name: string, payDay: number, payment: { __typename?: 'Payment', _id: string, name: string } }> | null }> };
 
 export type FindAllLoansQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1154,14 +1154,14 @@ export type FindFixedCostByIdQueryVariables = Exact<{
 }>;
 
 
-export type FindFixedCostByIdQuery = { __typename?: 'Query', findFixedCostByID: { __typename?: 'FixedCost', _id: string, name: string, description?: string | null, amount: number, payDay: number, payment: { __typename?: 'Payment', name: string, color?: string | null, _id: string, bank: { __typename?: 'Bank', branchName?: string | null, name: string, color?: string | null, _id: string } }, pattern: { __typename?: 'FixedCostPattern', _id: string, color?: string | null, name: string } } };
+export type FindFixedCostByIdQuery = { __typename?: 'Query', findFixedCostByID: { __typename?: 'FixedCost', _id: string, name: string, description?: string | null, amount: number, payDay: number, payment: { __typename?: 'Payment', name: string, color?: string | null, _id: string, bank: { __typename?: 'Bank', branchName?: string | null, name: string, color?: string | null, _id: string } }, fixedCostPattern: { __typename?: 'FixedCostPattern', _id: string, color?: string | null, name: string } } };
 
 export type FindFixedCostPatternByIdQueryVariables = Exact<{
   findFixedCostPatternByIdId: Scalars['String']['input'];
 }>;
 
 
-export type FindFixedCostPatternByIdQuery = { __typename?: 'Query', findFixedCostPatternByID: { __typename?: 'FixedCostPattern', _id: string, name: string, color?: string | null, fixedCosts?: Array<{ __typename?: 'FixedCost', _id: string, amount: number, description?: string | null, name: string, payDay: number, payment: { __typename?: 'Payment', _id: string, name: string } }> | null } };
+export type FindFixedCostPatternByIdQuery = { __typename?: 'Query', findFixedCostPatternByID: { __typename?: 'FixedCostPattern', _id: string, name: string, color?: string | null, fixedcosts?: Array<{ __typename?: 'FixedCost', _id: string, amount: number, description?: string | null, name: string, payDay: number, payment: { __typename?: 'Payment', _id: string, name: string } }> | null } };
 
 export type FindLoanByIdQueryVariables = Exact<{
   findLoanByIdId: Scalars['String']['input'];
@@ -1765,7 +1765,7 @@ export const FindAllFixedCostPatternsDocument = gql`
     _id
     name
     color
-    fixedCosts {
+    fixedcosts {
       _id
       payment {
         _id
@@ -2172,7 +2172,7 @@ export const FindFixedCostByIdDocument = gql`
       _id
     }
     payDay
-    pattern {
+    fixedCostPattern {
       _id
       color
       name
@@ -2219,7 +2219,7 @@ export const FindFixedCostPatternByIdDocument = gql`
     _id
     name
     color
-    fixedCosts {
+    fixedcosts {
       _id
       payment {
         _id

@@ -49,7 +49,7 @@ export const FixedCostDetail: React.FC<Props> = (props): JSX.Element => {
     amount: res?.amount ? commaFormat(res?.amount) : '',
     description: res?.description ?? '',
     fixedCostName: res?.name ?? '',
-    fixedCostPattern: res?.pattern._id ?? pattern,
+    fixedCostPattern: res?.fixedCostPattern._id ?? pattern,
     payDay: res?.payDay ? String(res?.payDay) : '',
     payment: res?.payment._id ?? ''
   }
@@ -93,7 +93,7 @@ export const FixedCostDetail: React.FC<Props> = (props): JSX.Element => {
             amount: Number(removeComma(data.amount as string)),
             description: data.description as string,
             name: data.fixedCostName as string,
-            pattern: data.fixedCostPattern as string,
+            fixedCostPattern: data.fixedCostPattern as string,
             payDay: Number(data.payDay),
             payment: data.payment as string
           }
@@ -122,7 +122,7 @@ export const FixedCostDetail: React.FC<Props> = (props): JSX.Element => {
             amount: Number(removeComma(data.amount as string)),
             description: data.description as string,
             name: data.fixedCostName as string,
-            pattern: data.fixedCostPattern as string,
+            fixedCostPattern: data.fixedCostPattern as string,
             payDay: Number(data.payDay),
             payment: data.payment as string
           }

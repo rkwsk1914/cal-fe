@@ -1,6 +1,11 @@
 import * as React from 'react'
 
 import { ApolloQueryResult } from '@apollo/client'
+import {
+  Stat,
+  StatLabel,
+  StatNumber,
+} from '@chakra-ui/react'
 import { useToast } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
@@ -10,9 +15,14 @@ import { FindFixedCostPatternByIdQuery, useCreateFixedCostPatternMutation, useUp
 
 import { useSetZodScheme, DefaultValuesRequiredType }from '@/hooks/form/useSetZodScheme'
 
+import * as chrFormatChange from '@/utils/chrFormatChange'
+
+
+
 import { Alert } from '@/components/atoms/Alert'
 import { Badge, BadgeColorOptions } from '@/components/atoms/Badge'
 import { Button } from '@/components/atoms/Button'
+import { Table } from '@/components/atoms/Table'
 import { InputController } from '@/components/form/organisms/InputController'
 import { RadioController } from '@/components/form/organisms/RadioController'
 import { FromLayout } from '@/components/layouts/FromLayout'
@@ -25,6 +35,7 @@ type Props = Partial<ApolloQueryResult<FindFixedCostPatternByIdQuery>>
 export const FixedCostPatternDetail: React.FC<Props> = (props): JSX.Element => {
   const toast = useToast()
   const router = useRouter()
+  const { yenFormat } = chrFormatChange
   const { pattern } = router.query
 
   const { data } = props
@@ -114,6 +125,17 @@ export const FixedCostPatternDetail: React.FC<Props> = (props): JSX.Element => {
     pattern ? onUpdate(data) : onCreate(data)
   }
 
+  const tableDataContent = res?.fixedcosts ? res?.fixedcosts.map((fixedCosts) => {
+    return [fixedCosts.name, yenFormat(fixedCosts.amount)]
+  }) : []
+
+  const tableData = [
+    ['固定費名', '金額'],
+    ...tableDataContent ?? []
+  ]
+
+  const totalAmount = res?.fixedcosts ? res?.fixedcosts.reduce((sum, fixedCost) => sum + fixedCost.amount, 0) : 0
+
   return (
     <PageLayout title='固定費パターン詳細'>
       <FromLayout
@@ -133,6 +155,13 @@ export const FixedCostPatternDetail: React.FC<Props> = (props): JSX.Element => {
           }))}
         />
         <Button type='prime' href={`/fixed-cost/${pattern}/create`}>新規固定費作成</Button>
+
+        <Stat>
+          <StatLabel>固定費合計</StatLabel>
+          <StatNumber>{yenFormat(totalAmount)}</StatNumber>
+        </Stat>
+
+        <Table data={tableData} thRow={1} />
       </FromLayout>
     </PageLayout>
   )

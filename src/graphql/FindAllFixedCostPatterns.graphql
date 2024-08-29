@@ -3,7 +3,7 @@ query FindAllFixedCostPatterns {
     _id
     name
     color
-    fixedCosts {
+    fixedcosts {
       _id
       payment {
         _id

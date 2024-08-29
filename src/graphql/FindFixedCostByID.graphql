@@ -16,7 +16,7 @@ query FindFixedCostByID($findFixedCostByIdId: String!) {
       _id
     }
     payDay
-    pattern {
+    fixedCostPattern {
       _id
       color
       name
