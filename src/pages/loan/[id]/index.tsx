@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
   const loanResult = await doQueryServerSide<
     FindLoanByIdQuery, FindLoanByIdQueryVariables
   >({
-    name: 'findPaymentByID',
+    name: 'findLoanByID',
     query: FindLoanByIdDocument,
     variables: { findLoanByIdId: id },
   })

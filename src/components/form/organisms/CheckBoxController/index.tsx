@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { FieldErrors, Controller } from 'react-hook-form'
+import { FieldErrors, useController } from 'react-hook-form'
 
 import { useGetInputData } from '@/hooks/form/useGetInputData'
 
@@ -32,26 +32,33 @@ export const CheckBoxController: React.FC<Props> = (
 ): JSX.Element => {
   const {
     label,
+    suffix,
   } =  useGetInputData(name)
 
+  const { field, fieldState } = useController({
+    control,
+    name,
+  })
+
   return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field }) => (
-        <FormControl
-          label={label}
-          arrangement={arrangement}
-          isError={!!errors[name]}
-          helperText={errors[name]?.message ? errors[name]?.message  as string : helperText}
-        >
-          <CheckBox
-            data={data}
-            field={field}
-            disabled={disabled}
-          />
-        </FormControl>
-      )}
-    />
+    <FormControl
+      label={label}
+      arrangement={arrangement}
+      isError={errors[name] ? true : fieldState.error ? true : false}
+      helperText={
+        errors[name]?.message
+          ? (errors[name]?.message as string)
+          : fieldState.error?.message
+          ? fieldState.error?.message
+          : helperText
+      }
+      suffix={suffix}
+    >
+      <CheckBox
+        data={data}
+        field={field}
+        disabled={disabled}
+      />
+    </FormControl>
   )
 }

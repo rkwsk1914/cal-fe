@@ -2,8 +2,7 @@ import * as React from 'react'
 import { useRef, useEffect } from 'react'
 
 import { Input as ChakraInput } from '@chakra-ui/react'
-import { useController } from 'react-hook-form'
-import { FieldErrors, UseFormTrigger } from 'react-hook-form'
+import { FieldErrors, UseFormTrigger, useController } from 'react-hook-form'
 import MaskedInput from 'react-text-mask'
 
 import { useGetInputData } from '@/hooks/form/useGetInputData'
@@ -31,7 +30,7 @@ export const InputController: React.FC<Props> = ({
   disabled,
   helperText,
 }): JSX.Element => {
-  const { label, inputTextArgs, onBlurFormat } = useGetInputData(name)
+  const { label, inputTextArgs, suffix, onBlurFormat } = useGetInputData(name)
 
   const { field, fieldState } = useController({
     control,
@@ -51,6 +50,7 @@ export const InputController: React.FC<Props> = ({
   return (
     <FormControl
       label={label}
+      suffix={suffix}
       arrangement={arrangement}
       isError={errors[name] ? true : fieldState.error ? true : false}
       helperText={

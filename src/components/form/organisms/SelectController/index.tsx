@@ -1,8 +1,7 @@
 import * as React from 'react'
 
 import { Select as ChakuraSelect } from '@chakra-ui/react'
-import { FieldErrors } from 'react-hook-form'
-import { Controller } from 'react-hook-form'
+import { FieldErrors, useController } from 'react-hook-form'
 
 import { useGetInputData } from '@/hooks/form/useGetInputData'
 
@@ -33,34 +32,41 @@ export const SelectController: React.FC<Props> = (
 ): JSX.Element => {
   const {
     label,
+    suffix,
   } =  useGetInputData(name)
 
   const placeholder = '選択してください'
 
+  const { field, fieldState } = useController({
+    control,
+    name,
+  })
+
   return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field }) => (
-        <FormControl
-          label={label}
-          arrangement={arrangement}
-          isError={!!errors[name]}
-          helperText={errors[name]?.message ? errors[name]?.message  as string : helperText}
-        >
-          <ChakuraSelect
-            {...field}
-            value={field.value as string}
-            isDisabled={disabled}
-            placeholder={placeholder}
-            isReadOnly={disabled}
-          >
-            {data.map((item) => (
-              <option key={item.value} value={item.value}>{item.label}</option>
-            ))}
-          </ChakuraSelect>
-        </FormControl>
-      )}
-    />
+    <FormControl
+      label={label}
+      arrangement={arrangement}
+      isError={errors[name] ? true : fieldState.error ? true : false}
+      helperText={
+        errors[name]?.message
+          ? (errors[name]?.message as string)
+          : fieldState.error?.message
+          ? fieldState.error?.message
+          : helperText
+      }
+      suffix={suffix}
+    >
+      <ChakuraSelect
+        {...field}
+        value={field.value as string}
+        isDisabled={disabled}
+        placeholder={placeholder}
+        isReadOnly={disabled}
+      >
+        {data.map((item) => (
+          <option key={item.value} value={item.value}>{item.label}</option>
+        ))}
+      </ChakuraSelect>
+    </FormControl>
   )
 }
