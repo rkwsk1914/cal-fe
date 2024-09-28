@@ -13,9 +13,7 @@ import {
   useCreateLoanMutation,
   useUpdateLoanMutation,
   FindAllCategorysQuery,
-  useCreateManyExpendituresMutation,
-  useDeleteManyExpendituresMutation,
-  useFindLoanByIdLazyQuery
+  useCreateManyExpendituresMutation
 } from '@/generated/graphql'
 
 import { useSetZodScheme, DefaultValuesRequiredType } from '@/hooks/form/useSetZodScheme'
@@ -60,7 +58,8 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
 
   const { loan, payments, categories } = props
   const res = loan?.data?.findLoanByID
-  const [resetIDs, setResetIDs] = useState(res?.expenditures?.map((expenditure) => (expenditure._id)))
+
+  const categoryId = categories.data?.findAllCategorys.find((item) => item.name === 'ローン')?._id
 
   const fieldArrayKey = 'expenditures'
 
@@ -82,7 +81,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
       payment: expenditure?.payment._id ?? '',
       occurrenceDate: expenditure?.occurrenceDay ? yyyyMmDd(expenditure?.occurrenceDay) : '',
       temporary: expenditure?.temporary ? ['true'] : [],
-      category: expenditure?.category?._id ?? '',
+      category: categoryId,
     })) ?? [],
   }
 
@@ -138,8 +137,6 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
   const [mutateCreate] = useCreateLoanMutation()
   const [mutateUpdate] = useUpdateLoanMutation()
   const [mutateCreateMany] = useCreateManyExpendituresMutation()
-  const [mutateDeleteMany] = useDeleteManyExpendituresMutation()
-  const [findLoanByIdLazyQuery] = useFindLoanByIdLazyQuery()
 
   const args = {
     errors,
@@ -194,7 +191,7 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
       data.expenditures && await mutateCreateMany({
         variables: {
           inputs: data.expenditures.map((expenditure) => ({
-            category: null,
+            category: categoryId,
             fixedCost: null,
             sop: null,
             subscriber: null,
@@ -209,18 +206,6 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
           })
         ) }
       })
-
-      setTimeout(async () => {
-        const res = await findLoanByIdLazyQuery({
-          variables: {
-            findLoanByIdId: id as string,
-          }
-        })
-
-        if (res.data?.findLoanByID) {
-          setResetIDs(res.data.findLoanByID.expenditures?.map((expenditure) => (expenditure._id)))
-        }
-      }, 500)
 
       toast({
         render: () => (
@@ -259,16 +244,10 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
         },
       })
 
-      resetIDs && data.expenditures && await mutateDeleteMany({
-        variables: {
-          ids: resetIDs as string[]
-        }
-      })
-
       data.expenditures && await mutateCreateMany({
         variables: {
           inputs: data.expenditures.map((expenditure) => ({
-            category: null,
+            category: categoryId,
             fixedCost: null,
             sop: null,
             subscriber: null,
@@ -283,18 +262,6 @@ export const LoanDetail: React.FC<Props> = (props): JSX.Element => {
           })
         ) }
       })
-
-      setTimeout(async () => {
-        const res = await findLoanByIdLazyQuery({
-          variables: {
-            findLoanByIdId: id as string,
-          }
-        })
-
-        if (res.data?.findLoanByID) {
-          setResetIDs(res.data.findLoanByID.expenditures?.map((expenditure) => (expenditure._id)))
-        }
-      }, 500)
 
       toast({
         render: () => (

@@ -5,7 +5,9 @@ import {
   FindAllPaymentsQuery,
   FindAllPaymentsQueryVariables,
   FindAllPaymentsDocument,
-  FindAllCategorysQuery, FindAllCategorysQueryVariables, FindAllCategorysDocument
+  FindAllCategorysQuery,
+  FindAllCategorysQueryVariables,
+  FindAllCategorysDocument
 } from '@/generated/graphql'
 
 import { doQueryServerSide } from '@/utils/doQueryServerSide'
